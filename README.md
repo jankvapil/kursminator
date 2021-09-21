@@ -1,4 +1,4 @@
-# typ-b
+# Týmový projekt skupina B
 
 ## DB Entity
 
@@ -17,6 +17,7 @@
 - id (int)
 - virtual (bool)
 - name (str)
+- capacity (int)
 - url (str)
 - address (str)
 - city (str)
