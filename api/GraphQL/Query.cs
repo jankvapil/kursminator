@@ -2,14 +2,24 @@ using System.Linq;
 using CourseApi.Data;
 using CourseApi.Models;
 using HotChocolate;
+using HotChocolate.Data;
 
 namespace CourseApi.GraphQL
 {
     public class Query 
     {
-        public IQueryable<Course> GetCourses([Service] AppDbContext context)
+        [UseDbContext(typeof(AppDbContext))]
+        [UseProjection]
+        public IQueryable<Course> GetCourses([ScopedService] AppDbContext context)
         {
             return context.Courses;
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UseProjection]
+        public IQueryable<Instructor> GetInstructors([ScopedService] AppDbContext context)
+        {
+            return context.Instructors;
         }
     }
 }

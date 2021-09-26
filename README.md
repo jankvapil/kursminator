@@ -52,3 +52,30 @@
 - about (str)
 - photoUrl (str)
 
+## GraphQL Queries
+
+```GraphQl
+query {
+  courses {
+    id
+    name
+    instructor {
+      id
+      name
+      surname
+    }
+  }
+}
+
+query {
+  instructors {
+    id
+    name
+    surname
+    courses {
+      id
+      name
+    }
+  }
+}
+```

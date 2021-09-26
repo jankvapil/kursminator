@@ -24,10 +24,12 @@ namespace CourseApi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")));
+            // services.AddDbContext<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")));
+            services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")));
 
             services.AddGraphQLServer()
-              .AddQueryType<Query>();
+              .AddQueryType<Query>()
+              .AddProjections();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
