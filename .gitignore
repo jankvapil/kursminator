@@ -1,2 +1,7 @@
+.vs
+.vscode
+
 api/bin
 api/obj
+
+web/node_modules
