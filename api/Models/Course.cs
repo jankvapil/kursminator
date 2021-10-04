@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace CourseApi.Models
 {
@@ -11,6 +12,9 @@ namespace CourseApi.Models
         public string Name { get; set; }
 
         [Required]
+        public int Capacity { get; set; }
+
+        [Required]
         public string Type { get; set; }
 
         [Required]
@@ -18,18 +22,20 @@ namespace CourseApi.Models
 
         [Required]
         public int Price { get; set; }
-        
-        [Required]
-        public float Evaluation { get; set; }
 
         [Required]
         public string Description { get; set; }
+
+        public float Evaluation { get; set; } = 0;
 
         [Required]
         public int InstructorId { get; set; }
 
         public Instructor Instructor { get; set; } 
 
-        // public int PlaceId { get; set; }
+        [Required]
+        public int PlaceId { get; set; }
+
+        public Place Place { get; set; }
     }
 }

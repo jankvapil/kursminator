@@ -21,5 +21,12 @@ namespace CourseApi.GraphQL
         {
             return context.Instructors;
         }
+
+        [UseDbContext(typeof(AppDbContext))]
+        [UseProjection]
+        public IQueryable<User> GetUsers([ScopedService] AppDbContext context)
+        {
+            return context.User;
+        }
     }
 }
