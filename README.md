@@ -1,5 +1,9 @@
 # Týmový projekt skupina B
 
+## How to run project
+- run project
+- open browser on https://localhost:44307/GraphQL/
+
 ## DB Entity
 
 ### Course
