@@ -8,6 +8,8 @@ using CourseApi.Data;
 using Microsoft.EntityFrameworkCore;
 using CourseApi.GraphQL;
 using GraphQL.Server.Ui.Voyager;
+using API.GraphQL;
+using api.GraphQL.Courses;
 
 namespace CourseApi
 {
@@ -25,11 +27,11 @@ namespace CourseApi
         public void ConfigureServices(IServiceCollection services)
         {
             // services.AddDbContext<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")));
-            services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")));
-
-            services.AddGraphQLServer()
-              .AddQueryType<Query>()
-              .AddProjections();
+            services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")))
+                .AddGraphQLServer()
+                .AddQueryType<Query>()
+                .AddProjections()
+                .AddFiltering();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

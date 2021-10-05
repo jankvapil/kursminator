@@ -10,6 +10,7 @@ namespace CourseApi.GraphQL
     {
         [UseDbContext(typeof(AppDbContext))]
         [UseProjection]
+        [UseFiltering]
         public IQueryable<Course> GetCourses([ScopedService] AppDbContext context)
         {
             return context.Courses;
@@ -17,6 +18,7 @@ namespace CourseApi.GraphQL
 
         [UseDbContext(typeof(AppDbContext))]
         [UseProjection]
+        [UseFiltering]
         public IQueryable<Instructor> GetInstructors([ScopedService] AppDbContext context)
         {
             return context.Instructors;
@@ -24,6 +26,7 @@ namespace CourseApi.GraphQL
 
         [UseDbContext(typeof(AppDbContext))]
         [UseProjection]
+        [UseFiltering]
         public IQueryable<User> GetUsers([ScopedService] AppDbContext context)
         {
             return context.User;
