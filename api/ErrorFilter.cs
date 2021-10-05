@@ -1,5 +1,4 @@
 ﻿using HotChocolate;
-using System.Net;
 using System.Net.Http;
 
 namespace api

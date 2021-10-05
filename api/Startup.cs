@@ -42,6 +42,7 @@ namespace CourseApi
                 .AddTypeExtension<PlaceMutations>()
                 .AddTypeExtension<UserCourseFavouriteMutations>()
                 .AddTypeExtension<UserCourseReservationMutations>()
+                .AddErrorFilter<ErrorFilter>()
                 .AddProjections()
                 .AddFiltering();
         }
