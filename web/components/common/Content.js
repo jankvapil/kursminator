@@ -2,10 +2,14 @@ import Head from 'next/head'
 
 import Footer from './Footer'
 
+  
+
 ///
 /// Content component
 ///
 const Content = (props) => {
+
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>

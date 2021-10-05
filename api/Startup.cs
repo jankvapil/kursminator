@@ -31,6 +31,16 @@ namespace CourseApi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("DefaultPolicy", builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .WithMethods("GET", "POST")
+                           .WithOrigins("*");
+                });
+            });
+            
             // services.AddDbContext<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")));
             services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")))
                 .AddGraphQLServer()
@@ -54,7 +64,8 @@ namespace CourseApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
+            app.UseCors("DefaultPolicy");
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

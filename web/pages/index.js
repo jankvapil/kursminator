@@ -5,7 +5,7 @@ import Header from '../components/common/Header'
 ///
 /// Home page
 ///
-export default function home() {
+export default function homePage() {
   return (
     <>
     <Header />
