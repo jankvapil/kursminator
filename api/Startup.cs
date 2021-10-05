@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +9,12 @@ using CourseApi.GraphQL;
 using GraphQL.Server.Ui.Voyager;
 using API.GraphQL;
 using api.GraphQL.Courses;
+using api;
+using api.GraphQL.Instructors;
+using api.GraphQL.Users;
+using api.GraphQL.Places;
+using api.GraphQL.UserCourseFavourites;
+using api.GraphQL.UserCourseReservations;
 
 namespace CourseApi
 {
@@ -30,6 +35,13 @@ namespace CourseApi
             services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")))
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
+                .AddMutationType<Mutation>()
+                .AddTypeExtension<CourseMutations>()
+                .AddTypeExtension<InstructorMutations>()
+                .AddTypeExtension<UserMutations>()
+                .AddTypeExtension<PlaceMutations>()
+                .AddTypeExtension<UserCourseFavouriteMutations>()
+                .AddTypeExtension<UserCourseReservationMutations>()
                 .AddProjections()
                 .AddFiltering();
         }
