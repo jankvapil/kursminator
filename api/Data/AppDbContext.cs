@@ -37,8 +37,8 @@ namespace CourseApi.Data
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<Place> Places { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<UserCourseFavourite> UserCourseFavourites { get; set; }
-        public DbSet<UserCourseReservation> UserCourseReservation { get; set; }
+        public DbSet<UserCourseReservation> UserCourseReservations { get; set; }
     }
 }

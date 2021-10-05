@@ -29,7 +29,7 @@ namespace CourseApi.GraphQL
         [UseFiltering]
         public IQueryable<User> GetUsers([ScopedService] AppDbContext context)
         {
-            return context.User;
+            return context.Users;
         }
     }
 }
