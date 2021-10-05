@@ -1,20 +1,24 @@
 
-import React, { useMemo } from 'react';
+import React from 'react'
 import { useEffect } from 'react'
 import Content from '../components/common/Content'
 
 import useGlobal from "../core/store"
+import { gql } from "@apollo/client"
+import client from "../core/graphql/client"
 
 ///
 /// Courses search page
 ///
 export default function coursesPage({ data }) {
-  const [globalState, globalActions] = useGlobal();
+  const [globalState, globalActions] = useGlobal()
+
 
   useEffect(() => {
-    console.log(globalState)
+    console.log(data)
+    // console.log(globalState)
 
-    if (data.courses) {
+    if (data?.courses) {
       globalActions.courses.setCourses(data.courses)
     }
   }, [])
@@ -35,22 +39,27 @@ export default function coursesPage({ data }) {
 /// This gets called on every request
 ///
 export async function getServerSideProps() {
-  // Fetch data from external API
-  // const res = await fetch(`https://.../data`)
-  // const data = await res.json()
+  // if (client) {
+  
+  //   console.log(client)
 
-  // Pass data to the page via props
-  return { props: { 
-    data: {
-      courses: [
-        {
-          id: 1,
-          name: "test course"
-        },
-        {
-          id: 2,
-          name: "test course 2"
+  //   clien
+    const { data } = await client.query({
+      query: gql`
+        query {
+          courses {
+            id
+            name
+            date
+            price
+            evaluation      
+          }
         }
-      ]
-   } } }
+      `,
+    });
+
+    // Pass data to the page via props
+    return { props: { data } }    
+  // } 
+  // return { props: { data: []}}
 }
