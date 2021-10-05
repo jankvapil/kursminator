@@ -18,6 +18,11 @@ export const ALL_COURSES_QUERY = gql`
       date
       price
       evaluation
+      instructor {
+        id
+        name
+        surname
+      }
     }
   }
 `

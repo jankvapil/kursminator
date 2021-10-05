@@ -1,11 +1,15 @@
-# Týmový projekt skupina B
+# Team project inf.upol 2021 (B)
 
 ## How to run project
-- run project
-- open browser on https://localhost:44307/GraphQL/
 
-## DB Entity
+### API
+- VSCODE: with GitBash run `dotnet run` in the `api` folder and go to http://localhost:5000/GraphQL/
+- VS: click on run project & open browser on https://localhost:44307/GraphQL/
 
+### Web
+- when API runs install all dependencies by `npm i` and run the project `npm run start`
+
+## DB Structure
 ### Course
 - id (int)
 - name (str)
@@ -55,31 +59,3 @@
 - surname (str)
 - about (str)
 - photoUrl (str)
-
-## GraphQL Queries
-
-```GraphQl
-query {
-  courses {
-    id
-    name
-    instructor {
-      id
-      name
-      surname
-    }
-  }
-}
-
-query {
-  instructors {
-    id
-    name
-    surname
-    courses {
-      id
-      name
-    }
-  }
-}
-```

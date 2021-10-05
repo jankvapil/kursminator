@@ -1,3 +1,3 @@
-import * as courses from './courses'
+import * as courses from './coursesActions'
 
 export { courses }

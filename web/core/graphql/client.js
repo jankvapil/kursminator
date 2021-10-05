@@ -1,9 +1,10 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client"
+import { GraphQLClient } from 'graphql-request'
+import { GRAPHQL_API } from '@/core/config'
 
-const client = new ApolloClient({
-  uri: "http://localhost:5000/graphql",
-  cache: new InMemoryCache(),
-}) 
- 
-export default client
+export const client = new GraphQLClient(GRAPHQL_API, {
+  headers: {
+    authorization: 'Bearer MY_TOKEN',
+  },
+})
+
   

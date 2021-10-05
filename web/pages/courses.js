@@ -1,12 +1,14 @@
 
 import React from 'react'
 import { useEffect } from 'react'
-import Content from '../components/common/Content'
+import Content from '@/components/common/Content'
 
-import useGlobal from "../core/store"
+import useGlobal from "@/core/store"
 
-import { useQuery } from "@apollo/client"
-import { ALL_COURSES_QUERY } from "@/core/graphql/queries/courses"
+import { ALL_COURSES_QUERY } from "@/core/graphql/queries/coursesQueries"
+import { addPlaceMutation } from '@/core/graphql/mutations/placesMutations'
+
+import { useQuery } from '@apollo/client'
 
 ///
 /// Courses search page
@@ -14,6 +16,8 @@ import { ALL_COURSES_QUERY } from "@/core/graphql/queries/courses"
 export default function coursesPage() {
   const [globalState, globalActions] = useGlobal()
   const { loading, error, data } = useQuery(ALL_COURSES_QUERY)
+  // const [addPlace, { mdata, mloading, merror }] = useMutation(ADD_PLACE)
+
 
   useEffect(() => {
     if (data) {
@@ -23,6 +27,23 @@ export default function coursesPage() {
     }
   }, [data])
 
+
+  ///
+  /// OnClick handler
+  ///
+  const addPlaceOnClick = async () => {
+    const res = await addPlaceMutation({ 
+      name: "mtest_name",
+      virtual: false,
+      url: "mtest_url",
+      address: "mtest_address",
+      city: "mtest_city"
+    })
+    console.log(res)
+  }
+
+  ////////////// GUI ///////////////
+
   if (loading) return "Loading.."
   if (error) return "Error while loading.."
   return (
@@ -31,6 +52,7 @@ export default function coursesPage() {
       <button onClick={() => { 
         console.log(globalState)
       }}>show global state</button>
+      <button onClick={addPlaceOnClick}>Add place test</button>
     </Content>
   )
 }
