@@ -1,7 +1,7 @@
-﻿namespace API.GraphQL
+﻿namespace api.GraphQL
 {
     public class Mutation
     {
-        
+
     }
 }
