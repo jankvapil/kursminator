@@ -1,7 +1,6 @@
 
 import Content from '../components/common/Content'
 import { Calendar } from 'antd'
-import 'antd/dist/antd.css'
 
 ///
 /// Calendar page

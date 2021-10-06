@@ -1,4 +1,4 @@
-
+import '@/core/types'
 import React from 'react'
 import { useEffect } from 'react'
 import Content from '@/components/common/Content'
@@ -10,20 +10,19 @@ import { addPlaceMutation } from '@/core/graphql/mutations/placesMutations'
 
 import { useQuery } from '@apollo/client'
 
+
+import { Card } from 'antd'
+
 ///
 /// Courses search page
 ///
 export default function coursesPage() {
   const [globalState, globalActions] = useGlobal()
   const { loading, error, data } = useQuery(ALL_COURSES_QUERY)
-  // const [addPlace, { mdata, mloading, merror }] = useMutation(ADD_PLACE)
-
 
   useEffect(() => {
-    if (data) {
-      console.log("Courses loaded!")
-      console.log(data)
-      globalActions.courses.setCourses(data)
+    if (data?.courses) {
+      globalActions.courses.setCourses(data.courses)
     }
   }, [data])
 
@@ -39,7 +38,7 @@ export default function coursesPage() {
       address: "mtest_address",
       city: "mtest_city"
     })
-    console.log(res)
+    // console.log(res)
   }
 
   ////////////// GUI ///////////////
@@ -53,6 +52,15 @@ export default function coursesPage() {
         console.log(globalState)
       }}>show global state</button>
       <button onClick={addPlaceOnClick}>Add place test</button>
+      {
+        globalState.courses.map(c => (
+          <Card title={c.name} bordered={false} style={{ width: 300 }}>
+            <p>{c.date}</p>
+            <p>{c.evaluation}</p>
+            <p>{c.price}</p>
+          </Card>
+        ))
+      }
     </Content>
   )
 }
