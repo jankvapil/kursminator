@@ -1,12 +1,13 @@
-﻿using api.GraphQL.Instructors;
-using CourseApi.Data;
+﻿using CourseApi.Data;
 using CourseApi.Models;
 using HotChocolate;
 using HotChocolate.Data;
 using HotChocolate.Types;
+using Microsoft.AspNetCore.Http;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace api.GraphQL.Users
@@ -40,6 +41,32 @@ namespace api.GraphQL.Users
 
             return userUpdated;
         }
+
+        [UseDbContext(typeof(AppDbContext))]
+        public async Task<User> UpdateCurrentUserAsync([ScopedService] AppDbContext context, [Service] IHttpContextAccessor contextAccessor, UpdateCurrentUserInput input)
+        {
+            var contextUser = contextAccessor.HttpContext.User;
+            if (!contextUser.Identity.IsAuthenticated)
+                throw new HttpRequestException("No user is logged in", null, HttpStatusCode.Unauthorized);
+
+            var userId = int.Parse(contextUser.FindFirstValue("id"));
+            if (userId != input.Id)
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.BadRequest);
+
+            var currentUser = await context.Users.FindAsync(userId);
+            if (currentUser is null)
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
+
+            currentUser.Name = input.Name;
+            currentUser.Surname = input.Surname;
+            currentUser.PhotoUrl = input.PhotoUrl;
+
+            context.Users.Update(currentUser);
+            await context.SaveChangesAsync();
+
+            return currentUser;
+        }
+
 
         [UseDbContext(typeof(AppDbContext))]
         public async Task<int> DeleteUserAsync([ScopedService] AppDbContext context, int id)

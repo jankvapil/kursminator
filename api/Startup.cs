@@ -108,6 +108,8 @@ namespace CourseApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseStaticFiles(); // just for show fb sdk
 
             app.UseEndpoints(endpoints =>
