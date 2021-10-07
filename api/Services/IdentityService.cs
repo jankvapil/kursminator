@@ -7,6 +7,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,12 +29,12 @@ namespace api.Services
             var validatedTokenResult = await facebookAuthService.ValidateAccessTokenAsync(accessToken, facebookAuthSettings);
 
             if (!validatedTokenResult.Data.IsValid)
-                return "Invalid Facebook token";
+                throw new HttpRequestException("Invalid Facebook token", null, HttpStatusCode.BadRequest);
 
             var userInfo = await facebookAuthService.GetUserInfoAsync(accessToken);
 
             if (userInfo.Email is null)
-                return "Email is required";
+                throw new HttpRequestException("Email is required", null, HttpStatusCode.BadRequest);
 
             var existingUser = await context.Users.FirstOrDefaultAsync(u => u.Email == userInfo.Email);
 

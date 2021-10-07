@@ -34,11 +34,11 @@ namespace api.GraphQL.Instructors
         public async Task<Instructor> UpdateInstructorAsync([ScopedService] AppDbContext context, int id, UpdateInstructorInput input)
         {
             if (id != input.Id)
-                throw new HttpRequestException(null, null, HttpStatusCode.BadRequest);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.BadRequest);
 
             var instructorExists = context.Instructors.Any(c => c.Id == id);
             if (!instructorExists)
-                throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
             var instructorUpdated = new Instructor
             {
@@ -61,7 +61,7 @@ namespace api.GraphQL.Instructors
             var instructor = await context.Instructors.FindAsync(id);
 
             if (instructor is null)
-                throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
             context.Instructors.Remove(instructor);
             await context.SaveChangesAsync();

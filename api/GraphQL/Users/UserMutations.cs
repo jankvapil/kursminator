@@ -18,11 +18,11 @@ namespace api.GraphQL.Users
         public async Task<User> UpdateUserAsync([ScopedService] AppDbContext context, int id, UpdateUserInput input)
         {
             if (id != input.Id)
-                throw new HttpRequestException(null, null, HttpStatusCode.BadRequest);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.BadRequest);
 
             var userExists = context.Users.Any(c => c.Id == id);
             if (!userExists)
-                throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
             var userUpdated = new User
             {
@@ -47,7 +47,7 @@ namespace api.GraphQL.Users
             var user = await context.Users.FindAsync(id);
 
             if (user is null)
-                throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
             context.Users.Remove(user);
             await context.SaveChangesAsync();

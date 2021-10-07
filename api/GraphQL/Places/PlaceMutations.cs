@@ -35,11 +35,11 @@ namespace api.GraphQL.Places
         public async Task<Place> UpdatePlaceAsync([ScopedService] AppDbContext context, int id, UpdatePlaceInput input)
         {
             if (id != input.Id)
-                throw new HttpRequestException(null, null, HttpStatusCode.BadRequest);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.BadRequest);
 
             var placeExists = context.Places.Any(c => c.Id == id);
             if (!placeExists)
-                throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
             var placeUpdated = new Place
             {
@@ -63,7 +63,7 @@ namespace api.GraphQL.Places
             var place = await context.Places.FindAsync(id);
 
             if (place is null)
-                throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
             context.Places.Remove(place);
             await context.SaveChangesAsync();

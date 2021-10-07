@@ -35,7 +35,7 @@ namespace api.GraphQL.UserCourseReservations
             var userCourseReservation = await context.UserCourseReservations.FindAsync(id);
 
             if (userCourseReservation is null)
-                throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
             context.UserCourseReservations.Remove(userCourseReservation);
             await context.SaveChangesAsync();

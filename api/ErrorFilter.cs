@@ -7,17 +7,18 @@ namespace api
     {
         public IError OnError(IError error)
         {
-            if (error.Exception is not HttpRequestException)
-                return ErrorBuilder.FromError(error).Build();
+            if (error.Exception is HttpRequestException exception)
+            {
+                var statusCode = exception.Message == string.Empty ? exception.StatusCode.Value.ToString() : exception.Message;
+                var errorCode = (int)exception.StatusCode;
 
-            var exception = error.Exception as HttpRequestException;
-            var statusCode = exception.StatusCode.Value;
-            var errorCode = (int)exception.StatusCode;
+                return ErrorBuilder.FromError(error)
+                    .SetMessage(statusCode)
+                    .SetCode(errorCode.ToString())
+                    .Build();
+            }
 
-            return ErrorBuilder.FromError(error)
-                .SetMessage(statusCode.ToString())
-                .SetCode(errorCode.ToString())
-                .Build();
+            return ErrorBuilder.FromError(error).Build();
         }
     }
 }

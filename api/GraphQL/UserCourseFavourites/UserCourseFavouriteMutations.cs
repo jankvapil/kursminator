@@ -34,7 +34,7 @@ namespace api.GraphQL.UserCourseFavourites
             var userCourseFavourite = await context.UserCourseFavourites.FindAsync(id);
 
             if (userCourseFavourite is null)
-                throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
             context.UserCourseFavourites.Remove(userCourseFavourite);
             await context.SaveChangesAsync();

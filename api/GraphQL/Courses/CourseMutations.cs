@@ -40,11 +40,11 @@ namespace api.GraphQL.Courses
         public async Task<Course> UpdateCourseAsync([ScopedService] AppDbContext context, int id, UpdateCourseInput input)
         {
             if (id != input.Id)
-                throw new HttpRequestException(null, null, HttpStatusCode.BadRequest);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.BadRequest);
 
             var courseExists = context.Courses.Any(c => c.Id == id);
             if (!courseExists)
-                throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
             var courseUpdated = new Course
             {
@@ -72,7 +72,7 @@ namespace api.GraphQL.Courses
             var course = await context.Courses.FindAsync(id);
 
             if (course is null)
-                throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
             context.Courses.Remove(course);
             await context.SaveChangesAsync();
