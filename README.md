@@ -10,6 +10,7 @@
 - when API runs install all dependencies by `npm i` and run the project `npm run dev`
 
 ## DB Structure
+
 ### Course
 - id (int)
 - name (str)
