@@ -7,7 +7,7 @@
 - VS: click on run project & open browser on https://localhost:44307/GraphQL/
 
 ### Web
-- when API runs install all dependencies by `npm i` and run the project `npm run start`
+- when API runs install all dependencies by `npm i` and run the project `npm run dev`
 
 ## DB Structure
 ### Course
