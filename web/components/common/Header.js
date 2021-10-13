@@ -1,6 +1,4 @@
 import { Layout, Menu, Breadcrumb } from 'antd';
-import 'antd/dist/antd.css';
-
 
 ///
 /// Header component
