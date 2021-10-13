@@ -1,7 +1,6 @@
-﻿import { Layout, Button, Input } from 'antd';
+import { Layout, Button, Input } from 'antd';
 import { CalendarTwoTone } from '@ant-design/icons';
 import 'antd/dist/antd.css';
-
 
 ///
 /// Header component
