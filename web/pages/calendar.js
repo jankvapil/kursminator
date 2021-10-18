@@ -1,5 +1,7 @@
 ﻿import Content from '../components/common/Content'
 import { Calendar, Badge, List, ConfigProvider } from 'antd'
+import "moment/locale/cs";
+import locate from "antd/lib/locale/cs_CZ";
 
 ///
 /// Data List
@@ -88,24 +90,26 @@ export default function calendarPage() {
     return (
         <Content>
             <div className="flex">
-                <Calendar dateCellRender={dateCellRender} className="w-5/6" onPanelChange={onPanelChange} />
-                <List
-                    className="w-1/6"
-                    header={<p className="font-bold">15.12.2020</p>}
-                    dataSource={dataList}
-                    renderItem={item => (
-                        <List.Item>
-                            <List.Item.Meta
-                                title={item.title}
-                                description={item.description}
-                            />
-                            <List.Item.Meta
-                                title={item.name}
-                                description={item.author}
-                            />
-                        </List.Item>
-                    )}
-                />
+                <ConfigProvider locale={locate}>
+                    <Calendar dateCellRender={dateCellRender} className="w-5/6" onPanelChange={onPanelChange} />
+                    <List
+                        className="w-1/6"
+                        header={<p className="font-bold">15.12.2020</p>}
+                        dataSource={dataList}
+                        renderItem={item => (
+                            <List.Item>
+                                <List.Item.Meta
+                                    title={item.title}
+                                    description={item.description}
+                                />
+                                <List.Item.Meta
+                                    title={item.name}
+                                    description={item.author}
+                                />
+                            </List.Item>
+                        )}
+                    />
+                </ConfigProvider>
             </div>
         </Content>
     )
