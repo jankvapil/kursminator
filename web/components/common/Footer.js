@@ -5,10 +5,18 @@ import 'antd/dist/antd.css';
 /// Footer component
 ///
 const Footer = () => {
+    const style = {
+        backgroundColor: "#001529"
+    }
+
+    const color = {
+        color: "#ffffff"
+    }
+
     return (
         <>
-            <Layout className="layout">
-                <Layout.Footer className="flex justify-around">
+            <Layout className="layout" >
+                <Layout.Footer className="flex justify-around" style={style}>
                     <div>
                         <p>IT</p>
                         <p>Sport</p>
@@ -19,7 +27,7 @@ const Footer = () => {
                             <p className="text-3xl mb-0 ml-4 font-mono">Kursminator</p>
                         </div>
                     </div>
-                    <div>
+                    <div style={color} >
                         <p>O nás</p>
                         <p>Lektoři</p>
                         <p>Kontakt</p>
