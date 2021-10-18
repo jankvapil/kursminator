@@ -11,6 +11,8 @@ namespace CourseApi.Models
         [Required]
         public string Name { get; set; }
 
+        public string PhotoUrl { get; set; }
+
         [Required]
         public int Capacity { get; set; }
 

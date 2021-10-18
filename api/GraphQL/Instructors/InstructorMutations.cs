@@ -20,7 +20,10 @@ namespace api.GraphQL.Instructors
             {
                 Name = input.Name,
                 Surname = input.Surname,
+                Age = input.Age,
+                Specialization = input.Specialization,
                 About = input.About,
+                Contact = input.Contact,
                 PhotoUrl = input.PhotoUrl
             };
 
@@ -45,7 +48,10 @@ namespace api.GraphQL.Instructors
                 Id = input.Id,
                 Name = input.Name,
                 Surname = input.Surname,
+                Age = input.Age,
+                Specialization = input.Specialization,
                 About = input.About,
+                Contact = input.Contact,
                 PhotoUrl = input.PhotoUrl
             };
 

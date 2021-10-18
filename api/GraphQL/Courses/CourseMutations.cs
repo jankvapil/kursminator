@@ -21,6 +21,7 @@ namespace api.GraphQL.Courses
             var course = new Course
             {
                 Name = input.Name,
+                PhotoUrl = input.PhotoUrl,
                 Capacity = input.Capacity,
                 Type = input.Type,
                 Date = input.Date,
@@ -50,6 +51,7 @@ namespace api.GraphQL.Courses
             {
                 Id = input.Id,
                 Name = input.Name,
+                PhotoUrl = input.PhotoUrl,
                 Capacity = input.Capacity,
                 Type = input.Type,
                 Date = input.Date,
