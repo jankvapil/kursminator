@@ -15,8 +15,17 @@ namespace CourseApi.Models
         public string Surname { get; set; }
 
         [Required]
+        public int Age { get; set; }
+
+        [Required]
+        public string Specialization { get; set; }
+
+        [Required]
         public string About { get; set; }
-        
+
+        [Required]
+        public string Contact { get; set; }
+
         [Required]
         public string PhotoUrl { get; set; }
 
