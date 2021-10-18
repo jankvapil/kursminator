@@ -1,66 +1,88 @@
 import Content from '../components/common/Content'
+import { Layout, Card, Tabs, Typography, Image } from 'antd';
+
+const { TabPane } = Tabs;
+const { Title, Paragraph } = Typography;
+
+import styles from "../styles/index.module.css"
 
 ///
 /// Home page
 ///
 export default function homePage() {
+
+  function callback(key) {
+    console.log(key);
+  }
+
   return (
-    <Content>
-      <h1 className="text-6xl font-bold">
-        Welcome to{' '}
-        <a className="text-blue-600" href="https://nextjs.org">
-          Next.js!
-        </a>
-      </h1>
+    <Content >
 
-      <p className="mt-3 text-2xl">
-        Get started by editing{' '}
-        <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-          pages/index.js
-        </code>
-      </p>
+      <Layout.Content
+        className=""
+        style={{
+          minHeight: 280,
+          padding: "24px",
+          backgroundColor: "white"
+        }}
+      >
+        <Title level={2}>Online vzdělávací kurzy pro všechny.</Title>
+        <Paragraph>Vyberte si z naší široké nabídky témat jako je osobní rozvoj, komunikační dovednosti, manažerské dovednosti nebo rozvíjet své specializovanosti prostřednictvím široké škály odborných kurzů.</Paragraph>
+        <Image
+          // width={200}
+          src="/cource-logo.png"
+          preview={false}
+        />
+        <ul className="list-disc">
+          <li>Naučte se pohodlně od profíků to, co potřebujete pro svou práci a osobní rozvoj.</li>
+          <li>Sbírejte body za každou absolvovanou přednášku</li>
+          <li>10% obsazení kurzu je vždy uděleno zdarma</li>
+        </ul>
+      </Layout.Content>
 
-      <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-        <a
-          href="https://nextjs.org/docs"
-          className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
+      <Layout.Content >
+
+        <Card title="Online vzdělávací kurzy pro všechny." bordered={false} style={{ MaxWidth: 1171 }}>
+          <p>Card content</p>
+          <p>Card content</p>
+          <p>Card content</p>
+        </Card>
+
+        <Tabs onChange={callback} type="card">
+          <TabPane tab="Tab 1" key="1">
+            Content of Tab Pane 1
+          </TabPane>
+          <TabPane tab="Tab 2" key="2">
+            Content of Tab Pane 2
+          </TabPane>
+        </Tabs>
+
+        <Card title="Online vzdělávací kurzy pro všechny." bordered={false} style={{ width: 300 }}>
+          <p>Card content</p>
+        </Card>
+
+        <Card title="Nejoblíbenější kurzy" bordered={false} style={{ width: 300 }}
+          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}>
+          <p>Card content</p>
+        </Card>
+
+        <Card title="Nejpopulárnější lektoři" bordered={false} style={{ width: 300 }}
+          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}>
+          <p>Card content</p>
+        </Card>
+
+        <Layout.Content
+          className=""
+          style={{
+            minHeight: 280,
+            padding: "24px",
+            backgroundColor: "white"
+          }}
         >
-          <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-          <p className="mt-4 text-xl">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+          Content
+        </Layout.Content>
 
-        <a
-          href="https://nextjs.org/learn"
-          className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-        >
-          <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-          <p className="mt-4 text-xl">
-            Learn about Next.js in an interactive course with quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://github.com/vercel/next.js/tree/master/examples"
-          className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-        >
-          <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-          <p className="mt-4 text-xl">
-            Discover and deploy boilerplate example Next.js projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-        >
-          <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-          <p className="mt-4 text-xl">
-            Instantly deploy your Next.js site to a public URL with Vercel.
-          </p>
-        </a>
-      </div>
+      </Layout.Content>
     </Content>
   )
 }
