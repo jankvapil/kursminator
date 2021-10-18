@@ -1,4 +1,5 @@
 # How to run
+check if you have node js and package manager (npm or yarn)(https://nodejs.org/en/download/)
 npm install
 npm run dev
 
