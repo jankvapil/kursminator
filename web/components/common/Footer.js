@@ -6,28 +6,28 @@ import Link from 'next/link'
 /// Footer component
 ///
 const Footer = () => {
-    const style = {
+    const BgColor001529 = {
         backgroundColor: "#001529"
     }
 
-    const color = {
-        color: "#ffffff"
+    const ColorWhite = {
+        Color: "#ffffff"
     }
 
     return (
         <>
 
             <Layout className="layout">
-                <Layout.Footer>
+                <Layout.Footer style={BgColor001529}>
                     <div className="flex justify-around">
                         <div className="flex flex-col">
-                            <Link href="/" className="m-0">IT</Link>
-                            <Link href="/" className="m-0">Sport</Link>
+                            <Link style={ColorWhite} href="/">IT</Link>
+                            <Link  style={ColorWhite}  href="/" className="m-0">Sport</Link>
                             <div className="mt-auto self-end flex items-center">
                                 <div>
                                     <img src="/logokursm-light.ico" alt="logo" width="50" height="60" />
                                 </div>
-                                <Link href="/" className="text-3xl mb-0 ml-4 font-extrabold">Kursmintor</Link>
+                                <Link  style={ColorWhite} href="/" className="text-3xl mb-0 ml-4 font-extrabold">Kursmintor</Link>
 
                             </div>
                         </div>
@@ -51,17 +51,17 @@ const Footer = () => {
 
                         <div className="">
                             <div>
-                                <img className="mt-1 float-left mr-3" src="/facebook.png" alt="facebook-icon" width="15" height="15" />
+                                <img className="mt-1.5 float-left mr-3" src="/facebook.png" alt="facebook-icon" width="12" height="12" />
                                 <Link href="/" className="ml-3 bg-black">Facebook</Link>
                             </div>
 
                             <div>
-                                <img className="mt-1 float-left mr-3" src="/instagram.png" alt="instagram-icon" width="15" height="15" />
+                                <img className="mt-1.5 float-left mr-3" src="/instagram.png" alt="instagram-icon" width="12" height="12" />
                                 <Link href="/">Instagram</Link>
                             </div>
 
                             <div>
-                                <img className="mt-1 float-left mr-3" src="/google+.png" alt="instagram-icon" width="15" height="15" />
+                                <img className="mt-1.5 float-left mr-3" src="/google+.png" alt="instagram-icon" width="12" height="12" />
                                 <Link href="/">Google+</Link>
                             </div>
                         </div>
