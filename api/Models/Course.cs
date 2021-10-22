@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace CourseApi.Models
 {
@@ -20,8 +21,10 @@ namespace CourseApi.Models
         [Required]
         public string Type { get; set; }
 
+        public Difficulty Difficulty { get; set; }
+
         [Required]
-        public System.DateTime Date { get; set; }
+        public DateTime Date { get; set; }
 
         [Required]
         public int Duration { get; set; }
@@ -55,5 +58,14 @@ namespace CourseApi.Models
         public int PlaceId { get; set; }
 
         public Place Place { get; set; }
+    }
+
+    public enum Difficulty
+    {
+        UNSPECIFIED,
+        BEGINNER,
+        INTERMEDIATE,
+        ADVANCED,
+        EXPERT
     }
 }

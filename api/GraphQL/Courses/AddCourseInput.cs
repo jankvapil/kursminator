@@ -12,6 +12,7 @@ namespace api.GraphQL.Courses
         string PhotoUrl,
         int Capacity,
         string Type, 
+        Difficulty Difficulty,
         DateTime Date, 
         int Duration, 
         int Price, 
