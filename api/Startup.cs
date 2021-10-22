@@ -51,6 +51,7 @@ namespace CourseApi
             services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")))
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
+                .AddType<CourseType>()
                 .AddMutationType<Mutation>()
                 .AddTypeExtension<CourseMutations>()
                 .AddTypeExtension<InstructorMutations>()

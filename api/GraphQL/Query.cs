@@ -15,7 +15,6 @@ namespace CourseApi.GraphQL
     public class Query 
     {
         [UseDbContext(typeof(AppDbContext))]
-        [UseProjection]
         [UseFiltering]
         public IQueryable<Course> GetCourses([ScopedService] AppDbContext context)
         {

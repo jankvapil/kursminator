@@ -28,6 +28,7 @@ namespace api.GraphQL.Courses
                 Duration = input.Duration,
                 Price = input.Price,
                 Description = input.Description,
+                _Skills = string.Join("|", input.Skills),
                 InstructorId = input.InstructorId,
                 PlaceId = input.PlaceId
             };
@@ -59,6 +60,7 @@ namespace api.GraphQL.Courses
                 Duration = input.Duration,
                 Price = input.Price,
                 Description = input.Description,
+                _Skills = string.Join("|", input.Skills),
                 Evaluation = input.Evalution,
                 InstructorId = input.InstructorId,
                 PlaceId = input.PlaceId

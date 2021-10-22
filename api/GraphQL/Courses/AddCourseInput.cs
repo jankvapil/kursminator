@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace api.GraphQL.Courses
 {
-    public record AddCourseInput(string Name, string PhotoUrl, int Capacity, string Type, DateTime Date, int Duration, int Price, string Description, int InstructorId, int PlaceId);
+    public record AddCourseInput(string Name, string PhotoUrl, int Capacity, string Type, DateTime Date, int Duration, int Price, string Description, string[] Skills, int InstructorId, int PlaceId);
 }

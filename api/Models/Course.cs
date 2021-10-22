@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CourseApi.Models
 {
@@ -30,6 +31,12 @@ namespace CourseApi.Models
 
         [Required]
         public string Description { get; set; }
+
+        public string _Skills { get; set; }
+
+        [NotMapped]
+        [Required]
+        public virtual string[] Skills { get; set; }
 
         public float Evaluation { get; set; } = 0;
 

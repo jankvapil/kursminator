@@ -20,6 +20,7 @@
 - duration (int) <!-- in minutes -->
 - price (int)
 - description (str)
+- skills (string[])
 - evaluation (float)
 - placeID (int)
 - instructorID (int)
