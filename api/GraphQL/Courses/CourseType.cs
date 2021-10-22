@@ -5,6 +5,7 @@ using HotChocolate.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace api.GraphQL.Courses
@@ -25,6 +26,10 @@ namespace api.GraphQL.Courses
             descriptor.Field(c => c.Place)
                 .ResolveWith<Resolvers>(r => r.GetPlace(default!, default!))
                 .UseDbContext<AppDbContext>();
+
+            descriptor.Field(c => c.Content)
+                .ResolveWith<Resolvers>(r => r.GetContent(default!))
+                .UseDbContext<AppDbContext>();
         }
 
         private class Resolvers
@@ -32,6 +37,11 @@ namespace api.GraphQL.Courses
             public string[] GetSkillsArray([Parent] Course course)
             {
                 return course._Skills is null ? Array.Empty<string>() : course._Skills.Split('|');
+            }
+
+            public CourseChapter[] GetContent([Parent] Course course)
+            {
+                return JsonSerializer.Deserialize<CourseChapter[]>(course._Content);
             }
 
             public Instructor GetInstructor([Parent] Course course, [ScopedService] AppDbContext context)

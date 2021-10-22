@@ -38,6 +38,12 @@ namespace CourseApi.Models
         [Required]
         public virtual string[] Skills { get; set; }
 
+        public string _Content { get; set; }
+
+        [NotMapped]
+        [Required]
+        public virtual CourseChapter[] Content { get; set; }
+
         public float Evaluation { get; set; } = 0;
 
         [Required]
