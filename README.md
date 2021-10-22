@@ -21,6 +21,7 @@
 - price (int)
 - description (str)
 - skills (string[])
+- content (CourseChapter[]) <!-- CourseChapter = {name(string), subchapters(string[])} -->
 - evaluation (float)
 - placeID (int)
 - instructorID (int)
