@@ -17,6 +17,7 @@
 - capacity (int)
 - type (str)
 - date (date)
+- duration (int) <!-- in minutes -->
 - price (int)
 - description (str)
 - evaluation (float)
@@ -30,8 +31,6 @@
 - url (str)
 - address (str)
 - city (str)
-- postalCode (int)
-- state (str)
 
 ### User
 - id (int)

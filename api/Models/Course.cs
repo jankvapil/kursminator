@@ -20,7 +20,10 @@ namespace CourseApi.Models
         public string Type { get; set; }
 
         [Required]
-        public System.DateTime Date { get; set; } 
+        public System.DateTime Date { get; set; }
+
+        [Required]
+        public int Duration { get; set; }
 
         [Required]
         public int Price { get; set; }
