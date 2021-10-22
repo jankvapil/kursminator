@@ -1,6 +1,7 @@
 import { GRAPHQL_API } from '@/core/config'
 import 'tailwindcss/tailwind.css'
 import 'antd/dist/antd.css'
+import '../styles/index.css'
 
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client"
 

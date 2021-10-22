@@ -1,15 +1,14 @@
 
-import '@/core/types'
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import moment from 'moment'
 import { useRouter } from 'next/router'
 import { Avatar, Typography, Table, Descriptions } from 'antd'
 const { Title } = Typography;
-import DescriptionsItem from 'antd/lib/descriptions/Item'
 
-import Content from '../components/common/Content'
+import '@/core/types'
 import { INSTRUCTOR_BY_ID_QUERY } from "@/core/graphql/queries/instructorQueries"
+import Content from '../components/common/Content'
 
 const coursesData = [];
 const coursesColumns = [
@@ -57,7 +56,7 @@ export default function instructorDetailPage() {
   ))
   return (
     <Content>
-      <div className="flex flex-col text-left w-full px-36">
+      <div className="flex flex-col text-left w-full px-36 py-12">
         <Title level={3}>{instructor.name} {instructor.surname}</Title>
         <div className="flex flex-row w-full justify-between">
           <div className="mx-12 mt-4">
@@ -65,16 +64,16 @@ export default function instructorDetailPage() {
           </div>
           <div className="w-1/3">
             <Descriptions bordered>
-              <DescriptionsItem label="Věk" span={3}>{instructor.age} let</DescriptionsItem>
-              <DescriptionsItem label="Specializace" span={3}>{instructor.specialization}</DescriptionsItem>
-              <DescriptionsItem label="Řika o sobě" span={3}>{instructor.about}</DescriptionsItem>
-              <DescriptionsItem label="Kontakt" span={3}>{instructor.contact}</DescriptionsItem>
+              <Descriptions.Item label="Věk" span={3}>{instructor.age} let</Descriptions.Item>
+              <Descriptions.Item label="Specializace" span={3}>{instructor.specialization}</Descriptions.Item>
+              <Descriptions.Item label="Řika o sobě" span={3}>{instructor.about}</Descriptions.Item>
+              <Descriptions.Item label="Kontakt" span={3}>{instructor.contact}</Descriptions.Item>
             </Descriptions>
           </div>
         </div>
         <div className="w-full pt-16">
           <Table dataSource={coursesData} columns={coursesColumns} />
-        </div>
+        </div>``
       </div>
     </Content>
   )

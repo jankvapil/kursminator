@@ -1,0 +1,9 @@
+* {
+    user-select: none;
+}
+
+body {
+    font-family: Roboto;
+    font-size: 14px;
+    line-height: 22px;
+}

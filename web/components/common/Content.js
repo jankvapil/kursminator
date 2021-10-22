@@ -20,12 +20,11 @@ const Content = (props) => {
             
             <Header/>
             <Layout className="w-3/4 m-auto">
-            
-                <div className={props.className}>
+
+                <div className={props.className} className="bg-white">
                     { props.children }
                 </div>
-                
-               
+
             </Layout>
             <Footer />
         </div>
