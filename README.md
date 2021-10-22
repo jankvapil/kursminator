@@ -16,12 +16,13 @@
 - name (str)
 - capacity (int)
 - type (str)
+- difficulty (enum) // UNSPECIFIED, BEGINNER, INTERMEDIATE, ADVANCED, EXPERT
 - date (date)
-- duration (int) <!-- in minutes -->
+- duration (int) // in minutes 
 - price (int)
 - description (str)
 - skills (string[])
-- content (CourseChapter[]) <!-- CourseChapter = {name(string), subchapters(string[])} -->
+- content (CourseChapter[]) // CourseChapter = {name(string), subchapters(string[])}
 - evaluation (float)
 - placeID (int)
 - instructorID (int)
