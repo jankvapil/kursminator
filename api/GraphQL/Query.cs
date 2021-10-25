@@ -7,6 +7,7 @@ using CourseApi.Data;
 using CourseApi.Models;
 using HotChocolate;
 using HotChocolate.Data;
+using HotChocolate.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,13 +16,16 @@ namespace CourseApi.GraphQL
     public class Query 
     {
         [UseDbContext(typeof(AppDbContext))]
+        [UsePaging(IncludeTotalCount = true)]
         [UseFiltering]
+
         public IQueryable<Course> GetCourses([ScopedService] AppDbContext context)
         {
             return context.Courses;
         }
 
         [UseDbContext(typeof(AppDbContext))]
+        [UsePaging(IncludeTotalCount = true)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<Instructor> GetInstructors([ScopedService] AppDbContext context)
@@ -30,6 +34,7 @@ namespace CourseApi.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
+        [UsePaging(IncludeTotalCount = true)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<Place> GetPlaces([ScopedService] AppDbContext context)
@@ -38,6 +43,7 @@ namespace CourseApi.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
+        [UsePaging(IncludeTotalCount = true)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<User> GetUsers([ScopedService] AppDbContext context)
@@ -47,7 +53,6 @@ namespace CourseApi.GraphQL
 
         [UseDbContext(typeof(AppDbContext))]
         [UseProjection]
-        [UseFiltering]
         public async Task<User> GetCurrentUsersAsync([ScopedService] AppDbContext context, [Service] IHttpContextAccessor contextAccessor)
         {
             var currentUser = contextAccessor.HttpContext.User;
@@ -61,6 +66,7 @@ namespace CourseApi.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
+        [UsePaging(IncludeTotalCount = true)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<Role> GetRoles([ScopedService] AppDbContext context)
@@ -69,6 +75,7 @@ namespace CourseApi.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
+        [UsePaging(IncludeTotalCount = true)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<UserCourseFavourite> GetUserCourseFavourites([ScopedService] AppDbContext context)
@@ -77,6 +84,7 @@ namespace CourseApi.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
+        [UsePaging(IncludeTotalCount = true)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<UserCourseReservation> UserCourseReservations([ScopedService] AppDbContext context)
