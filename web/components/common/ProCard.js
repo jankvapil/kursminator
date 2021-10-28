@@ -10,7 +10,9 @@ const ProCard = (props) => {
             className=""
             style={{
                 padding: "24px",
-                backgroundColor: "white"
+                backgroundColor: "white",
+                width: "1169px",
+                margin: "auto"
             }}
         >
             {props.children}
