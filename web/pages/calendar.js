@@ -71,8 +71,10 @@ export default function calendarPage() {
 
     const loadCourses = async () => {
         const query = gql`  
-          query {
-            courses {
+        query {
+          courses {
+          totalCount
+            nodes {
               id
               name
               date
@@ -86,12 +88,13 @@ export default function calendarPage() {
                 surname
               }
             }
-          }`
+          }
+        }`
 
         try {
           let dat = await client.request(query)
-          console.log(dat)
-          setCoursesData(dat.courses)
+          console.log(dat.courses.nodes)
+          setCoursesData(dat.courses.nodes)
         }
         catch(error) {
           console.log(error)
