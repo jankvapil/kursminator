@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace api.GraphQL.Courses
@@ -21,11 +22,16 @@ namespace api.GraphQL.Courses
             var course = new Course
             {
                 Name = input.Name,
+                PhotoUrl = input.PhotoUrl,
                 Capacity = input.Capacity,
                 Type = input.Type,
+                Difficulty = input.Difficulty,
                 Date = input.Date,
+                Duration = input.Duration,
                 Price = input.Price,
                 Description = input.Description,
+                _Skills = string.Join("|", input.Skills),
+                _Content = JsonSerializer.Serialize(input.Content),
                 InstructorId = input.InstructorId,
                 PlaceId = input.PlaceId
             };
@@ -50,12 +56,16 @@ namespace api.GraphQL.Courses
             {
                 Id = input.Id,
                 Name = input.Name,
+                PhotoUrl = input.PhotoUrl,
                 Capacity = input.Capacity,
                 Type = input.Type,
+                Difficulty = input.Difficulty,
                 Date = input.Date,
+                Duration = input.Duration,
                 Price = input.Price,
                 Description = input.Description,
-                Evaluation = input.Evalution,
+                _Skills = string.Join("|", input.Skills),
+                _Content = JsonSerializer.Serialize(input.Content),
                 InstructorId = input.InstructorId,
                 PlaceId = input.PlaceId
             };

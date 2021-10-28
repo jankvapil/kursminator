@@ -14,31 +14,32 @@
 ### Course
 - id (int)
 - name (str)
+- capacity (int)
 - type (str)
-- placeID (int)
+- difficulty (enum) // UNSPECIFIED, BEGINNER, INTERMEDIATE, ADVANCED, EXPERT
 - date (date)
+- duration (int) // in minutes 
 - price (int)
-- evaluation (float)
 - description (str)
+- skills (string[])
+- content (CourseChapter[]) // CourseChapter = {name(string), subchapters(string[])}
+- evaluation (float)
+- placeID (int)
 - instructorID (int)
 
 ### Place
 - id (int)
 - virtual (bool)
 - name (str)
-- capacity (int)
 - url (str)
 - address (str)
 - city (str)
-- postalCode (int)
-- state (str)
 
 ### User
 - id (int)
 - name (str)
 - surname (str)
 - email (str)
-- password (str)
 - roleID (int)
 - credits (int)
 
@@ -58,5 +59,8 @@
 - id (int)
 - name (str)
 - surname (str)
+- age (int)
+- specialization (str)
 - about (str)
+- contact (str)
 - photoUrl (str)

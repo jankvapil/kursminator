@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace api.GraphQL.Instructors
 {
-    public record AddInstructorInput(string Name, string Surname, string About, string PhotoUrl);
+    public record AddInstructorInput(string Name, string Surname, int Age, string Specialization, string About, string Contact, string PhotoUrl);
 }

@@ -8,7 +8,7 @@ namespace CourseApi.Models
         public int Id { get; set; }
 
         [Required]
-        public bool Virutal { get; set; }
+        public bool Virtual { get; set; }
 
         [Required]
         public string Name { get; set; }

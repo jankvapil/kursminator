@@ -3,14 +3,16 @@ using System;
 using CourseApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211018135021_Add PhoroUrl to Course")]
+    partial class AddPhoroUrltoCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,12 +33,6 @@ namespace api.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Difficulty")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("INTEGER");
 
                     b.Property<float>("Evaluation")
                         .HasColumnType("REAL");
@@ -59,12 +55,6 @@ namespace api.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("_Content")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("_Skills")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -133,7 +123,7 @@ namespace api.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("Virtual")
+                    b.Property<bool>("Virutal")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

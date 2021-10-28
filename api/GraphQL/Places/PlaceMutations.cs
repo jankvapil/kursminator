@@ -18,7 +18,7 @@ namespace api.GraphQL.Places
         {
             var place = new Place
             {
-                Virutal = input.Virtual,
+                Virtual = input.Virtual,
                 Name = input.Name,
                 Url = input.Url,
                 Address = input.Address,
@@ -44,7 +44,7 @@ namespace api.GraphQL.Places
             var placeUpdated = new Place
             {
                 Id = input.Id,
-                Virutal = input.Virtual,
+                Virtual = input.Virtual,
                 Name = input.Name,
                 Url = input.Url,
                 Address = input.Address,
