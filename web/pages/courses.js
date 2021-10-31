@@ -4,20 +4,22 @@ import { useEffect } from 'react'
 import Content from '@/components/common/Content'
 
 import { fetchAllCourses } from '@/core/graphql/queries/coursesQueries'
-import { Card } from 'antd'
-import { Row, Col } from 'antd'
-import { Checkbox } from 'antd'
+
+import { Row, Col, Slider, Checkbox, Input } from 'antd'
 import { useRouter } from 'next/router'
 
 ///
 /// Courses search page
 ///
 export default function coursesPage(props) {
+  const MAX_PRICE = 1500
   const router = useRouter()
   const [courses, setCourses] = useState([])
   const [filteredCourses, setFilteredCourses] = useState([])
   const [checkedVirtual, setCheckedVirtual] = useState(true)
   const [checkedLive, setCheckedLive] = useState(true)
+  const [sliderPrice, setSliderPrice] = useState(MAX_PRICE)
+  const [inputPhrase, setInputPhrase] = useState("")
   useEffect(() => {
     if (props.data.courses) {
       console.log(props.data)
@@ -26,32 +28,32 @@ export default function coursesPage(props) {
     }
   }, [])
 
+  ///
+  /// Live displayed courses update
+  ///
   const updateFilter = (e) => {
-    // console.log(e)
-    // console.log(`Virtual ${checkedVirtual}`)
-    // console.log(`Live ${checkedLive}`)
-    // console.log(courses)
-
-    // const phrase = 'aasd'
-
     const filtered = new Set() 
 
     /// virtual courses
-    courses.filter(c =>  
-      c.place.virtual === e.virtual
-    ).forEach(c => filtered.add(c))
+    const virtual = courses.filter(c =>  
+      (c.place.virtual && e.virtual) &&
+      c.price <= e.price
+    )
+    virtual.forEach(c => filtered.add(c))
 
     /// live courses
-    courses.filter(c =>  
-      c.place.virtual !== e.live
-    ).forEach(c => filtered.add(c))
+    const live = courses.filter(c => 
+      (!c.place.virtual && e.live) &&
+      c.price <= e.price
+    )
+    live.forEach(c => filtered.add(c))
 
     const filteredArr = Array.from(filtered)
+    const filteredCoursesByPhrase = filteredArr.filter(c => c.name.match(e.phrase))
 
-    // console.log(filteredArr)
-    setFilteredCourses(filteredArr)
-
+    setFilteredCourses(filteredCoursesByPhrase)
   }
+
 
   ////////////// GUI ///////////////
 
@@ -60,6 +62,19 @@ export default function coursesPage(props) {
       <Row>
         <Col span={8} className="outline-black">
           <h2 className="text-xl">Filtr</h2>
+          <Input 
+            placeholder="Hledat kurz..." 
+            onChange={(e) => {
+              setInputPhrase(e.target.value) 
+              updateFilter({
+                phrase: e.target.value,                 
+                virtual: checkedVirtual,
+                price: sliderPrice,
+                live: checkedLive
+              })}
+            }/>
+
+          <h3>Typ kurzu</h3>
           <Checkbox 
             defaultChecked={true}
             checked={checkedVirtual}
@@ -68,11 +83,14 @@ export default function coursesPage(props) {
               setCheckedVirtual(e.target.checked)
               updateFilter({
                 virtual: e.target.checked,
-                live: checkedLive
+                live: checkedLive,
+                price: sliderPrice,
+                phrase: inputPhrase
               }) }}
           >
             Virtuální
           </Checkbox>
+
           <Checkbox 
             defaultChecked={true}
             checked={checkedLive}
@@ -81,11 +99,31 @@ export default function coursesPage(props) {
               setCheckedLive(e.target.checked)
               updateFilter({
                 live: e.target.checked,
-                virtual: checkedVirtual
+                virtual: checkedVirtual,
+                price: sliderPrice,
+                phrase: inputPhrase
               }) }}
           >
             Prezenční
           </Checkbox>
+
+          <h3>Cena v bodech</h3>
+          <span>0</span>
+          <span className="float-right">{MAX_PRICE}</span>
+          <Slider 
+            className="mx-20" 
+            defaultValue={MAX_PRICE} 
+            max={MAX_PRICE} 
+            onAfterChange={(e) => {
+              setSliderPrice(e)
+              updateFilter({
+                live: checkedLive,
+                virtual: checkedVirtual,
+                price: e,
+                phrase: inputPhrase
+              })
+            }} 
+          />
         </Col>
         <Col span={16}>
     
@@ -99,7 +137,7 @@ export default function coursesPage(props) {
                   </span>
                   <span>{c.date}</span>
                   <span>{c.evaluation}</span>
-                  <span>{c.price}</span>
+                  <span className="text-3xl">{c.price}</span>
                   <span>{c.type}</span>
                   <hr></hr>
                 </li>
