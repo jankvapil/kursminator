@@ -10,9 +10,7 @@ import {
   ArrowLeftOutlined,
   ArrowRightOutlined,
 } from '@ant-design/icons';
-import { useEffect } from 'react'
-import useGlobal from "@/core/store"
-import { useQuery } from '@apollo/client'
+import { useEffect, useState } from 'react'
 import { ALL_MAINPAGE_QUERY } from "@/core/graphql/queries/mainPage.Queries"
 import { fetchAllMainPage } from "@/core/graphql/queries/mainPage.Queries"
 import PopularInstructorsCard from '../components/common/PopularInstructorsCard'
@@ -39,17 +37,15 @@ function SampleNextArrow(props) {
 ///
 /// Home page
 ///
-export default function homePage() {
-  const [globalState, globalActions] = useGlobal()
-  const { loading, error, data } = useQuery(ALL_MAINPAGE_QUERY)
+export default function homePage(props) {
+  const [mainPage, setCourses] = useState([])
 
   useEffect(() => {
-    if (data?.sportCourses || data?.itCourses || data?.instructors) {
-      globalActions.courses.setCourses(data)
-      console.log(globalState)
-      console.log(data);
+    console.log(props)
+    if (props.data.mainPage) {
+      setCourses(props.data.mainPage)
     }
-  }, [data])
+  }, [])
 
   const settings = {
     dots: false,
@@ -63,18 +59,10 @@ export default function homePage() {
 
   function callback(key) {
     console.log(key);
-    // console.log(data)
-    // console.log(data.sportCourses[0].name);
-    // console.log(loading)
-    // console.log(error)
-    console.log()
   }
 
-  if (loading) return "Loading.."
-  if (error) return "Error while loading.."
   return (
     <Content >
-      <Spin tip="Načítání..." spinning={loading}>
         <ProCard>
           <Row gutter={16}>
             <Col className="gutter-row" span={12}>
@@ -98,7 +86,6 @@ export default function homePage() {
             </Col>
           </Row>
         </ProCard>
-      </Spin>
 
       <ProCard>
         <Tabs onChange={callback} type="card">
@@ -193,4 +180,13 @@ export default function homePage() {
 
     </Content>
   )
+}
+
+///
+/// This gets called on every request
+///
+
+export const getServerSideProps = async () => {
+  const mainPage = await fetchAllMainPage()
+  return { props: { data: { ...mainPage } } }
 }

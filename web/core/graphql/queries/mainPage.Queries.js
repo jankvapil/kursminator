@@ -7,11 +7,10 @@ import { client, sendRequest } from '@/core/graphql/client'
  */
 
  export const fetchAllMainPage = async () => {
-   console.log("neco")
-  const res = await sendRequest(ALL_COURSES_QUERY)
+  const res = await sendRequest(ALL_MAINPAGE_QUERY)
   if (res) {
     console.log(res, "query");
-    return { courses: res?.courses }
+    return { mainPage: res }
   }
 }
 
