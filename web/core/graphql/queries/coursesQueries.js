@@ -2,7 +2,7 @@ import '@/core/types'
 import { gql } from "@apollo/client"
 
 /**
- * @returns {Array<Course>} 
+ * @returns {Object<Courses>} 
  */
 export const ALL_COURSES_QUERY = gql`
   query {

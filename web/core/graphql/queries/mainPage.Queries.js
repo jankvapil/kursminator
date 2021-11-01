@@ -1,43 +1,59 @@
 import '@/core/types'
 import { gql } from "@apollo/client"
+import { client, sendRequest } from '@/core/graphql/client'
 
 /**
- * @returns {Array<Course>} 
+ * @returns {Array<Courses>} 
  */
-// export const ALL_MAINPAGE_QUERY = gql`
-//   query{
-//     instructors {
-//       name
-//     }
-//   }
-// `
+
+ export const fetchAllMainPage = async () => {
+   console.log("neco")
+  const res = await sendRequest(ALL_COURSES_QUERY)
+  if (res) {
+    console.log(res, "query");
+    return { courses: res?.courses }
+  }
+}
 
 export const ALL_MAINPAGE_QUERY = gql`
   query{
-    sportCourses: courses(where: { type:{contains: "sport"}}) {
-      name
-      capacity
-      price
-      instructor {
+    sportCourse: courses(where: {type:{contains: "sport"}}) {
+      totalCount
+      nodes {
         name
-        surname
+        capacity
+        price
+        type
+        instructor {
+          name
+          surname
+          photoUrl
+        }
       }
-      type
     }
-      itCousrses: courses(where: { type:{contains: "IT"}}) {
-      name
-      capacity
-      price
-      instructor {
+    itCourses: courses(where: {type:{contains: "IT"}}) {
+      totalCount
+      nodes {
         name
-        surname
+        capacity
+        price
+        type
+        instructor {
+          name
+          surname
+          photoUrl
+        }
       }
-      type
     }
     instructors {
-      name
-      courses {
-        name
+      totalCount
+      nodes {
+        name 
+        surname
+        photoUrl
+        courses {
+          name
+        }
       }
     }
   }

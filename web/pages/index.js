@@ -1,5 +1,5 @@
 import Content from '../components/common/Content'
-import { Card, Tabs, Typography, Image, Row, Col, Space, Statistic, Tag, Progress, Spin } from 'antd';
+import { Tabs, Typography, Image, Row, Col, Space, Statistic, Spin } from 'antd';
 import ProCard from '@/components/common/ProCard';
 import Slider from "react-slick";
 import {
@@ -14,21 +14,25 @@ import { useEffect } from 'react'
 import useGlobal from "@/core/store"
 import { useQuery } from '@apollo/client'
 import { ALL_MAINPAGE_QUERY } from "@/core/graphql/queries/mainPage.Queries"
+import { fetchAllMainPage } from "@/core/graphql/queries/mainPage.Queries"
+import PopularInstructorsCard from '../components/common/PopularInstructorsCard'
+import PopularCoursesCard from '../components/common/PopularCoursesCard'
+import CoursesMainCard from '../components/common/CoursesMainCard'
 
 const { TabPane } = Tabs;
 const { Title, Paragraph } = Typography;
 
 function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
+  const { onClick } = props;
   return (
     <ArrowLeftOutlined className="absolute top-2/4 -left-7 text-4xl" onClick={onClick} />
   );
 }
 
 function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
+  const { onClick } = props;
   return (
-    <ArrowRightOutlined className="absolute top-2/4 left-full fs-5 text-4xl" onClick={onClick} /> // font size 30 px
+    <ArrowRightOutlined className="absolute top-2/4 left-full fs-5 text-4xl" onClick={onClick} />
   );
 }
 
@@ -40,8 +44,10 @@ export default function homePage() {
   const { loading, error, data } = useQuery(ALL_MAINPAGE_QUERY)
 
   useEffect(() => {
-    if (data?.sportCourse) {
-      globalActions.Course.setCourse(data.courses)
+    if (data?.sportCourses || data?.itCourses || data?.instructors) {
+      globalActions.courses.setCourses(data)
+      console.log(globalState)
+      console.log(data);
     }
   }, [data])
 
@@ -57,10 +63,10 @@ export default function homePage() {
 
   function callback(key) {
     console.log(key);
-    console.log(data)
-    console.log(data.sportCourses[0].name);
-    console.log(loading)
-    console.log(error)
+    // console.log(data)
+    // console.log(data.sportCourses[0].name);
+    // console.log(loading)
+    // console.log(error)
     console.log()
   }
 
@@ -97,95 +103,30 @@ export default function homePage() {
       <ProCard>
         <Tabs onChange={callback} type="card">
           <TabPane tab="Vše" key="1">
-            <Card
-              style={{ width: 300 }}
-              cover={
-                <img
-                  alt="example"
-                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                />
-              }
-            >
-              <div className="flex justify-between">
-                <div>
-                  <p className="font-bold">name{data.sportCourses[0].name}</p>
-                  <p>content</p>
-                  <p className="text-gray-400">kurzy</p>
-                </div>
-                <div class="flex flex-col items-center justify-between">
-                  <Tag style={{ borderRadius: "1.5rem", marginRight: "0" }} color="processing">processing</Tag>
-                  <Progress type="circle" percent={90} strokeColor={"#52C41A"} width={50} />
-                </div>
-              </div>
-            </Card>
-            {/* <Progress type="circle" percent={90} strokeColor={30 < 50 ? "red" : "green"} width={50} />
-            <Progress type="circle" percent={90} strokeColor={"#52C41A"} width={50} /> */}
+            <Slider {...settings} className="ml-8 pl-5 mr-10">
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
+            </Slider>
           </TabPane>
           <TabPane tab="IT" key="2">
-            {/* {globalState.sportCourses.map(c => (<p>c.name</p>))} */}
+            <Slider {...settings} className="ml-8 pl-5 mr-10">
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
+            </Slider>
           </TabPane>
           <TabPane tab="Sport" key="3">
             <Slider {...settings} className="ml-8 pl-5 mr-10">
-              <div>
-                <Card bordered={false} style={{ width: 240, background: "#F0F2F5" }}
-                  cover={<Image
-                    height={150}
-                    src="https://picsum.photos/150/300"
-                    preview={false}
-                  />}>
-                  <p>C#</p>
-                </Card>
-              </div>
-              <div>
-                <Card bordered={false} style={{ width: 240, background: "#F0F2F5" }}
-                  cover={<Image
-                    height={150}
-                    src="https://picsum.photos/150/300"
-                    preview={false}
-                  />}>
-                  <p>C#</p>
-                </Card>
-              </div>
-              <div>
-                <Card bordered={false} style={{ width: 240, background: "#F0F2F5" }}
-                  cover={<Image
-                    height={150}
-                    src="https://picsum.photos/150/300"
-                    preview={false}
-                  />}>
-                  <p>C#</p>
-                </Card>
-              </div>
-              <div>
-                <Card bordered={false} style={{ width: 240, background: "#F0F2F5" }}
-                  cover={<Image
-                    height={150}
-                    src="https://picsum.photos/150/300"
-                    preview={false}
-                  />}>
-                  <p>C#</p>
-                </Card>
-              </div>
-              <div>
-                <Card bordered={false} style={{ width: 240, background: "#F0F2F5" }}
-                  cover={<Image
-                    height={150}
-                    src="https://picsum.photos/150/300"
-                    preview={false}
-                  />}>
-                  <p>C#</p>
-                </Card>
-              </div>
-              <div>
-                <Card bordered={false} style={{ width: 240, background: "#F0F2F5" }}
-                  cover={<Image
-                    height={150}
-                    src="https://picsum.photos/150/300"
-                    preview={false}
-                  />}>
-                  <p>C#</p>
-                </Card>
-              </div>
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
+              <CoursesMainCard about="info"></CoursesMainCard>
             </Slider>
           </TabPane>
         </Tabs>
@@ -194,43 +135,18 @@ export default function homePage() {
       <ProCard>
         <Title level={2}>Nejoblíbenější kurzy</Title>
         <div className="flex justify-around">
-          <Card bordered={false} style={{ width: 240, background: "#F0F2F5" }}
-            cover={<Image
-              height={150}
-              src="https://picsum.photos/150/300"
-              preview={false}
-            />}>
-            <p>C#</p>
-          </Card>
-          <Card bordered={false} style={{ width: 240, background: "#F0F2F5" }}
-            cover={<Image
-              height={150}
-              src="https://picsum.photos/150"
-              preview={false}
-            />}>
-            <p>C#</p>
-          </Card>
+          <PopularCoursesCard course="angular"></PopularCoursesCard>
+          <PopularCoursesCard course="react"></PopularCoursesCard>
+          <PopularCoursesCard course="react"></PopularCoursesCard>
+          <PopularCoursesCard course="C#"></PopularCoursesCard>
         </div>
       </ProCard>
 
       <ProCard>
         <Title level={2}>Nejpopulárnější lektoři</Title>
         <div className="flex justify-around ">
-
-          <div className="flex " style={{ width: 470, background: "#F0F2F5" }}>
-            <Image
-              width={237}
-              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-              preview={false}
-            />
-            <div className="flex-col justify-center pl-12 pt-12">
-              <p className="font-bold">name</p>
-              <p className="text-gray-400">kurzy</p>
-              <p>port</p>
-              <p>angular</p>
-              <p>sport </p>
-            </div>
-          </div>
+          <PopularInstructorsCard name="testName" courses="prvni kurz"></PopularInstructorsCard>
+          <PopularInstructorsCard name="testName" courses="prvni kurz"></PopularInstructorsCard>
         </div>
       </ProCard>
 
