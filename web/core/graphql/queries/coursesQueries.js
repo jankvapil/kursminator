@@ -1,14 +1,16 @@
 import '@/core/types'
 import { gql } from "@apollo/client"
-import { client } from '@/core/graphql/client'
+import { client, sendRequest } from '@/core/graphql/client'
 
 
 /**
  * @returns {Array<Course>} 
  */
 export const fetchAllCourses = async () => {
-  const res = await client.request(ALL_COURSES_QUERY)
-  return { courses: res?.courses?.nodes }
+  const res = await sendRequest(ALL_COURSES_QUERY)
+  if (res) {
+    return { courses: res?.courses?.nodes }
+  }
 }
 
 export const ALL_COURSES_QUERY = gql`

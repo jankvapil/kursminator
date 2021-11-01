@@ -12,19 +12,23 @@ const Content = (props) => {
 
 
     return (
-        <>
-            <Header/>
+        <div>
             <Head>
                 <title>Kurzminator</title>
                 <link rel="icon" href="/logokursm-light.ico" />
             </Head>
+            
+            <Header/>
             <Layout className="w-3/4 m-auto">
+            
                 <div className={props.className}>
                     { props.children }
                 </div>
+                
+               
             </Layout>
             <Footer />
-        </>
+        </div>
   )
 }
 
