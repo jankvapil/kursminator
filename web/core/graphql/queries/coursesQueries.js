@@ -20,6 +20,7 @@ export const ALL_COURSES_QUERY = gql`
         id
         name
         date
+        description
         type
         place {
           id

@@ -58,9 +58,9 @@ export default function coursesPage(props) {
   return (
     <Content>
       <Row className="min-h-screen">
-        <Col span={8} className="my-12 pl-4">
-          <div className="mb-4">
-            <h2 className="text-xl">Filtr</h2>
+        <Col span={6} className="my-12 pl-12">
+          <div className="mb-8">
+            <h2 className="text-xl">Filtrování kurzů</h2>
             <Input 
               placeholder="Hledat kurz..." 
               onChange={(e) => {
@@ -74,7 +74,7 @@ export default function coursesPage(props) {
               }/>
           </div>
           
-          <div className="mb-4">
+          <div className="mb-8">
             <h3>Typ kurzu</h3>
             <Checkbox 
               defaultChecked={true}
@@ -127,22 +127,28 @@ export default function coursesPage(props) {
             }} 
           />
         </Col>
-        <Col span={16}>
+        <Col span={18}>
           <ul className="my-10">
             { filteredCourses.map(c => (
-                <li className="m-auto flex w-9/12 my-2 bg-gray-200" key={c.id} >
+                <li className="m-auto flex w-9/12 my-4 bg-gray-200" key={c.id} >
                   <div className="flex-none ">
-                    <img src="https://via.placeholder.com/150" width={150}></img>
+                    <img className="cursor-pointer" onClick={() => router.push(`courseDetail?id=${c.id}`)} src="https://via.placeholder.com/200" width={200}></img>
                   </div>
-                  <div className="flex-auto mx-2">
-                    <span className="text-3xl block w-full my-1">
-                      <button onClick={() => router.push(`courseDetail?id=${c.id}`)}> 
-                        {c.name}
-                      </button>
-                    </span>
+                  <div className="flex-auto block w-full mx-4">
+                    <div className="float-right my-2">
+                      <span className="text-xl">{c.price}kr.</span>
+                    </div>
+                    <div className="my-2">
+                      <span >
+                        <button className="text-3xl" onClick={() => router.push(`courseDetail?id=${c.id}`)}> 
+                          {c.name}
+                        </button>
+                      </span>
+                    </div>
+                  
+                    <span className="block w-full">{c.description}</span>
                     <span className="block w-full">{c.date.substring(0,10)}</span>
                     <span className="block w-full">{Math.round(c.evaluation)}/5</span>
-                    <span className="block w-full text-xl">{c.price}kr.</span>
                     <span className="block w-full">{c.type}</span>
                   </div>
                 </li>
