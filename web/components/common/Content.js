@@ -2,6 +2,7 @@ import Head from 'next/head'
 
 import Header from './Header'
 import Footer from './Footer'
+import { Layout } from 'antd';
 
 
 ///
@@ -11,19 +12,23 @@ const Content = (props) => {
 
 
     return (
-        <>
+        <div>
+            <Head>
+                <title>Kurzminator</title>
+                <link rel="icon" href="/logokursm-light.ico" />
+            </Head>
+            
             <Header/>
-            <div className="flex flex-col items-center justify-center min-h-screen py-2">
-                <Head>
-                    <title>Kurzminator</title>
-                    <link rel="icon" href="/logokursm-light.ico" />
-                </Head>
-                <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
+            <Layout className="w-3/4 m-auto">
+            
+                <div className={props.className}>
                     { props.children }
-                </main>
-            </div>
+                </div>
+                
+               
+            </Layout>
             <Footer />
-        </>
+        </div>
   )
 }
 
