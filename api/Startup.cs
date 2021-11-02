@@ -22,6 +22,7 @@ using api.Services;
 using Microsoft.AspNetCore.Http;
 using api.GraphQL;
 using api.GraphQL.Logins;
+using api.GraphQL.Emails;
 
 namespace CourseApi
 {
@@ -60,10 +61,15 @@ namespace CourseApi
                 .AddTypeExtension<UserCourseFavouriteMutations>()
                 .AddTypeExtension<UserCourseReservationMutations>()
                 .AddTypeExtension<LoginMutations>()
+                .AddTypeExtension<EmailMutations>()
                 .AddErrorFilter<ErrorFilter>()
                 .AddProjections()
                 .AddFiltering()
                 .AddAuthorization();
+
+            // email sending
+            services.Configure<GmailSettings>(Configuration.GetSection(nameof(GmailSettings)));
+            services.AddScoped<SmtpService>();
 
             // jwt
             services.Configure<JwtSettings>(Configuration.GetSection(nameof(JwtSettings)));
@@ -103,6 +109,7 @@ namespace CourseApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStaticFiles();
             }
             
             app.UseCors("DefaultPolicy");
@@ -110,8 +117,6 @@ namespace CourseApi
             app.UseRouting();
 
             app.UseAuthentication();
-
-            app.UseStaticFiles(); // just for show fb sdk
 
             app.UseEndpoints(endpoints =>
             {
