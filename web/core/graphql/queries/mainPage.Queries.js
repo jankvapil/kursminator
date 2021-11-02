@@ -16,17 +16,21 @@ import { client, sendRequest } from '@/core/graphql/client'
 
 export const ALL_MAINPAGE_QUERY = gql`
   query{
-    sportCourse: courses(where: {type:{contains: "sport"}}) {
+    sportCourses: courses(where: {type:{contains: "sport"}}) {
       totalCount
       nodes {
         name
         capacity
         price
         type
+        photoUrl
         instructor {
           name
           surname
           photoUrl
+        }
+        place {
+          name
         }
       }
     }
@@ -37,10 +41,14 @@ export const ALL_MAINPAGE_QUERY = gql`
         capacity
         price
         type
+        photoUrl
         instructor {
           name
           surname
           photoUrl
+        }
+        place {
+          name
         }
       }
     }

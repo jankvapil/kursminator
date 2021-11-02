@@ -4,6 +4,9 @@ import { Card, Tag, Progress, Space } from 'antd';
 /// CoursesMainCard component
 ///
 const CoursesMainCard = (props) => {
+    // TODO
+    // console.log(props.instructor)
+    // console.log(props.place)
 
     return (
         <div>
@@ -18,15 +21,14 @@ const CoursesMainCard = (props) => {
             >
                 <div className="flex justify-between">
                     <div>
-                        {/* TODO */}
-                        {/* <p className="font-bold">name{data.sportCourses[0].name}</p> */}
-                        <p>{props.about}</p>
-                        <p className="text-gray-400">kurzy</p>
+                        <p className="font-bold">{props.courseName}</p>
+                        <p className="text-gray-400">Jmeno Lektora</p>
+                        <p>{props.price + " Bodů"}</p>
                     </div>
                     <div className="flex flex-col items-center justify-between">
                         <Space direction="vertical" align="center" size={12}>
-                            <Tag style={{ borderRadius: "1.5rem", marginRight: "0" }} color="processing">processing</Tag>
                             <Progress type="circle" percent={90} strokeColor={"#52C41A"} width={50} />
+                            <Tag style={{ borderRadius: "1.5rem", marginRight: "0" }} color="processing">processing</Tag>
                         </Space>
                     </div>
                 </div>
