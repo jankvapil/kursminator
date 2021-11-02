@@ -1,5 +1,6 @@
 
 import Content from '@/components/common/Content'
+import ProCard from '@/components/common/ProCard'
 import FbLoginButton from '@/components/login/FbLoginButton'
 
 ///
@@ -8,8 +9,10 @@ import FbLoginButton from '@/components/login/FbLoginButton'
 export default function loginPage() {
   return (
     <Content>
-      Login page
-      <FbLoginButton />
+      <ProCard>
+        Login page
+        <FbLoginButton />
+      </ProCard>
     </Content>
   )
 }

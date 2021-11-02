@@ -2,7 +2,6 @@ import Head from 'next/head'
 
 import Header from './Header'
 import Footer from './Footer'
-import { Layout } from 'antd';
 
 import styles from "../../styles/Content.module.css"
 
@@ -20,13 +19,9 @@ const Content = (props) => {
             </Head>
             
             <Header/>
-            <Layout className="w-3/4 m-auto">
-
-                <div className={props.className} className="bg-white">
-                    { props.children }
-                </div>
-
-            </Layout>
+            <main className={styles.test}>
+                {props.children}
+            </main>
             <Footer />
         </div>
   )
