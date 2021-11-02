@@ -6,6 +6,7 @@ import 'antd/dist/antd.css'
 // dark mode 
 // import 'antd/dist/antd.dark.css'
 
+import '../styles/index.css'
 
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client"
 

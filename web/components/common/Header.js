@@ -14,7 +14,7 @@ const Header = () => {
                 <img src="/logokursm-light.ico" alt="logo" width="50" height="60" />
               </Link>
               <Link href="/">
-                <span className="text-3xl text-white mb-0 ml-4 font-mono">Kursminator</span>
+                <span className="text-3xl text-white mb-0 ml-4 font-mono font-black">Kursminator</span>
               </Link>
             </div>
             <Button type="link"><Link href="/courses">Kurzy</Link></Button>
