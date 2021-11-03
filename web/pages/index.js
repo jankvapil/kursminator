@@ -64,7 +64,6 @@ export default function homePage(props) {
   const itCourses = props.mainPage.itCourses.nodes
   const sportCourses = props.mainPage.sportCourses.nodes
   const allCourses = itCourses.concat(sportCourses, "sportCourses")
-  console.log(allCourses, "allCourses")
   const popularCourses = sportCourses.slice(0, 2).concat(itCourses.slice(0, 2))
 
   return (
