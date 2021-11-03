@@ -1,6 +1,6 @@
 import '@/core/types'
 import { gql } from "@apollo/client"
-import { client, sendRequest } from '@/core/graphql/client'
+import { sendRequest } from '@/core/graphql/client'
 
 /**
  * @returns {Array<Courses>} 
@@ -9,7 +9,6 @@ import { client, sendRequest } from '@/core/graphql/client'
  export const fetchAllMainPage = async () => {
   const res = await sendRequest(ALL_MAINPAGE_QUERY)
   if (res) {
-    console.log(res, "query");
     return { mainPage: res }
   }
 }
