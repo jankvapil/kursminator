@@ -1,0 +1,10 @@
+.test {
+    background-image: url("/background.png");
+    background-color: #F0F2F5;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}

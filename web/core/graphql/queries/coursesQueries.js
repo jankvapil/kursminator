@@ -4,7 +4,7 @@ import { client, sendRequest } from '@/core/graphql/client'
 
 
 /**
- * @returns {Array<Course>} 
+ * @returns {Object<Courses>} 
  */
 export const fetchAllCourses = async () => {
   const res = await sendRequest(ALL_COURSES_QUERY)
