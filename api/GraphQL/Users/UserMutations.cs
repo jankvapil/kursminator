@@ -1,6 +1,7 @@
 ﻿using CourseApi.Data;
 using CourseApi.Models;
 using HotChocolate;
+using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Data;
 using HotChocolate.Types;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +17,7 @@ namespace api.GraphQL.Users
     public class UserMutations
     {
         [UseDbContext(typeof(AppDbContext))]
+        //[Authorize(Roles = new[] { "Manager", "Admin" })]
         public async Task<User> UpdateUserAsync([ScopedService] AppDbContext context, int id, UpdateUserInput input)
         {
             if (id != input.Id)
@@ -43,6 +45,7 @@ namespace api.GraphQL.Users
         }
 
         [UseDbContext(typeof(AppDbContext))]
+        //[Authorize(Roles = new[] { "User" })]
         public async Task<User> UpdateCurrentUserAsync([ScopedService] AppDbContext context, [Service] IHttpContextAccessor contextAccessor, UpdateCurrentUserInput input)
         {
             var contextUser = contextAccessor.HttpContext.User;
@@ -69,6 +72,7 @@ namespace api.GraphQL.Users
 
 
         [UseDbContext(typeof(AppDbContext))]
+        //[Authorize(Roles = new[] { "Manager", "Admin" })]
         public async Task<int> DeleteUserAsync([ScopedService] AppDbContext context, int id)
         {
             var user = await context.Users.FindAsync(id);

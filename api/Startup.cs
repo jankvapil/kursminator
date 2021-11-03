@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Http;
 using api.GraphQL;
 using api.GraphQL.Logins;
 using api.GraphQL.Emails;
+using Graph.ArgumentValidator;
 
 namespace CourseApi
 {
@@ -51,6 +52,7 @@ namespace CourseApi
 
             services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")))
                 .AddGraphQLServer()
+                .AddArgumentValidator()
                 .AddQueryType<Query>()
                 .AddType<CourseType>()
                 .AddMutationType<Mutation>()
