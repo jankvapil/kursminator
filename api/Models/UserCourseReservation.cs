@@ -17,5 +17,16 @@ namespace CourseApi.Models
         public int CourseId { get; set; }
 
         public Course Course { get; set; }
+
+        [Required]
+        public ReservationState State { get; set; }
+    }
+
+    public enum ReservationState
+    {
+        WAITING,
+        APPROVED,
+        COMPLETED,
+        CANCELLED
     }
 }

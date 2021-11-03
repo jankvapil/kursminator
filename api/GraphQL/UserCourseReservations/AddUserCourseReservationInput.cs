@@ -8,5 +8,14 @@ using System.Threading.Tasks;
 
 namespace api.GraphQL.UserCourseReservations
 {
-    public record AddUserCourseReservationInput(int UserId, int CourseId);
+    public class AddUserCourseReservationInput
+    {
+        [Required]
+        [Range(1, int.MaxValue)]
+        public int UserId { get; set; }
+
+        [Required]
+        [Range(1, int.MaxValue)]
+        public int CourseId { get; set; }
+    }
 }

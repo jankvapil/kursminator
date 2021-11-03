@@ -7,5 +7,9 @@ using System.Threading.Tasks;
 
 namespace api.GraphQL.Places
 {
-    public record UpdatePlaceInput(int Id, bool Virtual, string Name, string Url, string Address, string City);
+    public class UpdatePlaceInput : AddPlaceInput {
+
+        [Required] [Range(1, int.MaxValue)]
+        public int Id { get; set; }
+    }
 }

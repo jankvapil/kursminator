@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Graph.ArgumentValidator" Version="2.0.0" />
     <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="5.0.2" />
     <PackageReference Include="HotChocolate" Version="12.0.0-rc.11" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.0.0-rc.11" />

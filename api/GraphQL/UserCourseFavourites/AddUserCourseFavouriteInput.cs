@@ -8,5 +8,12 @@ using System.Threading.Tasks;
 
 namespace api.GraphQL.UserCourseFavourites
 {
-    public record AddFavouriteInput(int UserId, int CourseId);
+    public class AddFavouriteInput {
+
+        [Required] [Range(1, int.MaxValue)]
+        public int UserId { get; set; }
+
+        [Required] [Range(1, int.MaxValue)]
+        public int CourseId { get; set; }
+    }
 }
