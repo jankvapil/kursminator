@@ -31,6 +31,11 @@ namespace CourseApi.Data
                 .HasMany(u => u.UserCourseReservations)
                 .WithOne(f => f.User)
                 .HasForeignKey(f => f.UserId);
+
+            modelBuilder.Entity<Course>()
+                .HasMany(c => c.UserCourseReservation)
+                .WithOne(r => r.Course)
+                .HasForeignKey(r => r.CourseId);
         }
     
         public DbSet<Course> Courses { get; set; }

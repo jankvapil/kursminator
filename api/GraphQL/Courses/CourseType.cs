@@ -2,6 +2,8 @@
 using CourseApi.Models;
 using HotChocolate;
 using HotChocolate.Types;
+using HotChocolate.Types.Pagination;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,14 @@ namespace api.GraphQL.Courses
             descriptor.Field(c => c.Content)
                 .ResolveWith<Resolvers>(r => r.GetContent(default!))
                 .UseDbContext<AppDbContext>();
+
+            descriptor.Field(c => c.UserCourseReservation)
+                .ResolveWith<Resolvers>(r => r.GetUserCourseResevation(default!, default!))
+                .UseDbContext<AppDbContext>();
+
+            descriptor.Field(c => c.Occupancy)
+                .ResolveWith<Resolvers>(r => r.GetCourseOccupancy(default!, default!))
+                .UseDbContext<AppDbContext>();
         }
 
         private class Resolvers
@@ -52,6 +62,18 @@ namespace api.GraphQL.Courses
             public Place GetPlace([Parent] Course course, [ScopedService] AppDbContext context)
             {
                 return context.Places.FirstOrDefault(i => i.Id == course.PlaceId);
+            }
+
+            public ICollection<UserCourseReservation> GetUserCourseResevation([Parent] Course course, [ScopedService] AppDbContext context)
+            {
+                return context.UserCourseReservations.Include(r => r.User).Where(r => r.CourseId == course.Id).ToList();
+            }
+
+            public int GetCourseOccupancy([Parent] Course course, [ScopedService] AppDbContext context)
+            {
+                var numberOfReservations = GetUserCourseResevation(course, context).Count;
+
+                return numberOfReservations / course.Capacity;
             }
         }
     }

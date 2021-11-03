@@ -58,6 +58,11 @@ namespace CourseApi.Models
         public int PlaceId { get; set; }
 
         public Place Place { get; set; }
+
+        [NotMapped]
+        public int Occupancy { get; set; }
+
+        public ICollection<UserCourseReservation> UserCourseReservation { get; set; } = new List<UserCourseReservation>();
     }
 
     public enum Difficulty
