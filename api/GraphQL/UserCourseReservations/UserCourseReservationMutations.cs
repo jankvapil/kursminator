@@ -20,7 +20,8 @@ namespace api.GraphQL.UserCourseReservations
             var userCourseReservation = new UserCourseReservation
             {
                 UserId = input.UserId,
-                CourseId = input.CourseId
+                CourseId = input.CourseId,
+                State = ReservationState.WAITING
             };
 
             await context.UserCourseReservations.AddAsync(userCourseReservation);
@@ -28,6 +29,8 @@ namespace api.GraphQL.UserCourseReservations
 
             return userCourseReservation;
         }
+
+        //todo: updateUserCourseReservation + ByAttrs
 
         [UseDbContext(typeof(AppDbContext))]
         public async Task<int> DeleteUserCourseReservationAsync([ScopedService] AppDbContext context, int id)
