@@ -6,68 +6,68 @@ import Link from 'next/link'
 /// Footer component
 ///
 const Footer = () => {
-    const style = {
+    const BgColor001529 = {
         backgroundColor: "#001529"
     }
 
-    const color = {
-        color: "#ffffff"
+    const ColorWhite = {
+        Color: "#ffffff"
     }
 
     return (
         <>
 
             <Layout className="layout">
-                <Layout.Footer>
+                <Layout.Footer style={BgColor001529}>
                     <div className="flex justify-around">
                         <div className="flex flex-col">
-                            <Link href="/" className="m-0">IT</Link>
-                            <Link href="/" className="m-0">Sport</Link>
+                            <Link href="/"><span className="text-white">IT</span></Link>
+                            <Link href="/" className="m-0"><span className="text-white">Sport</span></Link>
                             <div className="mt-auto self-end flex items-center">
                                 <div>
                                     <img src="/logokursm-light.ico" alt="logo" width="50" height="60" />
                                 </div>
-                                <Link href="/" className="text-3xl mb-0 ml-4 font-extrabold">Kursmintor</Link>
+                                <Link  style={ColorWhite} href="/" ><span className="text-white">Kursmintor</span></Link>
 
                             </div>
                         </div>
 
                         <div className="flex flex-col">
-                          <Link href="/">O nás</Link>
-                          <Link href="/" className="m-0">Lektoři</Link>
-                              <Link href="/" className="m-0">Kontakt</Link>
-                              <Link href="/" className="m-0">Kalendář</Link>
+                          <Link href="/"><span className="text-white">O nás</span></Link>
+                          <Link href="/" className="m-0"><span className="text-white">Lektoři</span></Link>
+                              <Link href="/" className="m-0"><span className="text-white">Kontakt</span></Link>
+                              <Link href="/" className="m-0"><span className="text-white">Kalendář</span></Link>
                           <div className="flex items-center mt-4">
                               <img src="/logotyp.png" alt="logo" width="50" height="60" />
-                              <Link href="/" className="text-3xl mb-0 ml-4 font-extrabold">Flashbulb</Link>
+                              <Link href="/" className="text-3xl mb-0 ml-4 font-extrabold"><span className="text-white">Flashbulb</span></Link>
                         </div>
 
                         </div>
 
                         <div className="">
-                            <Link href="/" className="m-0">Přihlášení</Link><br />
-                            <Link href="/" className="m-0">Registrace</Link>
+                            <Link href="/" className="m-0"><span className="text-white">Přihlášení</span></Link><br />
+                            <Link href="/" className="m-0"><span className="text-white">Registrace</span></Link>
                         </div>
 
                         <div className="">
                             <div>
-                                <img className="mt-1 float-left mr-3" src="/facebook.png" alt="facebook-icon" width="15" height="15" />
-                                <Link href="/" className="ml-3 bg-black">Facebook</Link>
+                                <img className="mt-1.5 float-left mr-3" src="/facebook.png" alt="facebook-icon" width="12" height="12" />
+                                <Link href="/" className="ml-3 bg-black"><span className="text-white">Facebook</span></Link>
                             </div>
 
                             <div>
-                                <img className="mt-1 float-left mr-3" src="/instagram.png" alt="instagram-icon" width="15" height="15" />
-                                <Link href="/">Instagram</Link>
+                                <img className="mt-1.5 float-left mr-3" src="/instagram.png" alt="instagram-icon" width="12" height="12" />
+                                <Link href="/"><span className="text-white">Instagram</span></Link>
                             </div>
 
                             <div>
-                                <img className="mt-1 float-left mr-3" src="/google+.png" alt="instagram-icon" width="15" height="15" />
-                                <Link href="/">Google+</Link>
+                                <img className="mt-1.5 float-left mr-3" src="/google+.png" alt="instagram-icon" width="12" height="12" />
+                                <Link href="/"><span className="text-white">Google+</span></Link>
                             </div>
                         </div>
 
                     </div>
-                    <p className="m-0 p-0 float-right"><span className="pr-0.5">Copyright</span>@2021 ITFIT s.r.o</p>
+                    <p className="m-0 p-0 float-right text-white"><span className="pr-0.5">Copyright</span>@2021 ITFIT s.r.o</p>
                 </Layout.Footer>
             </Layout>
         </>
