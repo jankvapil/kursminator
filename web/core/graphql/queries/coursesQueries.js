@@ -1,6 +1,6 @@
 import '@/core/types'
 import { gql } from "@apollo/client"
-import { client, sendRequest } from '@/core/graphql/client'
+import { sendRequest } from '@/core/graphql/client'
 
 
 /**
@@ -35,43 +35,6 @@ export const ALL_COURSES_QUERY = gql`
           surname
         }
       }
-    }
-  }
-`
-
-export const COURSE_AND_RESERVATION_BY_ID_QUERY = gql`
-  query ($id: Int!) {
-    courses(where: {id: {eq: $id}}) {
-      id
-      name
-      date
-      price
-      evaluation
-      capacity
-      type
-      description
-      duration
-      difficulty
-      photoUrl
-      skills
-      content {
-        name
-        subchapters
-      }
-      instructor {
-        id
-        name
-        surname
-      }
-      place {
-        id
-        name
-        virtual
-        address
-      }
-    }
-    userCourseReservations(where: {courseId: {eq: $id}}) {
-      id
     }
   }
 `

@@ -51,7 +51,7 @@ namespace api.GraphQL.Courses
 
             public CourseChapter[] GetContent([Parent] Course course)
             {
-                return JsonSerializer.Deserialize<CourseChapter[]>(course._Content);
+                return course._Content is null ? null : JsonSerializer.Deserialize<CourseChapter[]>(course._Content);
             }
 
             public Instructor GetInstructor([Parent] Course course, [ScopedService] AppDbContext context)

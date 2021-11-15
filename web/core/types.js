@@ -29,6 +29,7 @@
  * @property {number?} duration
  * @property {ECourseDifficulty?} difficulty
  * @property {string?} photoUrl
+ * @property {number?} occupancy
  * @property {Array<string>?} skills
  * @property {Array<CourseChapter>?} content
  * @property {Instructor?} instructor
