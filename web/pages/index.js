@@ -53,7 +53,37 @@ export default function homePage(props) {
     slidesToShow: 4,
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />
+    prevArrow: <SamplePrevArrow />,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          arrows: true
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          arrows: true
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          arrows: false
+        }
+      },
+    ]
   };
 
   function callback(key) {
@@ -70,10 +100,10 @@ export default function homePage(props) {
     <Content >
       <ProCard>
         <Row gutter={16}>
-          <Col className="gutter-row" span={12}>
-            <Space direction="vertical" size={24}>
+          <Col className="gutter-row" lg={12} md={12} sm={20}>
+            <Space direction="vertical" size={{ lg: 24, sm: 0 }}>
               <Title level={2}>Online vzdělávací kurzy pro všechny.</Title>
-              <ul className="list-disc list-inside pl-8">
+              <ul className="hidden sm:block list-disc list-inside pl-8">
                 <Space direction="vertical" size={40}>
                   <li>Naučte se pohodlně od profíků to, co potřebujete pro svou práci a osobní rozvoj.</li>
                   <li>Sbírejte body za každou absolvovanou přednášku</li>
@@ -83,7 +113,7 @@ export default function homePage(props) {
               <Paragraph>Vyberte si z naší široké nabídky témat jako je osobní rozvoj, komunikační dovednosti, manažerské dovednosti nebo rozvíjet své specializovanosti prostřednictvím široké škály odborných kurzů.</Paragraph>
             </Space>
           </Col>
-          <Col className="gutter-row" span={10} offset={2}>
+          <Col className="hidden md:block gutter-row" lg={10} md={10} sm={0} offset={{ md: 2, sm: 0 }}>
             <Image
               src="/cource-logo.png"
               preview={false}
@@ -94,18 +124,18 @@ export default function homePage(props) {
 
       <ProCard>
         <Tabs onChange={callback} type="card">
-          <TabPane tab="Vše" key="1">
-            <Slider {...settings} className="ml-8 pl-5 mr-10">
+          <TabPane className="" tab="Vše" key="1">
+            <Slider {...settings} className="ml-0 pl-0 mr-0 md:ml-8 md:pl-5 md:mr-10 xl:ml-8 xl:pl-5 xl:mr-10">
               {allCourses.map(c => (<CoursesMainCard courseName={c.name} price={c.price} photoUrl={c.photoUrl} capacity={c.capacity} instructor={c.instructor} place={c.place} />))}
             </Slider>
           </TabPane>
           <TabPane tab="IT" key="2">
-            <Slider {...settings} className="ml-8 pl-5 mr-10">
+            <Slider {...settings} className="ml-8 pl-5 mr-10 md:ml-0 pl-0 mr-0 lg:ml-0 pl-0 mr-0">
               {itCourses.map(c => (<CoursesMainCard about={c.name} />))}
             </Slider>
           </TabPane>
           <TabPane tab="Sport" key="3">
-            <Slider {...settings} className="ml-8 pl-5 mr-10">
+            <Slider {...settings} className="ml-8 pl-5 mr-10 md:ml-0 pl-0 mr-0 lg:ml-0 pl-0 mr-0">
               {sportCourses.map(c => (<CoursesMainCard about={c.name} />))}
             </Slider>
           </TabPane>
@@ -128,7 +158,7 @@ export default function homePage(props) {
         </div>
       </ProCard>
 
-      <ProCard>
+      <ProCard className="hidden md:block">
         <Row gutter={16} justify="space-between">
           <Col className="gutter-row" span={5} >
             <Statistic title="Již od roku 2005" value={112893} prefix={<ClockCircleOutlined style={{ display: "block", alignItems: "baseline" }} />} />
