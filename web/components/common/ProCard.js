@@ -7,12 +7,10 @@ const ProCard = (props) => {
 
     return (
         <Layout.Content
-            className=""
+            className={`${props?.className} w-full sm:w-5/6`}
             style={{
                 padding: "24px",
                 backgroundColor: "white",
-                width: "1169px",
-                margin: "auto"
             }}
         >
             {props.children}

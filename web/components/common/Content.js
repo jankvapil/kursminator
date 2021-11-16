@@ -17,14 +17,14 @@ const Content = (props) => {
                 <title>Kurzminator</title>
                 <link rel="icon" href="/logokursm-light.ico" />
             </Head>
-            
-            <Header/>
-            <main className={styles.test}>
+
+            <Header />
+            <main className={styles.contentBackground}>
                 {props.children}
             </main>
             <Footer />
         </div>
-  )
+    )
 }
 
 export default Content
