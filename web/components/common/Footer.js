@@ -1,4 +1,5 @@
-﻿import { Layout } from 'antd';
+﻿import { RobotFilled, RobotOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
 import 'antd/dist/antd.css';
 import Link from 'next/link'
 
@@ -21,7 +22,7 @@ const Footer = () => {
                 <Layout.Footer style={BgColor001529}>
                     <div className="flex justify-around">
                         <div className="flex flex-col">
-                            <Link href="/"><span className="text-white">IT</span></Link>
+                            <Link href="/"><span className="text-white" style={{fontFamily: RobotOutlined}}>IT</span></Link>
                             <Link href="/" className="m-0"><span className="text-white">Sport</span></Link>
                             <div className="mt-auto self-end flex items-center">
                                 <div>
@@ -51,17 +52,17 @@ const Footer = () => {
 
                         <div className="">
                             <div>
-                                <img className="mt-1.5 float-left mr-3" src="/facebook.png" alt="facebook-icon" width="12" height="12" />
+                                <img className="float-left mr-3"  style={{marginTop: 5}} src="/facebook.png" alt="facebook-icon" width="12" height="12" />
                                 <Link href="/" className="ml-3 bg-black"><span className="text-white">Facebook</span></Link>
                             </div>
 
                             <div>
-                                <img className="mt-1.5 float-left mr-3" src="/instagram.png" alt="instagram-icon" width="12" height="12" />
+                                <img className="float-left mr-3" style={{marginTop: 5}} src="/instagram.png" alt="instagram-icon" width="12" height="12" />
                                 <Link href="/"><span className="text-white">Instagram</span></Link>
                             </div>
 
                             <div>
-                                <img className="mt-1.5 float-left mr-3" src="/google+.png" alt="instagram-icon" width="12" height="12" />
+                                <img className="mt-1.5 float-left mr-3" style={{marginTop: 5, fontFamily: RobotFilled}} src="/google+.png" alt="instagram-icon" width="12" height="12" />
                                 <Link href="/"><span className="text-white">Google+</span></Link>
                             </div>
                         </div>
