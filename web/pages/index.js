@@ -116,7 +116,7 @@ export default function homePage(props) {
               <Paragraph>Vyberte si z naší široké nabídky témat jako je osobní rozvoj, komunikační dovednosti, manažerské dovednosti nebo rozvíjet své specializovanosti prostřednictvím široké škály odborných kurzů.</Paragraph>
             </Space>
           </Col>
-          <Col className="hidden md:block gutter-row" lg={10} md={10} sm={0} offset={{ md: 2, sm: 0 }}>
+          <Col className="hidden md:block gutter-row" lg={10} md={10} sm={0} offset={2}>
             <Image
               src="/cource-logo.png"
               preview={false}
