@@ -5,16 +5,18 @@ import Link from 'next/link'
 ///
 /// Header component
 ///
-const Header = () => {
+const Header = (props) => {
   return (
-    <Layout className="layout">
+    <Layout className={`${props.className} layout`}>
       <Layout.Header className="flex justify-between sm:justify-around items-center" style={{ paddingLeft: 10, paddingRight: 10 }}>
         <div className="flex md:hidden text-2xl">
           <MenuOutlined style={{ color: "#fff" }} />
         </div>
         <div className="flex items-center mt-1 cursor-pointer">
           <Link href="/">
-            <Image src="/logokursm-light.ico" alt="logo" preview={false} height="40px" />
+            <span className="flex">
+              <Image src="/logokursm-light.ico" alt="logo" preview={false} height="40px" />
+            </span>
           </Link>
           <Link href="/">
             <span className="text-3xl text-white mb-0 ml-4 font-mono font-black">Kursminator</span>
