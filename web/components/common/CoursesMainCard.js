@@ -1,12 +1,15 @@
 import { Card, Tag, Progress, Space } from 'antd';
+import { useRouter } from 'next/router'
 
 ///
 /// CoursesMainCard component
 ///
 const CoursesMainCard = (props) => {
-    // TODO
-    // console.log(props.instructor)
-    // console.log(props.place)
+    const router = useRouter()
+
+    const occupancy = (100 * props.occupancy) / props.capacity
+    const photoUrl = props.photoUrl != undefined ? props.photoUrl : "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+    const instructorName = props.instructor != undefined ? props.instructor.name + " " + props.instructor.surname : "Jmeno lektora"
 
     return (
         <div>
@@ -14,27 +17,27 @@ const CoursesMainCard = (props) => {
                 style={{ width: 240 }}
                 cover={
                     <img
+                        className="cursor-pointer"
                         alt="example"
-                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                        src={photoUrl}
+                        onClick={() => router.push(`courseDetail?id=${props.id}`)}
                     />
                 }
             >
                 <div className="flex justify-between">
                     <div>
-                        <p className="font-bold">{props.courseName}</p>
-                        <p className="text-gray-400">Jmeno Lektora</p>
+                        <p className="font-bold cursor-pointer" onClick={() => router.push(`courseDetail?id=${props.id}`)} >{props.courseName}</p>
+                        <p className="text-gray-400 cursor-pointer" onClick={() => router.push(`instructorDetail?id=${props.instructor.id}`)}>{instructorName}</p>
                         <p>{props.price + " Bodů"}</p>
                     </div>
                     <div className="flex flex-col items-center justify-between">
                         <Space direction="vertical" align="center" size={12}>
-                            <Progress type="circle" percent={90} strokeColor={"#52C41A"} width={50} />
-                            <Tag style={{ borderRadius: "1.5rem", marginRight: "0" }} color="processing">processing</Tag>
+                            <Progress type="circle" percent={occupancy} strokeColor={occupancy > 80 ? "red" : "#52C41A"} width={50} />
+                            <Tag style={{ borderRadius: "1.5rem", marginRight: "0" }} color="processing">{props.place?.virtual == true ? "Online" : "Prezenčně"}</Tag>
                         </Space>
                     </div>
                 </div>
             </Card>
-            {/* <Progress type="circle" percent={90} strokeColor={30 < 50 ? "red" : "green"} width={50} />
-            <Progress type="circle" percent={90} strokeColor={"#52C41A"} width={50} /> */}
         </div>
     )
 }

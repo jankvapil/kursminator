@@ -5,19 +5,12 @@ import Link from 'next/link'
 ///
 /// Footer component
 ///
-const Footer = () => {
-    const style = {
-        backgroundColor: "#001529"
-    }
-
-    const color = {
-        color: "#ffffff"
-    }
+const Footer = (props) => {
 
     return (
         <>
 
-            <Layout className="layout">
+            <Layout className={`${props.className} layout`}>
                 <Layout.Footer>
                     <div className="flex justify-around">
                         <div className="flex flex-col">
@@ -33,14 +26,14 @@ const Footer = () => {
                         </div>
 
                         <div className="flex flex-col">
-                          <Link href="/">O nás</Link>
-                          <Link href="/" className="m-0">Lektoři</Link>
-                              <Link href="/" className="m-0">Kontakt</Link>
-                              <Link href="/" className="m-0">Kalendář</Link>
-                          <div className="flex items-center mt-4">
-                              <img src="/logotyp.png" alt="logo" width="50" height="60" />
-                              <Link href="/" className="text-3xl mb-0 ml-4 font-extrabold">Flashbulb</Link>
-                        </div>
+                            <Link href="/">O nás</Link>
+                            <Link href="/" className="m-0">Lektoři</Link>
+                            <Link href="/" className="m-0">Kontakt</Link>
+                            <Link href="/" className="m-0">Kalendář</Link>
+                            <div className="flex items-center mt-4">
+                                <img src="/logotyp.png" alt="logo" width="50" height="60" />
+                                <Link href="/" className="text-3xl mb-0 ml-4 font-extrabold">Flashbulb</Link>
+                            </div>
 
                         </div>
 
