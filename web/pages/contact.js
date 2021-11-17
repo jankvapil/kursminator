@@ -79,7 +79,7 @@ export default function contact() {
                         name="agreement"
                         valuePropName="checked"
                         wrapperCol={{
-                            offset: 8,
+                            xs: { offset: 0 }, sm: { offset: 8 },
                             span: 8,
                         }}
                         rules={[
@@ -95,7 +95,7 @@ export default function contact() {
 
                     <Form.Item
                         wrapperCol={{
-                            offset: 8,
+                            xs: { offset: 0 }, sm: { offset: 8 },
                             span: 8,
                         }}
                     >

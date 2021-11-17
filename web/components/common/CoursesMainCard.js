@@ -7,7 +7,6 @@ import { useRouter } from 'next/router'
 const CoursesMainCard = (props) => {
     const router = useRouter()
 
-    const occupancy = (100 * props.occupancy) / props.capacity
     const photoUrl = props.photoUrl != undefined ? props.photoUrl : "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
     const instructorName = props.instructor != undefined ? props.instructor.name + " " + props.instructor.surname : "Jmeno lektora"
 
@@ -32,7 +31,7 @@ const CoursesMainCard = (props) => {
                     </div>
                     <div className="flex flex-col items-center justify-between">
                         <Space direction="vertical" align="center" size={12}>
-                            <Progress type="circle" percent={occupancy} strokeColor={occupancy > 80 ? "red" : "#52C41A"} width={50} />
+                            <Progress type="circle" percent={props.occupancy} strokeColor={props.occupancy > 80 ? "red" : "#52C41A"} width={50} />
                             <Tag style={{ borderRadius: "1.5rem", marginRight: "0" }} color="processing">{props.place?.virtual == true ? "Online" : "Prezenčně"}</Tag>
                         </Space>
                     </div>
