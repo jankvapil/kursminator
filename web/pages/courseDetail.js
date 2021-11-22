@@ -41,8 +41,8 @@ export default function courseDetailPage() {
             </Descriptions>
             <Descriptions bordered className="w-full mt-8">
               <Descriptions.Item span={3} className="bg-gray-50"><Text className="text-3xl">V tomto kurzu se naučíte</Text></Descriptions.Item>
-              {course.skills.map((item, idx) => 
-                <Descriptions.Item span={3} className={idx % 2 == 0 ? "bg-gray-50" : "" }>
+              {course.skills.map((item, idx, i) => 
+                <Descriptions.Item span={3} className={idx % 2 == 0 ? "bg-gray-50" : "" } key={i}>
                   <div className="flex flex-row items-center">
                     <CheckOutlined />
                     <span className="ml-2">{item}</span>
@@ -84,7 +84,7 @@ export default function courseDetailPage() {
               <Collapse defaultActiveKey={['0']}>
                 {course.content.map((item, idx) =>
                   <Panel header={item.name} key={idx}>
-                    <ul className="space-y-4 list-disc ml-5">{item.subchapters.map((sub) => <li>{sub}</li>)}</ul>
+                    <ul className="space-y-4 list-disc ml-5">{item.subchapters.map((sub, i) => <li key={i}>{sub}</li>)}</ul>
                   </Panel>)}
               </Collapse>
             </div>

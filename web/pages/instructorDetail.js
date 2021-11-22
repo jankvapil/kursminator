@@ -52,7 +52,8 @@ export default function instructorDetailPage() {
       'name': course.name,
       'date': moment(course.date).format('D.M.YYYY'),
       'price': course.price,
-      'type': course.type
+      'type': course.type,
+      'key': course.id
     })
   ))
   return (
