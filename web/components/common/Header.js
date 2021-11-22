@@ -1,7 +1,10 @@
-import { Layout, Button, Input, Image, Drawer, Divider } from 'antd'
+import { Layout, Button, Input, Image, Drawer, Divider, Avatar, Dropdown, Menu } from 'antd'
 import { MailOutlined, CalendarOutlined, MenuOutlined, ReadOutlined, SearchOutlined, FacebookFilled, InstagramFilled, GooglePlusSquareFilled } from '@ant-design/icons'
 import Link from 'next/link'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
+import { getUserInfo } from '@/core/graphql/queries/userQueries'
+
 
 ///
 /// Header component
@@ -9,6 +12,9 @@ import React, { useState } from 'react';
 const Header = (props) => {
   const [visibleMenu, setVisibleMenu] = useState(false);
   const [visibleSearchBar, setVisibleSearchBar] = useState(false);
+  const [userInfo, setUserInfo] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null)
+  const router = useRouter();
 
   const showMenu = () => {
     setVisibleMenu(true);
@@ -26,6 +32,32 @@ const Header = (props) => {
 
   const onSearch = value => console.log(value);
 
+  useEffect(() => {
+    setUserInfo(localStorage)
+    loadUserInfo()
+  });
+
+  const loadUserInfo = async () => {
+    const user = await getUserInfo();
+    setCurrentUser(user);
+  }
+
+  const logOut = () => {
+    localStorage.clear();
+    router.push(`/`)
+  }
+
+  const profileMenu = (
+    <Menu>
+      <Menu.Item key="1">
+        <span><Link href="/myProfile">Můj profil</Link></span>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <span onClick={logOut}>Odhlásit</span>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <Layout className={`${props.className} layout`}>
       <Layout.Header className="flex justify-between sm:justify-around items-center" style={{ paddingLeft: 10, paddingRight: 10 }}>
@@ -39,7 +71,7 @@ const Header = (props) => {
             </span>
           </Link>
           <Link href="/">
-            <span className="text-3xl text-white mb-0 ml-4 font-mono font-black">Kursminator</span>
+            <span className="text-2xl sm:text-3xl text-white mb-0 ml-4 font-mono font-black">Kursminator</span>
           </Link>
         </div>
         <div className="hidden sm:flex sm:items-center sm:block">
@@ -49,24 +81,42 @@ const Header = (props) => {
         <div className="hidden md:block w-1/4 lg:w-5/12">
           <Input placeholder="Hledaný kurz..." />
         </div>
-        <div className="hidden sm:flex items-center">
+        <div className="hidden md:flex items-center">
           <MailOutlined style={{ color: "#fff" }} />
           <span className="text-white m-0 ml-2 mr-2"><Link href="/contact">Kontakt</Link></span>
           <CalendarOutlined style={{ color: "#fff" }} />
-          <span className="text-white m-0 ml-2 mr-2"><Link href="/calendar">Kalendář</Link></span>
-          <Button className="mr-5" type="primary">
-            <Link href="/login">Přihlášení</Link>
-          </Button>
+          <span className="text-white m-0 ml-2 mr-8"><Link href="/calendar">Kalendář</Link></span>
+
+          {userInfo.isLogged == "true" && currentUser ?
+            <Dropdown className="-m-5" overlay={profileMenu} placement="bottomCenter" arrow>
+              <span>
+                <Avatar className="cursor-pointer" size={24} src={userInfo.pictureUrl} onClick={() => router.push(`myProfile`)} />
+                <span className="text-white ml-2">{currentUser.name}</span>
+              </span>
+
+            </Dropdown>
+            :
+            <Button className="mr-5" type="primary">
+              <Link href="/login">Přihlášení</Link>
+            </Button>}
+
         </div>
-        <div className="flex md:hidden text-2xl" onClick={showSearchBar}>
+        <div className="flex md:hidden text-2xl gap-2" onClick={showSearchBar}>
           <SearchOutlined style={{ color: "#fff" }} />
+          {userInfo.isLogged == "true" && currentUser ? <Avatar className="cursor-pointer" size={24} src={userInfo.pictureUrl} onClick={() => router.push(`myProfile`)} /> : ""}
         </div>
       </Layout.Header>
+
       {/* Menu */}
       <Drawer className="cursor-pointer" title="" placement="left" onClose={onCloseMenu} visible={visibleMenu}>
-        <p className="mt-8">
-          <Link href="/login" >Přihlášení</Link>
-        </p>
+        <div className="flex flex-col">
+          <p className="mt-8">
+          </p>
+          {userInfo.isLogged == "true" && currentUser ? currentUser.name + " " +
+            currentUser.surname : <Link href="/login" >Přihlášení</Link>}
+          {userInfo.isLogged == "true" && currentUser ? <p className="mb-0">{currentUser.credits} kreditů</p> : ""}
+          {userInfo.isLogged == "true" && currentUser ? <Link href="/">Odhlásit</Link> : ""}
+        </div>
         <Divider />
         <div className="flex flex-col">
           <Link href="/courses" >IT</Link>

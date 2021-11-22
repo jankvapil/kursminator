@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import moment from 'moment'
 import { useRouter } from 'next/router'
-import { Typography, Descriptions, Card, Button, Collapse, Progress, Image } from 'antd'
+import { Typography, Descriptions, Card, Button, Collapse, Progress, Image, message } from 'antd'
 const { Title, Text } = Typography;
 const { Panel } = Collapse;
 import { CheckOutlined } from '@ant-design/icons';
@@ -25,6 +25,11 @@ export default function courseDetailPage() {
   if (loading) return null;
   if (error) return `Error! ${error}`;
   const course = data.courses.nodes[0];
+
+  const messageError = () => {
+    message.error('This function is not implement');
+  };
+
   return (
     <Content>
       <ProCard>
@@ -76,7 +81,7 @@ export default function courseDetailPage() {
                   </div>
                 </div>
                 {/* map button to action */}
-                <Button className="w-full mt-2" type="primary">Koupit</Button>
+                <Button className="w-full mt-2" type="primary" onClick={messageError}>Koupit</Button>
               </div>
             </Card>
             <div className="flex flex-col">

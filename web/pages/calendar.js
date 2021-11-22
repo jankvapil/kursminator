@@ -75,7 +75,6 @@ export default function calendarPage() {
 
   function renderListMetaLink(name, id, link) {
     return <p className="cursor-pointer" onClick={() => router.push(`${link}id=${id}`)}>{name}</p>
-    // return <p className="cursor-pointer" onClick={() => router.push(`courseDetail?id=${id}`)}>{name}</p>
   }
 
   // naplni kalendar
