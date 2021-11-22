@@ -46,7 +46,7 @@ export default function contact() {
                             },
                         ]}
                     >
-                        <Input placeholder="Vaše jmén"/>
+                        <Input placeholder="Vaše jméno"/>
                     </Form.Item>
 
                     <Form.Item
