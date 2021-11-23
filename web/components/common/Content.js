@@ -17,9 +17,9 @@ const Content = (props) => {
                 <title>Kurzminator</title>
                 <link rel="icon" href="/logokursm-light.ico" />
             </Head>
-
+            
             <Header className="font-sans font-family-Roboto" />
-            <main className={`${styles.contentBackground} font-sans font-family-Roboto`}>
+            <main className={`${styles.contentBackground} min-h-screen font-sans font-family-Roboto`}>
                 {props.children}
             </main>
             <Footer className="font-sans font-family-Roboto" />

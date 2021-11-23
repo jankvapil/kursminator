@@ -4,8 +4,9 @@ import { useEffect } from 'react'
 import Content from '@/components/common/Content'
 
 import { fetchAllUsers } from '@/core/graphql/queries/userQueries'
-
-import { Table } from 'antd'
+import AddCreditsInput from '@/components/admin/AddCreditsInput'
+import UserReservationsTable from '@/components/admin/UserReservationsTable'
+import { Table, Popover, Button } from 'antd'
 import { useRouter } from 'next/router'
 
 
@@ -19,7 +20,6 @@ export default function coursesPage(props) {
   useEffect(() => {
     console.log(props)
     if (props.data.users) {
-      
       setUsers(props.data.users)
     }
   }, [])
@@ -30,11 +30,10 @@ export default function coursesPage(props) {
 
   return (
     <Content>
-      <h1>Administrace</h1>
-      {/* <ul>
-        {users.map(user => (<li>{user.name}</li>))}
-      </ul> */}
       <section className="mt-10 mr-4">
+        <header>
+          <h1>Administrace</h1>
+        </header>
         <Table
           rowKey="id"
           columns={[
@@ -51,17 +50,30 @@ export default function coursesPage(props) {
               dataIndex: 'credits',
             },
             {
-              title: 'Přidat',
+              title: 'Připsat kredity',
               dataIndex: 'id',
-              render: id => <button onClick={() => console.log(`${id}`)}>Připsat kredity</button>,
+              render: id =>       
+                <Popover placement="top" title="Počet kreditů" 
+                  content={(<AddCreditsInput user={users.filter(u => u.id == id)[0]}/>)} 
+                  trigger="click"
+                >
+                  <Button>Připsat</Button>
+                </Popover>
             },
             {
               title: 'Kurzy',
               dataIndex: 'id',
-              render: id => <button onClick={() => console.log(`${id}`)}>Upravit stav kurzů</button>,
+              render: id => 
+                <Popover placement="top" title="Rezervace" 
+                  content={(<UserReservationsTable user={users.filter(u => u.id == id)[0]}/>)} 
+                  trigger="click"
+                >
+                  <Button>Rezervace</Button>
+                </Popover>
             },
           ]}
-          dataSource={users} />
+          dataSource={users}
+        />
       </section>
     </Content>
   )
