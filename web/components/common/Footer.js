@@ -27,7 +27,7 @@ const Footer = () => {
                                 <div>
                                     <img src="/logokursm-light.ico" alt="logo" width="50" height="60" />
                                 </div>
-                                <Link  style={ColorWhite} href="/" ><span className="text-white">Kursmintor</span></Link>
+                                <Link href="/" ><span className="text-white">Kursmintor</span></Link>
                             </div>
                         </div>
 
@@ -70,7 +70,7 @@ const Footer = () => {
                     <div className="flex justify-around lg:hidden">
                         <div className="flex items-center mt-4">
                             <img src="/logokursm-light.ico" alt="logo" width="50" height="60" />
-                            <Link  style={ColorWhite} href="/" ><span className="text-white">Kursmintor</span></Link>
+                            <Link href="/" ><span className="text-white">Kursmintor</span></Link>
                         </div>
 
                         <div className="flex items-center mt-4">
