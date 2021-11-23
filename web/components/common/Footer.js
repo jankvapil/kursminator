@@ -27,7 +27,7 @@ const Footer = () => {
                                 <div>
                                     <img src="/logokursm-light.ico" alt="logo" width="50" height="60" />
                                 </div>
-                                <Link href="/" ><span className="text-white">Kursmintor</span></Link>
+                                <Link href="/" ><span className="text-white text-3xl mb-0 ml-4 font-extrabold">Kursmintor</span></Link>
                             </div>
                         </div>
 
@@ -39,7 +39,7 @@ const Footer = () => {
 
                             <div className="flex items-center mt-4">
                                 <img src="/logotyp.png" alt="logo" width="50" height="60" />
-                                <Link href="/" className="text-  3xl mb-0 ml-4 font-extrabold"><span className="text-white">Flashbulb</span></Link>
+                                <Link href="/"><span className="text-white text-3xl mb-0 ml-4 font-extrabold">Flashbulb</span></Link>
                             </div>
                         </div>
 
@@ -67,20 +67,20 @@ const Footer = () => {
                     </div>
 
                     {/* Mobile version */}
-                    <div className="flex justify-around lg:hidden">
-                        <div className="flex items-center mt-4">
-                            <img src="/logokursm-light.ico" alt="logo" width="50" height="60" />
-                            <Link href="/" ><span className="text-white">Kursmintor</span></Link>
+                    <div className="flex justify-between md:justify-around lg:hidden">
+                        <div className="flex items-center mt-4 -ml-5">
+                            <img src="/logokursm-light.ico" alt="logo" className="w-8" />
+                            <Link href="/" ><span className="text-white text-xl md:text-3xl mb-0 ml-2 font-extrabold">Kursmintor</span></Link>
                         </div>
 
-                        <div className="flex items-center mt-4">
-                            <img src="/logotyp.png" alt="logo" width="50" height="60" />
-                            <Link href="/" className="text-  3xl mb-0 ml-4 font-extrabold"><span className="text-white">Flashbulb</span></Link>
+                        <div className="flex items-center mt-4 ml-10 ">
+                            <img src="/logotyp.png" alt="logo"  className="w-9"/>
+                            <Link href="/"><span className="text-white text-xl md:text-3xl mb-0 ml-1 font-extrabold">Flashbulb</span></Link>
                         </div>
                     </div>
 
                     {/* Copyright */}
-                    <p className="text-center mt-8 mb-4 lg:p-0 lg:float-right text-white"><span className="pr-0.5">Copyright</span>@2021 ITFIT s.r.o</p>
+                    <p className="text-center mt-2 mb-4 lg:p-0 lg:float-right text-white"><span className="pr-0.5">Copyright</span>@2021 ITFIT s.r.o</p>
                 </Layout.Footer>
             </Layout>
         </>
