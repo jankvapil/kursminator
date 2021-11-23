@@ -41,8 +41,8 @@ const coursesColumns = [
 export default function instructorDetailPage() {
   const router = useRouter()
   const id = parseInt(router.query.id)
-  const { loading, error, data } = useQuery(ALL_INSTRUCTOR_DETAIL_QUERY, 
-    {variables: { id }})
+  const { loading, error, data } = useQuery(ALL_INSTRUCTOR_DETAIL_QUERY,
+    { variables: { id } })
 
   if (loading) return null;
   if (error) return `Error! ${error}`;
@@ -52,7 +52,8 @@ export default function instructorDetailPage() {
       'name': course.name,
       'date': moment(course.date).format('D.M.YYYY'),
       'price': course.price,
-      'type': course.type
+      'type': course.type,
+      'key': course.id
     })
   ))
   return (
@@ -60,11 +61,11 @@ export default function instructorDetailPage() {
       <ProCard>
         <div className="flex flex-col w-full">
           <Title level={3}>{instructor.name} {instructor.surname}</Title>
-          <div className="flex flex-row w-full justify-between">
-            <div className="mx-12 mt-4">
+          <div className="flex flex-col w-full justify-between md:flex-row">
+            <div className="mx-12 mt-4 mb-4">
               <Avatar src={instructor.photoUrl} size={250} draggable="false" />
             </div>
-            <div className="w-1/3">
+            <div className="w-full md:w-2/3">
               <Descriptions bordered>
                 <Descriptions.Item label="Věk" span={3}>{instructor.age} let</Descriptions.Item>
                 <Descriptions.Item label="Specializace" span={3}>{instructor.specialization}</Descriptions.Item>
@@ -75,7 +76,7 @@ export default function instructorDetailPage() {
           </div>
           <div className="w-full pt-16">
             <Table dataSource={coursesData} columns={coursesColumns} />
-          </div>``
+          </div>
         </div>
       </ProCard>
     </Content>

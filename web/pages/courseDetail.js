@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import moment from 'moment'
 import { useRouter } from 'next/router'
-import { Typography, Descriptions, Card, Button, Collapse, Progress, Image } from 'antd'
+import { Typography, Descriptions, Card, Button, Collapse, Progress, Image, message } from 'antd'
 const { Title, Text } = Typography;
 const { Panel } = Collapse;
 import { CheckOutlined } from '@ant-design/icons';
@@ -25,6 +25,11 @@ export default function courseDetailPage() {
   if (loading) return null;
   if (error) return `Error! ${error}`;
   const course = data.courses.nodes[0];
+
+  const messageError = () => {
+    message.error('This function is not implement');
+  };
+
   return (
     <Content>
       <ProCard>
@@ -41,8 +46,8 @@ export default function courseDetailPage() {
             </Descriptions>
             <Descriptions bordered className="w-full mt-8">
               <Descriptions.Item span={3} className="bg-gray-50"><Text className="text-3xl">V tomto kurzu se naučíte</Text></Descriptions.Item>
-              {course.skills.map((item, idx) => 
-                <Descriptions.Item span={3} className={idx % 2 == 0 ? "bg-gray-50" : "" }>
+              {course.skills.map((item, idx, i) => 
+                <Descriptions.Item span={3} className={idx % 2 == 0 ? "bg-gray-50" : "" } key={i}>
                   <div className="flex flex-row items-center">
                     <CheckOutlined />
                     <span className="ml-2">{item}</span>
@@ -76,7 +81,7 @@ export default function courseDetailPage() {
                   </div>
                 </div>
                 {/* map button to action */}
-                <Button className="w-full mt-2" type="primary">Koupit</Button>
+                <Button className="w-full mt-2" type="primary" onClick={messageError}>Koupit</Button>
               </div>
             </Card>
             <div className="flex flex-col">
@@ -84,7 +89,7 @@ export default function courseDetailPage() {
               <Collapse defaultActiveKey={['0']}>
                 {course.content.map((item, idx) =>
                   <Panel header={item.name} key={idx}>
-                    <ul className="space-y-4 list-disc ml-5">{item.subchapters.map((sub) => <li>{sub}</li>)}</ul>
+                    <ul className="space-y-4 list-disc ml-5">{item.subchapters.map((sub, i) => <li key={i}>{sub}</li>)}</ul>
                   </Panel>)}
               </Collapse>
             </div>

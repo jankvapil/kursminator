@@ -1,5 +1,5 @@
 ﻿import Content from '../components/common/Content'
-import { Calendar, Badge, List, ConfigProvider } from 'antd'
+import { Calendar, Badge, List, ConfigProvider, Divider } from 'antd'
 import "moment/locale/cs";
 import locate from "antd/lib/locale/cs_CZ";
 import '@/core/types'
@@ -8,6 +8,33 @@ import React, { useEffect, useState } from 'react'
 import { gql } from 'graphql-request'
 import { client } from '@/core/graphql/client'
 import ProCard from '@/components/common/ProCard';
+import { useRouter } from 'next/router'
+
+
+function useWindowSize() {
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+
+      window.addEventListener("resize", handleResize);
+
+      handleResize();
+
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+  return windowSize;
+}
 
 function getListData(value, courses) {
   let listData = []
@@ -19,20 +46,6 @@ function getListData(value, courses) {
   }
 
   return listData || [];
-}
-
-// naplni kalendar
-function dateCellRender(value, courses) {
-  const listData = getListData(value, courses);
-  return (
-    <ul className="events">
-      {listData.map(item => (
-        <li key={item.content}>
-          <Badge status={item.type} text={item.content} />
-        </li>
-      ))}
-    </ul>
-  );
 }
 
 // vrati casovy rozsah kurzu
@@ -57,6 +70,26 @@ function getDateTime(dateString) {
 /// Calendar page
 ///
 export default function calendarPage() {
+  const sizeWindow = useWindowSize();
+  const router = useRouter()
+
+  function renderListMetaLink(name, id, link) {
+    return <p className="cursor-pointer" onClick={() => router.push(`${link}id=${id}`)}>{name}</p>
+  }
+
+  // naplni kalendar
+  function dateCellRender(value, courses) {
+    const listData = getListData(value, courses);
+    return (
+      <ul className="events">
+        {listData.map(item => (
+          <li key={item.content}>
+            <Badge status={item.type} text={sizeWindow.width < 640 ? "" : item.content} />
+          </li>
+        ))}
+      </ul>
+    );
+  }
 
   const [coursesData, setCoursesData] = useState([]) // vsechny kurzy
   const [courses, setCourses] = useState([]) // aktulni kurzy (vyfiltrovane podle zvoleneho dnu v kalendari)
@@ -66,7 +99,6 @@ export default function calendarPage() {
     //setSelectedDate(new Date("2019/02/02"))
     loadCourses()
   }, [])
-
 
   const loadCourses = async () => {
     const query = gql`  
@@ -123,16 +155,20 @@ export default function calendarPage() {
   return (
     <Content>
       <ProCard>
-        <div className="flex">
+        <div className="flex flex-col gap-x-4 sm:flex-row">
           <ConfigProvider locale={locate}>
             <Calendar
               dateCellRender={(e) => dateCellRender(e, coursesData)}
-              className="w-5/6"
+              className="w-full sm:w-5/6"
+              fullscreen={sizeWindow.width > 640 ? true : false}
               onPanelChange={onPanelChange}
               onSelect={onSelect}
             />
+            <div className="block sm:hidden">
+              <Divider >Detail dne</Divider>
+            </div>
             <List
-              className="w-1/6"
+              className="w-full sm:w-1/6 pl-5"
               header={<p className="font-bold">{selectedDate.getDate()}.{selectedDate.getMonth() + 1}.{selectedDate.getFullYear()}</p>}
               dataSource={courses}
               renderItem={item => (
@@ -142,8 +178,8 @@ export default function calendarPage() {
                     description={item.duration + ' min'}
                   />
                   <List.Item.Meta
-                    title={item.name}
-                    description={item.instructor.name}
+                    title={renderListMetaLink(item.name, item.id, "courseDetail?")}
+                    description={renderListMetaLink(item.instructor.name, item.instructor.id, "instructorDetail?")}
                   />
                 </List.Item>
               )}

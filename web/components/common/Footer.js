@@ -12,10 +12,6 @@ const Footer = () => {
         backgroundColor: "#001529"
     }
 
-    const ColorWhite = {
-        Color: "#ffffff"
-    }
-
     return (
         <>
 
