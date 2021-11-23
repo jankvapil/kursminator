@@ -16,7 +16,7 @@ namespace CourseApi.GraphQL
     public class Query 
     {
         [UseDbContext(typeof(AppDbContext))]
-        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue)]
+        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue, MaxPageSize = int.MaxValue)]
         [UseFiltering]
 
         public IQueryable<Course> GetCourses([ScopedService] AppDbContext context)
@@ -25,7 +25,7 @@ namespace CourseApi.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
-        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue)]
+        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue, MaxPageSize = int.MaxValue)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<Instructor> GetInstructors([ScopedService] AppDbContext context)
@@ -34,7 +34,7 @@ namespace CourseApi.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
-        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue)]
+        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue, MaxPageSize = int.MaxValue)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<Place> GetPlaces([ScopedService] AppDbContext context)
@@ -43,7 +43,7 @@ namespace CourseApi.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
-        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue)]
+        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue, MaxPageSize = int.MaxValue)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<User> GetUsers([ScopedService] AppDbContext context)
@@ -66,7 +66,7 @@ namespace CourseApi.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
-        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue)]
+        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue, MaxPageSize = int.MaxValue)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<Role> GetRoles([ScopedService] AppDbContext context)
@@ -75,7 +75,7 @@ namespace CourseApi.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
-        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue)]
+        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue, MaxPageSize = int.MaxValue)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<UserCourseFavourite> GetUserCourseFavourites([ScopedService] AppDbContext context)
@@ -84,7 +84,7 @@ namespace CourseApi.GraphQL
         }
 
         [UseDbContext(typeof(AppDbContext))]
-        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue)]
+        [UsePaging(IncludeTotalCount = true, DefaultPageSize = int.MaxValue, MaxPageSize = int.MaxValue)]
         [UseProjection]
         [UseFiltering]
         public IQueryable<UserCourseReservation> UserCourseReservations([ScopedService] AppDbContext context)
