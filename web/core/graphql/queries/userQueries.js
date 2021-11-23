@@ -41,3 +41,36 @@ const CURRENT_USER = gql`
     }
   }
 `
+
+
+/**
+ * @returns {array} all users 
+ */
+ export const fetchAllUsers = async () => {
+  const res = await sendRequest(ALL_USERS)
+  if (res) {
+    return { users: res.users.nodes }
+  }
+}
+
+const ALL_USERS = gql`
+  query {
+    users {
+      nodes {
+        id
+        name
+        surname
+        email
+        credits
+        userCourseReservations {
+          id
+          course {
+            id
+            name
+          }
+          state
+        }
+      }
+    }
+  }
+`

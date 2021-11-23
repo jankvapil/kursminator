@@ -13,19 +13,13 @@ const FbLoginButton = () => {
   /// Calls get API token from FB token
   ///
   const responseFacebook = async (e) => {
-    console.log(e)
-    console.log(e.picture.data.url)
-    
     localStorage.setItem('isLogged', 'true')
-    
     localStorage.setItem('pictureUrl', e.picture.data.url)
-    const res = await getToken(e.accessToken)
-    console.log(res)
+    await getToken(e.accessToken)
     router.push("/myProfile")
   }
 
   return (
-
     <FacebookLogin 
       appId="344073607406912" 
       version="11.0" 
@@ -33,7 +27,6 @@ const FbLoginButton = () => {
       xfbml={true} 
       callback={responseFacebook}
     />
-
   )
 }
 
