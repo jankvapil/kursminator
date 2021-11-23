@@ -62,6 +62,8 @@ const ALL_USERS = gql`
         surname
         email
         credits
+        photoUrl
+        roleId
         userCourseReservations {
           id
           course {
