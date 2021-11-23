@@ -27,7 +27,7 @@ export default function myProfilePage(props) {
 
   const loadUserInfo = async () => {
     const res = await getUserInfo()
-    // console.log(res)
+    console.log(res)
     setCurrentUser(res)
   }
 

@@ -49,6 +49,18 @@
  * @property {Array<Course>?} courses
  */
 
+/**
+ * @typedef User
+ * @type {object}
+ * @property {number} id
+ * @property {string} name
+ * @property {string} surname
+ * @property {string} email
+ * @property {string} photoUrl
+ * @property {number} roleId
+ * @property {number} credits
+ */
+
 /** 
  * @enum {string} 
  */
