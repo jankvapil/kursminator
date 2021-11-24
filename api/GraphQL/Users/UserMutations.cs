@@ -85,5 +85,24 @@ namespace api.GraphQL.Users
 
             return user.Id;
         }
+
+        [UseDbContext(typeof(AppDbContext))]
+        //[Authorize(Roles = new[] { "Manager", "Admin" })]
+        public async Task<int> AddUserCredist([ScopedService] AppDbContext context, int userId, int credits)
+        {
+            var user = context.Users.Find(userId);
+            if (user is null)
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
+
+            user.Credits += credits;
+
+            if (user.Credits < 0)
+                throw new HttpRequestException("User cannot have a negative number of credits.", null, HttpStatusCode.BadRequest);
+
+            await context.SaveChangesAsync();
+
+            return user.Credits;
+
+        }
     }
 }
