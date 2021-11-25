@@ -27,3 +27,23 @@ export const updateUserMutation = async (user) => {
   const data = await client.request(mutation)
   return data
 }
+
+/**
+ * Book course for current User
+ * 
+ * @param {number} courseReservationId
+ */
+ export const bookCourseMutation = async (userId, courseId) => {
+  const mutation = gql`
+    mutation {
+      addUserCourseReservation(input: {
+        userId: ${userId}
+        courseId: ${courseId}
+      }) {
+        id
+      }
+    }
+  `
+  const data = await client.request(mutation)
+  return data
+ }
