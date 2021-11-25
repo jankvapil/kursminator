@@ -9,3 +9,7 @@
     gap: 16px;
     align-items: center;
 }
+
+.itemBackgroundColor {
+    background-color: #F0F2F5;
+}
