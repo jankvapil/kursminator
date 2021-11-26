@@ -41,7 +41,6 @@ namespace api.GraphQL.Courses
         [Required] [MinLength(1)]
         public string[] Skills { get; set; }
 
-        [Required] [MinLength(1)]
         public CourseChapter[] Content { get; set; }
 
         [Required]
