@@ -79,6 +79,7 @@ namespace api.Services
 
             SmtpClient client = new(this.gmailSettings.Server, this.gmailSettings.Port)
             {
+                UseDefaultCredentials = false,
                 Credentials = new NetworkCredential
                 {
                     UserName = this.gmailSettings.Email,
