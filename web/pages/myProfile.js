@@ -20,14 +20,13 @@ export default function myProfilePage(props) {
   useEffect(() => {
     setLs(window.localStorage)
     loadUserInfo()
-    if (props.data.courses) {
-      setFavouriteCourses(props.data.courses)
-    }
   }, [])
 
   const loadUserInfo = async () => {
     const res = await getUserInfo()
-    console.log(res)
+    const reservations = res.userCourseReservations.map(c => { return { ...c.course, state: c.state }})
+    const sorted = reservations.sort((a, b) => new Date(b.date) - new Date(a.date))
+    setFavouriteCourses(sorted)
     setCurrentUser(res)
   }
 
@@ -65,8 +64,8 @@ export default function myProfilePage(props) {
                       },
                       {
                         title: 'Status',
-                        dataIndex: 'id',
-                        render: text => <span className="bg-blue-200 rounded-md py-1 px-1.5">Rezervovaný</span>
+                        dataIndex: 'state',
+                        render: text => <span className="bg-blue-200 rounded-md py-1 px-1.5">{ text }</span>
                       },
                       {
                         title: 'Cena',
@@ -84,10 +83,10 @@ export default function myProfilePage(props) {
   )
 }
 
-///
-/// This gets called on every request
-///
-export const getServerSideProps = async () => {
-  const courses = await fetchAllCourses()
-  return { props: { data: { ...courses } } }
-}
+// ///
+// /// This gets called on every request
+// ///
+// export const getServerSideProps = async () => {
+//   const courses = await fetchAllCourses()
+//   return { props: { data: { ...courses } } }
+// }
