@@ -69,7 +69,7 @@ export default function managerPage(props) {
               }
             >
               {editCourseTab
-                ? <EditCourse course={course} instructors={props.data.instructors} courseId="366"></EditCourse>
+                ? <EditCourse course={course} instructors={props.data.instructors}></EditCourse>
                 : <CreateCourse instructors={props.data.instructors}></CreateCourse>
               }
             </TabPane>

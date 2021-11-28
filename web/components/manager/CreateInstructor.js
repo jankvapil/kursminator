@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, Input, Form, Button, Select } from 'antd'
+import { Typography, Input, Form, Button, Select, message } from 'antd'
 const { Title } = Typography;
 const { TextArea } = Input;
 const { Option } = Select;
@@ -11,7 +11,7 @@ import { addInstructorMutation } from '@/core/graphql/mutations/instructorMutati
 /// Create instructor component
 ///
 const CreateInstructor = () => {
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         const newInstructor = {
             name: values.name,
             surname: values.surname,
@@ -22,11 +22,18 @@ const CreateInstructor = () => {
             // TODO - default image
             photoUrl: "https://www.shutterstock.com/image-photo/young-man-teacher-posing-classroom-344044361"
         }
-        const result = addInstructorMutation(newInstructor)
+        const res = await addInstructorMutation(newInstructor)
+        if (res.addInstructor) {
+            message.success('Nový lektor byl úspěšně přidán')
+            //clear field
+            form.resetFields()
+        }
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+    const [form] = Form.useForm();
 
     return (
         <div className="flex flex-col w-full h-full">
@@ -35,6 +42,7 @@ const CreateInstructor = () => {
             </div>
             <div className="flex flex-col items-center w-full">
                 <Form
+                    form={form}
                     name="addInstructor"
                     labelCol={{ span: 9 }}
                     wrapperCol={{ span: 32 }}
@@ -81,7 +89,6 @@ const CreateInstructor = () => {
                             <Option value="Management">Management</Option>
                             <Option value="Marketing">Marketing</Option>
                             <Option value="Finance">Finance</Option>
-                            <Option value="Psychologie">Psychologie</Option>
                             <Option value="Historie">Historie</Option>
                         </Select>
                     </Form.Item>
