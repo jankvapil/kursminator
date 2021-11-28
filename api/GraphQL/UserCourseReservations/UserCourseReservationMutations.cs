@@ -29,7 +29,7 @@ namespace api.GraphQL.UserCourseReservations
             user.Credits -= course.Price;
 
             if (user.Credits < 0)
-                throw new HttpRequestException("User does not have required number of credits.", null, HttpStatusCode.BadRequest);
+                throw new HttpRequestException("Nemáte dostatek kreditů", null, HttpStatusCode.BadRequest);
 
             var userCourseReservation = new UserCourseReservation
             {

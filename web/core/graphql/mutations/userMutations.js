@@ -33,7 +33,7 @@ export const updateUserMutation = async (user) => {
  * 
  * @param {number} courseReservationId
  */
- export const bookCourseMutation = async (userId, courseId) => {
+export const bookCourseMutation = async (userId, courseId) => {
   const mutation = gql`
     mutation {
       addUserCourseReservation(input: {
@@ -44,6 +44,10 @@ export const updateUserMutation = async (user) => {
       }
     }
   `
-  const data = await client.request(mutation)
-  return data
- }
+  try {
+    const data = await client.request(mutation)
+    return data 
+  } catch (error) {
+    return { error: error.response.errors[0].message }
+  }
+}

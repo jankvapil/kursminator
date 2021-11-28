@@ -48,7 +48,7 @@ export default function courseDetailPage() {
   ///
   const bookCourse = async () => {
     if (!logged) {
-      message.error('Pro registraci kurzu se musítě přihlásit!')
+      message.error('Pro registraci kurzu se musíte přihlásit!')
       return
     }
     const filtered = currentUser.userCourseReservations.filter(c => c.course.id == course.id)
@@ -57,7 +57,11 @@ export default function courseDetailPage() {
       if (res.addUserCourseReservation) {
         message.success("Registrace kurzu proběhla úspěšně")
         await loadUserInfo()
-      }
+      } else if (res.error) {
+        message.error(res.error)
+      } else {
+        message.error("Nepodařilo se rezervovat kurz")   
+      } 
     } else {
       message.error('Kurz jste již rezervoval/a!')
     }
