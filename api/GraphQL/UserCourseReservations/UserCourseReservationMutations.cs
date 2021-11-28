@@ -1,4 +1,5 @@
 ﻿using api.GraphQL.UserCourseFavourites;
+using api.GraphQL.Users;
 using CourseApi.Data;
 using CourseApi.Models;
 using HotChocolate;
@@ -17,6 +18,19 @@ namespace api.GraphQL.UserCourseReservations
         [UseDbContext(typeof(AppDbContext))]
         public async Task<UserCourseReservation> AddUserCourseReservationAsync([ScopedService] AppDbContext context, AddUserCourseReservationInput input)
         {
+            var user = await context.Users.FindAsync(input.UserId);
+            if (user is null)
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
+
+            var course = await context.Courses.FindAsync(input.CourseId);
+            if (course is null)
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
+
+            user.Credits -= course.Price;
+
+            if (user.Credits < 0)
+                throw new HttpRequestException("User does not have required number of credits.", null, HttpStatusCode.BadRequest);
+
             var userCourseReservation = new UserCourseReservation
             {
                 UserId = input.UserId,
