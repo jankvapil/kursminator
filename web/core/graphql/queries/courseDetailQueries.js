@@ -34,7 +34,9 @@ export const ALL_COURSE_DETAIL_QUERY = gql`
           id
           name
           virtual
+          url
           address
+          city
         } 
       }
     }

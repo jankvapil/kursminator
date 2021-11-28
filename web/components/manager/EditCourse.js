@@ -1,11 +1,12 @@
 import React from 'react'
 import moment from 'moment'
-import { Typography, Input, Form, Button, Radio, Select, DatePicker } from 'antd'
+import { Typography, Input, Form, Button, Radio, Select, DatePicker, message } from 'antd'
 const { Title } = Typography;
 const { TextArea } = Input;
 const { Option } = Select;
 
 import '@/core/types'
+import { updatePlaceMutation } from '@/core/graphql/mutations/placesMutations'
 import { updateCourseMutation } from '@/core/graphql/mutations/coursesMutations'
 
 ///
@@ -13,12 +14,32 @@ import { updateCourseMutation } from '@/core/graphql/mutations/coursesMutations'
 ///
 const EditCourse = (props) => {
     const course = props.course
-    const [value, setValue] = React.useState(1);
+    const [courseType, setCourseType] = React.useState(course.place.virtual ? "online" : "present");
     const onRadioChange = e => {
-        setValue(e.target.value);
+        setCourseType(e.target.value);
     };
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+    const dateFormat = 'YYYY-MM-DD';
+    const startDate = moment(course.date, dateFormat)
+    const endDate = moment(course.date, dateFormat).add(course.duration, 'hours')
+    const onFinish = async (values) => {
+        // update Place
+        const coursePlaceId = course.place.id
+        const isVirtual = courseType == "online"
+        if (course.place.virtual && !isVirtual || !course.place.virtual && isVirtual) {
+            const updatePlace = {
+                id: course.place.id,
+                virtual: isVirtual,
+                name: course.place.name,
+                url: course.place.url ?? "https://www.google.com/maps",
+                address: course.place.address,
+                city: course.place.city ?? "Brno"
+            }
+            var placeRes = await updatePlaceMutation(updatePlace)
+            if (placeRes.updatePlace) {
+                coursePlaceId = placeRes.updatePlace.id
+            }
+        }
+
         var duration = moment.duration(values.date[1].diff(values.date[0]));
         const updatedCourse = {
             id: course.id,
@@ -27,17 +48,19 @@ const EditCourse = (props) => {
             capacity: course.capacity,
             type: values.category,
             difficulty: values.difficulty,
-            date: moment(values.date[0]).format('YYYY-MM-DD'),
+            date: moment(values.date[0]).format(dateFormat),
             duration: duration.asHours(),
             price: values.price,
             description: values.message,
             skills: course.skills,
             content: course.content,
             instructorId: values.instructorId,
-            placeId: course.placeId // todo map correct place
+            placeId: coursePlaceId
         }
-        const result = updateCourseMutation(updatedCourse)
-        console.log(result)
+        const res = await updateCourseMutation(updatedCourse)
+        if (res.updateCourse) {
+            message.success('Kurz byl úspěšně aktualizován')
+        }
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -51,22 +74,19 @@ const EditCourse = (props) => {
             <div className="flex flex-col w-full items-center">
                 <Form
                     name="addCourse"
-                    labelCol={{ span: 5 }}
+                    labelCol={{ span: 6 }}
                     wrapperCol={{ span: 32 }}
                     layout="horizontal"
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     initialValues={{ 
                             name: course.name,
-                            /* initial date */
                             price: course.price,
                             category: course.type,
                             instructorId: course.instructor.id,
                             difficulty: course.difficulty,
-                            /* map type */
                             message: course.description
                         }}
-                    autoComplete="off"
                 >
                     <Form.Item
                         label="Název"
@@ -81,7 +101,7 @@ const EditCourse = (props) => {
                         name="date"
                         rules={[{ required: true, message: 'Toto pole je povinné!' }]}
                     >
-                        <DatePicker.RangePicker />
+                        <DatePicker.RangePicker defaultValue={[startDate, endDate]} placeholder={["Začátek", "Konec"]}/>
                     </Form.Item>
 
                     <Form.Item
@@ -136,9 +156,9 @@ const EditCourse = (props) => {
                     <Form.Item
                         label="Typ"
                         name="type"
-                        valuePropName={value}
+                        valuePropName={courseType}
                     >
-                        <Radio.Group onChange={onRadioChange} value={value}>
+                        <Radio.Group onChange={onRadioChange} value={courseType}>
                             <Radio value="online">Online</Radio>
                             <Radio value="present">Prezenční</Radio>
                         </Radio.Group>
@@ -152,7 +172,7 @@ const EditCourse = (props) => {
                         <TextArea placeholder="Minimum je 10 znaku." autoSize={true} />
                     </Form.Item>
                     {/* TODO - miss load own photo/image of course */}
-                    {/* TODO - miss input for place - adress, city, aood */}
+                    {/* TODO - miss input for place - adress, city, url */}
                     {/* TODO - miss input for skills, content */}
                     <Form.Item wrapperCol={{ offset: 19, span: 16 }}>
                         <Button type="primary" htmlType="submit">
