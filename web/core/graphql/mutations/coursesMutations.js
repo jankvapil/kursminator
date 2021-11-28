@@ -12,17 +12,17 @@ export const addCourseMutation = async (course) => {
     mutation {
       addCourse(input:{
           name: "${course.name}"
-          photoUrl: "https://www.google.com"
-          capacity: 200
+          photoUrl: "${course.photoUrl}"
+          capacity: ${course.capacity}
           type: "${course.type}"
           difficulty: ${course.difficulty}
           date: "${course.date}"
           duration: ${course.duration}
           price: ${course.price}
           description: "${course.description}"
-          skills: "none"
+          skills: "${course.skills}"
           content: [
-            {name: "none", subchapters: []}
+            { name: "none", subchapters: [] }
           ]
           instructorId: ${course.instructorId}
           placeId: ${course.placeId}
@@ -54,8 +54,10 @@ export const addCourseMutation = async (course) => {
           duration: ${course.duration}
           price: ${course.price}
           description: "${course.description}"
-          skills: ${course.skills}
-          content: ${course.content}
+          skills: "${course.skills}"
+          content: [
+            ${course.content.map((item) => { name: item.name; subchapters: item.subchapters })}
+          ]
           instructorId: ${course.instructorId}
           placeId: ${course.placeId}
       }){

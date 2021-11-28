@@ -37,7 +37,7 @@ export default function courseDetailPage() {
 
   const id = parseInt(router.query.id)
   const { loading, error, data } = useQuery(ALL_COURSE_DETAIL_QUERY, 
-    {variables: { id }})
+    {variables: { id }, pollInterval: 500})
   
   if (loading) return null
   if (error) return `Error! ${error}`
@@ -51,10 +51,13 @@ export default function courseDetailPage() {
       message.error('Pro registraci kurzu se musítě přihlásit!')
       return
     }
-    const filtered = currentUser.userCourseReservations.filter(c => c.id = course.id)
-    if (filtered.length > 0) {
-      const res = await bookCourseMutation(currentUser.id, filtered[0].id)
-      console.log(res)
+    const filtered = currentUser.userCourseReservations.filter(c => c.course.id == course.id)
+    if (!filtered.length) {
+      const res = await bookCourseMutation(currentUser.id, course.id)
+      if (res.addUserCourseReservation) {
+        message.success("Registrace kurzu proběhla úspěšně")
+        await loadUserInfo()
+      }
     } else {
       message.error('Kurz jste již rezervoval/a!')
     }
