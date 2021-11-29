@@ -35,7 +35,7 @@ namespace api.GraphQL.UserCourseReservations
             {
                 UserId = input.UserId,
                 CourseId = input.CourseId,
-                State = ReservationState.WAITING
+                State = ReservationState.APPROVED
             };
 
             await context.UserCourseReservations.AddAsync(userCourseReservation);
