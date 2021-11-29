@@ -43,6 +43,8 @@ export default function homePage(props) {
   const [sportCourses, setsportCourses] = useState([])
   const [allCourses, setallCourses] = useState([])
   const [popularCourses, setpopularCourses] = useState([])
+  const [totalCourses, setTotalCourses] = useState([])
+  const [totalInstructors, setInstructorsCourses] = useState([])
 
   useEffect(() => {
     if (props.mainPage) {
@@ -52,6 +54,8 @@ export default function homePage(props) {
       setsportCourses(props.mainPage.sportCourses.nodes)
       setallCourses(props.mainPage.itCourses.nodes.concat(props.mainPage.sportCourses.nodes, "sportCourses"))
       setpopularCourses(props.mainPage.sportCourses.nodes.slice(0, 2).concat(props.mainPage.itCourses.nodes.slice(0, 1)))
+      setTotalCourses(props.mainPage.itCourses.totalCount + props.mainPage.sportCourses.totalCount)
+      setInstructorsCourses(props.mainPage.instructors.totalCount)
     }
   }, [])
 
@@ -104,13 +108,13 @@ export default function homePage(props) {
       <ProCard>
         <Row gutter={16}>
           <Col className="gutter-row" lg={12} md={12} sm={20}>
-            <Space direction="vertical" size={{ lg: 24, sm: 0 }}>
+            <Space direction="vertical" size={0}>
               <Title level={2}>Online vzdělávací kurzy pro všechny.</Title>
               <ul className="hidden sm:block list-disc list-inside pl-8">
                 <Space direction="vertical" size={40}>
-                  <li>Naučte se pohodlně od profíků to, co potřebujete pro svou práci a osobní rozvoj.</li>
-                  <li>Sbírejte body za každou absolvovanou přednášku</li>
-                  <li>10% obsazení kurzu je vždy uděleno zdarma</li>
+                  <li >Naučte se pohodlně od profíků to, co potřebujete pro svou práci a osobní rozvoj.</li>
+                  <li >Sbírejte body za každou absolvovanou přednášku</li>
+                  <li >10% obsazení kurzu je vždy uděleno zdarma</li>
                 </Space>
               </ul>
               <Paragraph>Vyberte si z naší široké nabídky témat jako je osobní rozvoj, komunikační dovednosti, manažerské dovednosti nebo rozvíjet své specializovanosti prostřednictvím široké škály odborných kurzů.</Paragraph>
@@ -176,7 +180,7 @@ export default function homePage(props) {
             />
           </Col>
           <Col className="gutter-row" span={5} >
-            <Statistic title={"Více než " + Math.round((props.mainPage.itCourses.totalCount + props.mainPage.sportCourses.totalCount) / 10) * 10 + " kurzů"} value={props.mainPage.itCourses.totalCount + props.mainPage.sportCourses.totalCount} prefix={<CustomerServiceOutlined style={{ display: "block", alignItems: "baseline" }} />} />
+            <Statistic title={"Více než " + Math.round((totalCourses) / 10) * 10 + " kurzů"} value={totalCourses} prefix={<CustomerServiceOutlined style={{ display: "block", alignItems: "baseline" }} />} />
             <Statistic
               className="flex items-baseline inline-block align-middle"
               title="trend"
@@ -188,7 +192,7 @@ export default function homePage(props) {
             />
           </Col>
           <Col className="gutter-row" span={5} >
-            <Statistic title={"Více než " + Math.round(props.mainPage.instructors.totalCount / 10) * 10 + " lektorů"} value={props.mainPage.instructors.totalCount} prefix={<TeamOutlined style={{ display: "block", alignItems: "baseline" }} />} />
+            <Statistic title={"Více než " + Math.round(totalInstructors / 10) * 10 + " lektorů"} value={totalInstructors} prefix={<TeamOutlined style={{ display: "block", alignItems: "baseline" }} />} />
             <Statistic
               className="flex items-baseline inline-block align-middle"
               title="trend"
