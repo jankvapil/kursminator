@@ -27,7 +27,7 @@ const CoursesMainCard = (props) => {
                     <div>
                         <p className="font-bold cursor-pointer" onClick={() => router.push(`courseDetail?id=${props.id}`)} >{props.courseName}</p>
                         <p className="text-gray-400 cursor-pointer" onClick={() => router.push(`instructorDetail?id=${props.instructor.id}`)}>{instructorName}</p>
-                        <p>{props.price + " Bodů"}</p>
+                        <p>{props.occupancy > 10 ? props.price : "0" + " Kreditů"}</p>
                     </div>
                     <div className="flex flex-col items-center justify-between">
                         <Space direction="vertical" align="center" size={12}>
