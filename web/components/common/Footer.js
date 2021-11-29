@@ -21,47 +21,46 @@ const Footer = () => {
                     {/* Desktop version */}
                     <div className="lg:flex lg:justify-around hidden">
                         <div className="flex flex-col">
-                            <Link href="/"><span className="text-white md:hidden lg:block font-sans font-family-Roboto" style={{fontFamily: RobotOutlined}}>IT</span></Link>
-                            <Link href="/" className="m-0"><span className="text-white">Sport</span></Link>
+                            <Link href="/"><span className="text-white md:hidden lg:block cursor-pointer" style={{ fontFamily: RobotOutlined }}>IT</span></Link>
+                            <Link href="/" className="m-0"><span className="text-white cursor-pointer">Sport</span></Link>
                             <div className="mt-auto self-end flex items-center">
                                 <div>
                                     <img src="/logokursm-light.ico" alt="logo" width="50" height="60" />
                                 </div>
-                                <Link href="/" ><span className="text-white text-3xl mb-0 ml-4 font-extrabold">Kursmintor</span></Link>
+                                <Link href="/" ><span className="text-white text-3xl mb-0 ml-4 font-extrabold cursor-pointer">Kursmintor</span></Link>
                             </div>
                         </div>
 
                         <div className="flex flex-col">
-                            <Link href="/" md><span className="text-white">O nás</span></Link>
-                            <Link href="/" className="m-0"><span className="text-white">Lektoři</span></Link>
-                            <Link href="/" className="m-0"><span className="text-white">Kontakt</span></Link>
-                            <Link href="/" className="m-0"><span className="text-white">Kalendář</span></Link>
+                            <Link href="/" md><span className="text-white cursor-pointer">O nás</span></Link>
+                            <Link href="/" className="m-0"><span className="text-white cursor-pointer">Lektoři</span></Link>
+                            <Link href="/" className="m-0"><span className="text-white cursor-pointer">Kontakt</span></Link>
+                            <Link href="/" className="m-0"><span className="text-white cursor-pointer">Kalendář</span></Link>
 
                             <div className="flex items-center mt-4">
-                                <img src="/logotyp.png" alt="logo" width="50" height="60" />
-                                <Link href="/"><span className="text-white text-3xl mb-0 ml-4 font-extrabold">Flashbulb</span></Link>
+                                <img src="/logotyp-light.png" alt="logo" width="50" height="60" />
+                                <Link href="/"><span className="text-white text-3xl mb-0 ml-4 font-extrabold cursor-pointer">Flashbulb</span></Link>
                             </div>
                         </div>
 
                         <div className="">
-                            <Link href="/" className="m-0"><span className="text-white">Přihlášení</span></Link><br />
-                            <Link href="/" className="m-0"><span className="text-white">Registrace</span></Link>
+                            <Link href="/" className="m-0"><span className="text-white cursor-pointer">Přihlášení</span></Link><br />
                         </div>
 
                         <div className="">
                             <div>
-                                <img className="float-left mr-3"  style={{marginTop: 5}} src="/facebook.png" alt="facebook-icon" width="12" height="12" />
-                                <Link href="/" className="ml-3 bg-black"><span className="text-white">Facebook</span></Link>
+                                <img className="float-left mr-3" style={{ marginTop: 5 }} src="/facebook.png" alt="facebook-icon" width="12" height="12" />
+                                <Link href="/" className="ml-3 bg-black cursor-pointer"><span className="text-white">Facebook</span></Link>
                             </div>
 
                             <div>
-                                <img className="float-left mr-3" style={{marginTop: 5}} src="/instagram.png" alt="instagram-icon" width="12" height="12" />
-                                <Link href="/"><span className="text-white">Instagram</span></Link>
+                                <img className="float-left mr-3" style={{ marginTop: 5 }} src="/instagram.png" alt="instagram-icon" width="12" height="12" />
+                                <Link href="/"><span className="text-white cursor-pointer">Instagram</span></Link>
                             </div>
 
                             <div>
-                                <img className="mt-1.5 float-left mr-3" style={{marginTop: 5, fontFamily: RobotFilled}} src="/google+.png" alt="instagram-icon" width="12" height="12" />
-                                <Link href="/"><span className="text-white">Google+</span></Link>
+                                <img className="mt-1.5 float-left mr-3" style={{ marginTop: 5, fontFamily: RobotFilled }} src="/google+.png" alt="instagram-icon" width="12" height="12" />
+                                <Link href="/"><span className="text-white cursor-pointer">Google+</span></Link>
                             </div>
                         </div>
                     </div>
@@ -74,7 +73,7 @@ const Footer = () => {
                         </div>
 
                         <div className="flex items-center mt-4 ml-10 ">
-                            <img src="/logotyp.png" alt="logo"  className="w-9"/>
+                            <img src="/logotyp.png" alt="logo" className="w-9" />
                             <Link href="/"><span className="text-white text-xl md:text-3xl mb-0 ml-1 font-extrabold">Flashbulb</span></Link>
                         </div>
                     </div>
