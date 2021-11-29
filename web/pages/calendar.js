@@ -82,9 +82,9 @@ export default function calendarPage() {
     const listData = getListData(value, courses);
     return (
       <ul className="events">
-        {listData.map(item => (
+        {sizeWindow.width < 640 ? "" : listData.map(item => (
           <li key={item.content}>
-            <Badge status={item.type} text={sizeWindow.width < 640 ? "" : item.content} />
+            <Badge status={item.type} text={item.content} />
           </li>
         ))}
       </ul>
@@ -124,7 +124,6 @@ export default function calendarPage() {
 
     try {
       let dat = await client.request(query)
-      console.log(dat.courses.nodes)
       setCoursesData(dat.courses.nodes)
     }
     catch (error) {
