@@ -99,10 +99,12 @@ const Header = (props) => {
             <Button className="mr-5" type="primary">
               <Link href="/login">Přihlášení</Link>
             </Button>}
-
         </div>
-        <div className="flex md:hidden text-2xl gap-2" onClick={showSearchBar}>
-          <SearchOutlined style={{ color: "#fff" }} />
+
+        <div className="flex md:hidden">
+          <div className="flex md:hidden text-2xl gap-2 pr-2" onClick={showSearchBar}>
+            <SearchOutlined style={{ color: "#fff" }} />
+          </div>
           {userInfo.isLogged == "true" && currentUser ? <Avatar className="cursor-pointer" size={24} src={userInfo.pictureUrl} onClick={() => router.push(`myProfile`)} /> : ""}
         </div>
       </Layout.Header>
