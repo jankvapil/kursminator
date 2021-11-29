@@ -36,6 +36,10 @@ namespace CourseApi.Data
                 .HasMany(c => c.UserCourseReservation)
                 .WithOne(r => r.Course)
                 .HasForeignKey(r => r.CourseId);
+
+            modelBuilder.Entity<UserCourseReservation>()
+                .HasIndex(r => new { r.UserId, r.CourseId })
+                .IsUnique();
         }
     
         public DbSet<Course> Courses { get; set; }

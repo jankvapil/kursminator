@@ -62,7 +62,9 @@ namespace CourseApi.GraphQL
 
             var userId = int.Parse(currentUser.FindFirstValue("id"));
 
-            return await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            var thatUser = await context.Users.Include(u => u.UserCourseReservations).ThenInclude(u => u.Course).FirstOrDefaultAsync(u => u.Id == userId);
+
+            return thatUser;
         }
 
         [UseDbContext(typeof(AppDbContext))]

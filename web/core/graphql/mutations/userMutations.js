@@ -27,3 +27,52 @@ export const updateUserMutation = async (user) => {
   const data = await client.request(mutation)
   return data
 }
+
+/**
+ * Book course for current User
+ * 
+ * @param {number} userId 
+ * @param {number} courseId 
+ * 
+ * @return {number} course reservation Id
+ */
+export const bookCourseMutation = async (userId, courseId) => {
+  const mutation = gql`
+    mutation {
+      addUserCourseReservation(input: {
+        userId: ${userId}
+        courseId: ${courseId}
+      }) {
+        id
+      }
+    }
+  `
+  try {
+    const data = await client.request(mutation)
+    return data 
+  } catch (error) {
+    return { error: error.response.errors[0].message }
+  }
+}
+
+/**
+ * Cancel reservation for current User
+ * 
+ * @param {number} userId 
+ * @param {number} courseId 
+ * 
+ * @return {number} course reservation Id
+ */
+ export const cancelReservationMutation = async (userId, courseId) => {
+  const mutation = gql`
+    mutation {
+      cancelReservation(userId: ${userId}, courseId: ${courseId})
+    }
+  `
+  try {
+    const data = await client.request(mutation)
+    return data 
+  } catch (error) {
+    return { error: error.response.errors[0].message }
+  }
+}

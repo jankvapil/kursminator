@@ -50,7 +50,7 @@
 ### UserCourseReservation
 - userID (int)
 - courseID (int)
-- state (enum)  // WAITING, APPROVED, COMPLETED, CANCELLED
+- state (enum)  // APPROVED, COMPLETED, CANCELLED
 ### UserCourseFavourites
 - userID (int)
 - courseID (int)

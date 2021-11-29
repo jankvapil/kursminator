@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace api.GraphQL.Courses
 {
-    public class UpdateCourseInput :AddCourseInput {
+    public class UpdateCourseInput : AddCourseInput {
 
         [Required] [Range(1, int.MaxValue)]
         public int Id { get; set; }

@@ -1,11 +1,11 @@
 
 import Content from '@/components/common/Content'
 import { useEffect, useState } from 'react'
-import { Row, Col } from 'antd'
+import { Row, Col, message } from 'antd'
 import { getUserInfo } from '@/core/graphql/queries/userQueries'
-import { fetchAllCourses } from '@/core/graphql/queries/coursesQueries'
-import { Table } from 'antd'
+import { Table, Popover, Button } from 'antd'
 import { useRouter } from 'next/router'
+import { cancelReservationMutation } from '@/core/graphql/mutations/userMutations'
 import ProCard from '@/components/common/ProCard'
 
 ///
@@ -20,15 +20,24 @@ export default function myProfilePage(props) {
   useEffect(() => {
     setLs(window.localStorage)
     loadUserInfo()
-    if (props.data.courses) {
-      setFavouriteCourses(props.data.courses)
-    }
   }, [])
 
   const loadUserInfo = async () => {
     const res = await getUserInfo()
-    console.log(res)
+    const reservations = res.userCourseReservations.map(c => { return { ...c.course, state: c.state }})
+    const sorted = reservations.sort((a, b) => new Date(b.date) - new Date(a.date))
+    setFavouriteCourses(sorted)
     setCurrentUser(res)
+  }
+
+  const cancelCourseReservation = async (userId, courseId) => {
+    const res = await cancelReservationMutation(userId, courseId)
+    if (res?.cancelReservation) {
+      message.success("Zrušení rezervace proběhlo úspěšně")
+      await loadUserInfo()
+    } else {
+      message.error("Nepodařilo se rezervaci zrušit")
+    }
   }
 
   return (
@@ -65,8 +74,19 @@ export default function myProfilePage(props) {
                       },
                       {
                         title: 'Status',
+                        dataIndex: 'state',
+                        render: text => <span className="bg-blue-200 rounded-md py-1 px-1.5">{ text }</span>
+                      },
+                      {
+                        title: 'Zrušit rezervaci',
                         dataIndex: 'id',
-                        render: text => <span className="bg-blue-200 rounded-md py-1 px-1.5">Rezervovaný</span>
+                        // render: id => <CancelReservationButton userId={currentUser.id} course={favouriteCourses.filter(c => c.id == id)[0]}/>
+                        render: id => {
+                          const course = favouriteCourses.filter(c => c.id == id)[0]
+                          const shouldRender = course.state == "APPROVED"
+                          
+                          return (shouldRender ? <button onClick={() => cancelCourseReservation(currentUser.id, course.id)}>zrusit</button> : "")
+                        }
                       },
                       {
                         title: 'Cena',
@@ -84,10 +104,10 @@ export default function myProfilePage(props) {
   )
 }
 
-///
-/// This gets called on every request
-///
-export const getServerSideProps = async () => {
-  const courses = await fetchAllCourses()
-  return { props: { data: { ...courses } } }
-}
+// ///
+// /// This gets called on every request
+// ///
+// export const getServerSideProps = async () => {
+//   const courses = await fetchAllCourses()
+//   return { props: { data: { ...courses } } }
+// }

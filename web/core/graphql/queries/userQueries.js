@@ -26,17 +26,15 @@ const CURRENT_USER = gql`
       }
       email
       credits
-      userCourseFavourites {
-        course {
-          id
-          name
-        }
-      }
       userCourseReservations {
+        id
         course {
           id
           name
+          date
+          price
         }
+        state
       }
     }
   }
@@ -69,6 +67,7 @@ const ALL_USERS = gql`
           course {
             id
             name
+            date
           }
           state
         }

@@ -71,7 +71,9 @@ namespace api.GraphQL.Courses
 
             public int GetCourseOccupancy([Parent] Course course, [ScopedService] AppDbContext context)
             {
-                double numberOfReservations = GetUserCourseResevation(course, context).Count;
+                double numberOfReservations = GetUserCourseResevation(course, context)
+                    .Where(r => r.State != ReservationState.CANCELLED)
+                    .Count();
 
                 return (int) (numberOfReservations / course.Capacity * 100);
             }

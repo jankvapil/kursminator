@@ -24,7 +24,6 @@ namespace CourseApi.Models
 
     public enum ReservationState
     {
-        WAITING,
         APPROVED,
         COMPLETED,
         CANCELLED

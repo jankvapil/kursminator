@@ -111,9 +111,10 @@ namespace CourseApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseStaticFiles();
             }
-            
+
+            app.UseStaticFiles();
+
             app.UseCors("DefaultPolicy");
 
             app.UseRouting();
