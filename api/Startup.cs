@@ -50,6 +50,10 @@ namespace CourseApi
                 });
             });
 
+            // rest
+            services.AddControllers();
+
+            //graphql
             services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")))
                 .AddGraphQLServer()
                 .AddArgumentValidator()
@@ -124,6 +128,7 @@ namespace CourseApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGraphQL();
+                endpoints.MapControllers();
             });
 
             app.UseGraphQLVoyager(new VoyagerOptions()

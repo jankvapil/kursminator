@@ -40,6 +40,10 @@ namespace api.GraphQL.Courses
             descriptor.Field(c => c.Occupancy)
                 .ResolveWith<Resolvers>(r => r.GetCourseOccupancy(default!, default!))
                 .UseDbContext<AppDbContext>();
+
+            descriptor.Field(c => c.Evaluation)
+                .ResolveWith<Resolvers>(r => r.GetCourseEvaluation(default!, default!))
+                .UseDbContext<AppDbContext>();
         }
 
         private class Resolvers
@@ -76,6 +80,17 @@ namespace api.GraphQL.Courses
                     .Count();
 
                 return (int) (numberOfReservations / course.Capacity * 100);
+            }
+
+            public float GetCourseEvaluation([Parent] Course course, [ScopedService] AppDbContext context)
+            {
+                var reservations = GetUserCourseResevation(course, context);
+                var evaluations = reservations.Where(r => r.Evaluation != -1).Select(r => r.Evaluation);
+
+                if (evaluations.Count() == 0)
+                    return 5;
+
+                return evaluations.Aggregate((x, y) => x + y) / evaluations.Count();
             }
         }
     }

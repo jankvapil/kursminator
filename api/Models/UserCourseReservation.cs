@@ -20,6 +20,8 @@ namespace CourseApi.Models
 
         [Required]
         public ReservationState State { get; set; }
+
+        public int Evaluation { get; set; } = -1;
     }
 
     public enum ReservationState

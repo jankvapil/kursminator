@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
 import { Tabs, Typography, Avatar } from 'antd'
-const { TabPane } = Tabs;
+const { TabPane } = Tabs
 import { FileAddOutlined, UserAddOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons'
 
 import '@/core/types'
@@ -10,9 +10,11 @@ import Content from '../components/common/Content'
 import ProCard from '@/components/common/ProCard'
 import CreateCourse from '@/components/manager/CreateCourse'
 import { fetchAllManager } from '@/core/graphql/queries/managerQueries'
-import EditCourse from '@/components/manager/EditCourse';
+import { fetchAllUsers } from '@/core/graphql/queries/userQueries'
+import EditCourse from '@/components/manager/EditCourse'
 import CreateInstructor from '@/components/manager/CreateInstructor'
 import { ALL_COURSE_DETAIL_QUERY } from "@/core/graphql/queries/courseDetailQueries"
+import UsersTable from '@/components/manager/UsersTable'
 
 ///
 /// Manager create course page
@@ -26,8 +28,8 @@ export default function managerPage(props) {
       const id = parseInt(router.query.id)
       const { loading, error, data } = useQuery(ALL_COURSE_DETAIL_QUERY, 
         {variables: { id }})
-      if (loading) return null;
-      if (error) return `Error! ${error}`;
+      if (loading) return null
+      if (error) return `Error! ${error}`
       course = data.courses.nodes[0]
     }
     return (
@@ -59,7 +61,10 @@ export default function managerPage(props) {
                   Uživatelé
                 </span>
               }
-            ></TabPane>
+            >
+              <UsersTable users={props.data.users}>users</UsersTable>
+
+            </TabPane>
             <TabPane key="newCourse"
               tab={
                 <span>
@@ -94,5 +99,6 @@ export default function managerPage(props) {
 ///
 export const getServerSideProps = async () => {
   const res = await fetchAllManager()
-  return { props: { data: { instructors: res.instructors } } }
+  const users = await fetchAllUsers()
+  return { props: { data: { instructors: res.instructors, ...users } } }
 }
