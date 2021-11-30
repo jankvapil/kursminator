@@ -47,6 +47,8 @@ namespace CourseApi.Models
 
         public float Evaluation { get; set; } = 0;
 
+        public bool Finished { get; set; } = false;
+
         [Required]
         public int InstructorId { get; set; }
 

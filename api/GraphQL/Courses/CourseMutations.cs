@@ -3,6 +3,7 @@ using CourseApi.Models;
 using HotChocolate;
 using HotChocolate.Data;
 using HotChocolate.Types;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,6 +89,30 @@ namespace api.GraphQL.Courses
             await context.SaveChangesAsync();
 
             return course.Id;
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        public async Task<int> CheckCoursesAsync([ScopedService] AppDbContext context)
+        {
+            var nonEvaluatedCourses = context.Courses
+                .Include(c => c.UserCourseReservation)
+                .ThenInclude(r => r.User)
+                .Where(c => !c.Finished && c.Date.AddMinutes(c.Duration) <= DateTime.Now);
+
+            var coursesToFinish = nonEvaluatedCourses.Count();
+
+            foreach (Course course in nonEvaluatedCourses)
+            {
+                foreach (UserCourseReservation reservation in course.UserCourseReservation)
+                {
+                    // send evaluation mail to reservation.User.Email
+                }
+                course.Finished = true;
+            }
+
+            await context.SaveChangesAsync();
+
+            return coursesToFinish;
         }
     }
 }
