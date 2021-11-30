@@ -97,22 +97,25 @@ namespace api.GraphQL.Courses
             var nonEvaluatedCourses = context.Courses
                 .Include(c => c.UserCourseReservation)
                 .ThenInclude(r => r.User)
-                .Where(c => !c.Finished && c.Date.AddMinutes(c.Duration) <= DateTime.Now);
+                .Where(c => !c.Finished).ToArray();
 
-            var coursesToFinish = nonEvaluatedCourses.Count();
-
+            var finishedCourses = 0;
             foreach (Course course in nonEvaluatedCourses)
             {
-                foreach (UserCourseReservation reservation in course.UserCourseReservation)
+                if (course.Date.AddMinutes(course.Duration) <= DateTime.Now)
                 {
-                    // send evaluation mail to reservation.User.Email
+                    foreach (UserCourseReservation reservation in course.UserCourseReservation)
+                    {
+                        // send evaluation mail to reservation.User.Email
+                    }
+                    course.Finished = true;
+                    finishedCourses++;
                 }
-                course.Finished = true;
             }
 
             await context.SaveChangesAsync();
 
-            return coursesToFinish;
+            return finishedCourses;
         }
     }
 }
