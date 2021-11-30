@@ -89,20 +89,5 @@ namespace api.GraphQL.UserCourseReservations
 
             return userCourseReservations.Select(f => f.Id);
         }
-
-        [UseDbContext(typeof(AppDbContext))]
-        public async Task<int> EvaluateAsync([ScopedService] AppDbContext context, int userId, int courseId, [Range(1, 5)] int stars)
-        {
-            var userCourseReservation = await context.UserCourseReservations
-                .FirstOrDefaultAsync(r => r.UserId == userId && r.CourseId == courseId);
-
-            if (userCourseReservation is null)
-                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
-
-            userCourseReservation.Evaluation = stars;
-            await context.SaveChangesAsync();
-
-            return userCourseReservation.Evaluation; // todo: return html
-        }
     }
 }

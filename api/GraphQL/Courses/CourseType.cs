@@ -84,8 +84,11 @@ namespace api.GraphQL.Courses
 
             public float GetCourseEvaluation([Parent] Course course, [ScopedService] AppDbContext context)
             {
-                var evaluations = GetUserCourseResevation(course, context)
-                    .Where(r => r.Evaluation != -1).Select(r => r.Evaluation);
+                var reservations = GetUserCourseResevation(course, context);
+                var evaluations = reservations.Where(r => r.Evaluation != -1).Select(r => r.Evaluation);
+
+                if (evaluations.Count() == 0)
+                    return 5;
 
                 return evaluations.Aggregate((x, y) => x + y) / evaluations.Count();
             }
