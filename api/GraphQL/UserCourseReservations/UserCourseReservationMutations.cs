@@ -134,5 +134,32 @@ namespace api.GraphQL.UserCourseReservations
 
             return userCourseReservations.Select(f => f.Id);
         }
+
+        [UseDbContext(typeof(AppDbContext))]
+        public async Task<int> AddUnregistredCourseReservationAsync([ScopedService] AppDbContext context, [EmailAddress] string email, int courseId)
+        {
+            var course = await context.Courses
+                .Include(c => c.Instructor)
+                .Include(c => c.Place)
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course is null)
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
+
+            var args = new string[]
+            {
+                course.Name,
+                course.Date.ToString(),
+                course.Price.ToString(),
+                course.Duration.ToString(),
+                course.Description,
+                course.Instructor.Name + ' ' + course.Instructor.Surname,
+                course.Place.Name
+            };
+
+            smtpService.Send(email, 7, "Potvrzení rezervace", args);
+
+            return course.Id;
+        }
     }
 }

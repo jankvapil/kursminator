@@ -36,6 +36,16 @@ namespace api.Services
             return body;
         }
 
+        public string Send(string userEmail, int type, string subject, string[] args)
+        {
+            var recipient = new User() { Email = userEmail, Name = userEmail.Split('@')[0] };
+            var body = GetEmailBody(recipient, type, args);
+
+            Execute(recipient, subject, body);
+
+            return body;
+        }
+
         public async Task<string> Send(AppDbContext context, int type, string subject, string[] args)
         {
             var contextUser = httpContext.HttpContext.User;
