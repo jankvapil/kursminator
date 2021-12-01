@@ -1,4 +1,5 @@
-﻿using api.GraphQL.UserCourseFavourites;
+﻿using api.GraphQL.Courses;
+using api.GraphQL.UserCourseFavourites;
 using api.GraphQL.Users;
 using api.Services;
 using CourseApi.Data;
@@ -38,7 +39,12 @@ namespace api.GraphQL.UserCourseReservations
             if (course is null)
                 throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
-            user.Credits -= course.Price;
+            if (course.Finished)
+                throw new HttpRequestException("This course is already finished", null, HttpStatusCode.BadRequest);
+
+            var isFree = new CourseType.Resolvers().GetCourseOccupancy(course, context) <= 10;
+            if (!isFree)
+                user.Credits -= course.Price;
 
             if (user.Credits < 0)
                 throw new HttpRequestException("Nemáte dostatek kreditů", null, HttpStatusCode.BadRequest);
@@ -47,7 +53,8 @@ namespace api.GraphQL.UserCourseReservations
             {
                 UserId = input.UserId,
                 CourseId = input.CourseId,
-                State = ReservationState.APPROVED
+                State = ReservationState.APPROVED,
+                IsFree = isFree
             };
 
             await context.UserCourseReservations.AddAsync(userCourseReservation);
@@ -57,7 +64,7 @@ namespace api.GraphQL.UserCourseReservations
             {
                 course.Name,
                 course.Date.ToString(),
-                course.Price.ToString(),
+                isFree ? "0" : course.Price.ToString(),
                 course.Duration.ToString(),
                 course.Description,
                 course.Instructor.Name + ' ' + course.Instructor.Surname,
@@ -105,8 +112,9 @@ namespace api.GraphQL.UserCourseReservations
             if (userCourseReservation.Course.Date.AddDays(-1) <= DateTime.Now)
                 throw new HttpRequestException("It is too late to cancel the course.", null, HttpStatusCode.BadRequest);
 
+            if (!userCourseReservation.IsFree)
+                userCourseReservation.User.Credits += userCourseReservation.Course.Price;
             userCourseReservation.State = ReservationState.CANCELLED;
-            userCourseReservation.User.Credits += userCourseReservation.Course.Price;
 
             await context.SaveChangesAsync();
 

@@ -46,7 +46,7 @@ namespace api.GraphQL.Courses
                 .UseDbContext<AppDbContext>();
         }
 
-        private class Resolvers
+        public class Resolvers
         {
             public string[] GetSkillsArray([Parent] Course course)
             {
