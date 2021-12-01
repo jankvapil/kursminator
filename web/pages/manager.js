@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
-import { Tabs, Typography, Avatar } from 'antd'
+import { Tabs, Typography, Avatar, Button, message } from 'antd'
 const { TabPane } = Tabs
 import { FileAddOutlined, UserAddOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons'
 
@@ -11,6 +11,7 @@ import ProCard from '@/components/common/ProCard'
 import CreateCourse from '@/components/manager/CreateCourse'
 import { fetchAllManager } from '@/core/graphql/queries/managerQueries'
 import { fetchAllUsers } from '@/core/graphql/queries/userQueries'
+import { checkCoursesMutation } from '@/core/graphql/mutations/adminMutations'
 import EditCourse from '@/components/manager/EditCourse'
 import CreateInstructor from '@/components/manager/CreateInstructor'
 import { ALL_COURSE_DETAIL_QUERY } from "@/core/graphql/queries/courseDetailQueries"
@@ -32,6 +33,16 @@ export default function managerPage(props) {
       if (error) return `Error! ${error}`
       course = data.courses.nodes[0]
     }
+
+    const checkCourses = async () => {
+      const res = await checkCoursesMutation()
+      if (res?.checkCourses) {
+        message.success(`${res.checkCourses} uzavřených kurzů`)
+      } else {
+        message.info(`Všechny kurzy jsou již uzavřeny`)
+      }
+    }
+
     return (
       <Content>
         <ProCard>
@@ -87,6 +98,13 @@ export default function managerPage(props) {
               }
             >
               <CreateInstructor></CreateInstructor>
+            </TabPane>
+            <TabPane key="courses"
+              disabled
+              tab={
+                <Button onClick={checkCourses}>Uzavřít dokončené kurzy</Button>
+              }
+            >
             </TabPane>
           </Tabs>
         </ProCard>
