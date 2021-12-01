@@ -4,6 +4,7 @@ using CourseApi.Models;
 using HotChocolate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -61,7 +62,17 @@ namespace api.Services
                 if (newValue is not null)
                     body = body.Replace(oldValue, newValue.ToString());
             }
-            body = string.Format(body, args);
+            try
+            {
+                body = string.Format(body, args);
+            }
+            catch (Exception ex)
+            {
+                for (int i = 0; i < args.Length; i++)
+                {
+                    body = body.Replace("{" + i + "}", args[i]);
+                }
+            }
 
             return body;
         }
@@ -88,7 +99,14 @@ namespace api.Services
                 EnableSsl = true
             };
 
-            client.Send(message);
+            try
+            {
+                client.Send(message);
+            }
+            catch (Exception ex)
+            {
+                var a = ex;
+            }
         }
     }
 }

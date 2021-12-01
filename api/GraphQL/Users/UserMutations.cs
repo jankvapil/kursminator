@@ -1,4 +1,5 @@
-﻿using CourseApi.Data;
+﻿using api.Services;
+using CourseApi.Data;
 using CourseApi.Models;
 using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
@@ -16,6 +17,13 @@ namespace api.GraphQL.Users
     [ExtendObjectType(name: "Mutation")]
     public class UserMutations
     {
+
+        private readonly SmtpService smtpService;
+        public UserMutations(SmtpService smtpService)
+        {
+            this.smtpService = smtpService;
+        }
+
         [UseDbContext(typeof(AppDbContext))]
         //[Authorize(Roles = new[] { "Manager", "Admin" })]
         public async Task<User> UpdateUserAsync([ScopedService] AppDbContext context, int id, UpdateUserInput input)
@@ -100,6 +108,9 @@ namespace api.GraphQL.Users
                 throw new HttpRequestException("User cannot have a negative number of credits.", null, HttpStatusCode.BadRequest);
 
             await context.SaveChangesAsync();
+
+            if (credits > 0)
+                smtpService.Send(context, userId, 5, "Potvzení připsání kreditů", new string[] { credits.ToString() });
 
             return user.Credits;
 
