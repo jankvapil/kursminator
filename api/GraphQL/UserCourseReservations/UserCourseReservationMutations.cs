@@ -7,6 +7,7 @@ using HotChocolate;
 using HotChocolate.Data;
 using HotChocolate.Types;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -71,7 +72,7 @@ namespace api.GraphQL.UserCourseReservations
                 args.Add(course.Place.City);
             }
 
-            smtpService.Send(context, user.Id, course.Place.Virtual ? 3 : 2, "Potvzení rezervace kurzu", args.ToArray());
+            _ = smtpService.Send(context, user.Id, course.Place.Virtual ? 3 : 2, "Potvzení rezervace kurzu", args.ToArray());
 
             return userCourseReservation;
         }
@@ -101,12 +102,15 @@ namespace api.GraphQL.UserCourseReservations
             if (userCourseReservation is null)
                 throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
+            if (userCourseReservation.Course.Date.AddDays(-1) <= DateTime.Now)
+                throw new HttpRequestException("It is too late to cancel the course.", null, HttpStatusCode.BadRequest);
+
             userCourseReservation.State = ReservationState.CANCELLED;
             userCourseReservation.User.Credits += userCourseReservation.Course.Price;
 
             await context.SaveChangesAsync();
 
-            smtpService.Send(context, userId, 4, "Zrušení rezervace na kurzu",
+            _ = smtpService.Send(context, userId, 4, "Zrušení rezervace na kurzu",
                 new string[] { userCourseReservation.Course.Name, userCourseReservation.Course.Date.ToString(), userCourseReservation.Course.Price.ToString() });
 
             return userCourseReservation.Id;
