@@ -164,7 +164,7 @@ export default function coursesPage(props) {
 
             <div className="flex flex-row justify-between lg:flex-col">
               <div className="w-5/12 lg:w-full">
-                <h3><Divider>Typ kurzu</Divider></h3>
+                <h3><Divider>Obtížnost</Divider></h3>
                 <div className="flex flex-col mx-6">
                   <Checkbox
                     className="my-1"
@@ -330,9 +330,8 @@ export default function coursesPage(props) {
                         strokeColor={c.occupancy > 80 ? "red" : "#52C41A"}
                         trailColor="#d9d9d9"
                         type="circle"
-                        percent={(c.occupancy / c.capacity) * 100}
                         width={60}
-                        format={() => `${c.occupancy}/${c.capacity}`}
+                        format={() => `${(c.occupancy / 100) * c.capacity}/${c.capacity}`}
                       />
                     </div>
                   </div>
