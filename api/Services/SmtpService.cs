@@ -76,7 +76,7 @@ namespace api.Services
             {
                 body = string.Format(body, args);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 for (int i = 0; i < args.Length; i++)
                 {
@@ -113,10 +113,8 @@ namespace api.Services
             {
                 client.Send(message);
             }
-            catch (Exception ex)
-            {
-                var a = ex;
-            }
+            catch (Exception)
+            {}
         }
     }
 }

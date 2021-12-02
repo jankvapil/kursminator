@@ -110,7 +110,7 @@ namespace api.GraphQL.Users
             await context.SaveChangesAsync();
 
             if (credits > 0)
-                smtpService.Send(context, userId, 5, "Potvzení připsání kreditů", new string[] { credits.ToString() });
+                _ = smtpService.Send(context, userId, 5, "Potvzení připsání kreditů", new string[] { credits.ToString() });
 
             return user.Credits;
 

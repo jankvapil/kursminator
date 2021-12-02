@@ -123,8 +123,10 @@ namespace api.GraphQL.UserCourseReservations
 
             await context.SaveChangesAsync();
 
+            var coursePrice = userCourseReservation.IsFree ? 0 : userCourseReservation.Course.Price;
+
             _ = smtpService.Send(context, userId, 4, "Zrušení rezervace na kurzu",
-                new string[] { userCourseReservation.Course.Name, userCourseReservation.Course.Date.ToString(), userCourseReservation.Course.Price.ToString() });
+                new string[] { userCourseReservation.Course.Name, userCourseReservation.Course.Date.ToString(), coursePrice.ToString() });
 
             return userCourseReservation.Id;
         }

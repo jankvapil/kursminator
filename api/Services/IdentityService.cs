@@ -54,7 +54,7 @@ namespace api.Services
                 await context.Users.AddAsync(newUser);
                 await context.SaveChangesAsync();
 
-                smtpService.Send(context, newUser.Id, 1, "Potvzení registrace na protálu Kursminátor", Array.Empty<string>());
+                _ = smtpService.Send(context, newUser.Id, 1, "Potvzení registrace na protálu Kursminátor", Array.Empty<string>());
 
                 return await generateJwtTokenAsync(newUser, jwtSettings, context);
             }
