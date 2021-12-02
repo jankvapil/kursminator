@@ -17,7 +17,7 @@ namespace api.GraphQL.Courses
         [Required] [Url]
         public string PhotoUrl { get; set; }
 
-        [Required] [Range(1, int.MaxValue)]
+        [Required] [Range(10, 100)]
         public int Capacity { get; set; }
 
         [Required]

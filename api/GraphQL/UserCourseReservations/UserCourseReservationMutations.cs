@@ -42,7 +42,12 @@ namespace api.GraphQL.UserCourseReservations
             if (course.Finished)
                 throw new HttpRequestException("This course is already finished", null, HttpStatusCode.BadRequest);
 
-            var isFree = new CourseType.Resolvers().GetCourseOccupancy(course, context) <= 10;
+            var courseType = new CourseType.Resolvers();
+
+            if (courseType.GetUserCourseResevation(course, context).Count(r => r.State != ReservationState.CANCELLED) + 1 > course.Capacity)
+                throw new HttpRequestException("Kurz je už plně zaplněn", null, HttpStatusCode.BadRequest);
+
+            var isFree = courseType.GetCourseOccupancy(course, context) <= 10;
             if (!isFree)
                 user.Credits -= course.Price;
 
