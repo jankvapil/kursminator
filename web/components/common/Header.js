@@ -47,6 +47,16 @@ const Header = (props) => {
     router.push(`/`)
   }
 
+  const handleSearch = async (e) => {
+    if (e.key == 'Enter' || e.keyCode == 13) {
+      // router.push(`/courses?search=${e.target.value}`)
+      router.push({
+        pathname: '/courses',
+        query: { search: e.target.value },
+      })
+    }
+  } 
+
   const profileMenu = (
     <Menu>
       <Menu.Item key="1">
@@ -79,7 +89,7 @@ const Header = (props) => {
           <span className="text-white m-0 ml-2" ><Link href="/courses">Kurzy</Link></span>
         </div>
         <div className="hidden md:block w-1/4 lg:w-5/12">
-          <Input placeholder="Hledaný kurz..." />
+          <Input onKeyDown={handleSearch} placeholder="Hledaný kurz..." />
         </div>
         <div className="hidden md:flex items-center">
           <MailOutlined style={{ color: "#fff" }} />

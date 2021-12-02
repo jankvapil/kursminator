@@ -28,6 +28,16 @@ export default function coursesPage(props) {
       setCourses(props.data.courses)
       setFilteredCourses(props.data.courses)
     }
+    
+    if (router.query.search) {
+      setInputPhrase(router.query.search)
+      updateFilter({
+        phrase: router.query.search,
+        virtual: checkedVirtual,
+        price: sliderPrice,
+        live: checkedLive
+      })
+    }
   }, [])
 
   ///
@@ -83,6 +93,7 @@ export default function coursesPage(props) {
             <div className="mb-8">
               <h2 className="text-xl">Filtrování kurzů</h2>
               <Input
+                defaultValue={router.query.search ? router.query.search : ""}
                 placeholder="Hledat kurz..."
                 onChange={(e) => {
                   setInputPhrase(e.target.value)
@@ -155,14 +166,14 @@ export default function coursesPage(props) {
               />
             </div>
 
-            <h3><Divider>Obsazenost</Divider></h3>
+            {/* <h3><Divider>Obsazenost</Divider></h3>
             <div className="flex flex-col mx-6">
               <Radio>Malá</Radio>
               <Radio>Střední</Radio>
               <Radio>Velká</Radio>
-            </div>
+            </div> */}
 
-            <div className="flex flex-row justify-between lg:flex-col">
+            {/* <div className="flex flex-row justify-between lg:flex-col">
               <div className="w-5/12 lg:w-full">
                 <h3><Divider>Obtížnost</Divider></h3>
                 <div className="flex flex-col mx-6">
@@ -298,7 +309,7 @@ export default function coursesPage(props) {
                   </Checkbox>
                 </div>
               </div>
-            </div>
+            </div> */}
           </Col>
 
           <Col lg={18} md={24} sm={24}>
