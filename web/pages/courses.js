@@ -322,7 +322,7 @@ export default function coursesPage(props) {
                     <p className="my-2 text-gray-400 md:mt-0">{moment(String(c.date)).format('D.M.YYYY hh:mm')}</p>
                   </div>
 
-                  <div className="flex flex-col justify-between items-center my-4 mr-1">
+                  <div className="ml-auto flex flex-col justify-between items-center my-4 mr-1">
                     <span className="text-xl text-gray-400">{c.price}kr.</span>
                     <div className="flex flex-col items-center">
                       <p className="m-0 text-gray-400">obsazenost</p>
