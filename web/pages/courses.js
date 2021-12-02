@@ -330,9 +330,8 @@ export default function coursesPage(props) {
                         strokeColor={c.occupancy > 80 ? "red" : "#52C41A"}
                         trailColor="#d9d9d9"
                         type="circle"
-                        percent={(c.occupancy / c.capacity) * 100}
                         width={60}
-                        format={() => `${c.occupancy}/${c.capacity}`}
+                        format={() => `${(c.occupancy / 100) * c.capacity}/${c.capacity}`}
                       />
                     </div>
                   </div>
