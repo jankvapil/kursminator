@@ -32,7 +32,7 @@ namespace api.GraphQL.Courses
         [Required]
         public int Duration { get; set; }
 
-        [Required]
+        [Required] [Range(0, 250)]
         public int Price { get; set; }
 
         [Required] [MinLength(10)]
