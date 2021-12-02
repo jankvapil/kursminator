@@ -4,6 +4,7 @@ using CourseApi.Models;
 using HotChocolate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -28,6 +29,16 @@ namespace api.Services
         {
             User recipient = await context.Users.FindAsync(userId);
 
+            var body = GetEmailBody(recipient, type, args);
+
+            Execute(recipient, subject, body);
+
+            return body;
+        }
+
+        public string Send(string userEmail, int type, string subject, string[] args)
+        {
+            var recipient = new User() { Email = userEmail, Name = userEmail.Split('@')[0] };
             var body = GetEmailBody(recipient, type, args);
 
             Execute(recipient, subject, body);
@@ -61,7 +72,17 @@ namespace api.Services
                 if (newValue is not null)
                     body = body.Replace(oldValue, newValue.ToString());
             }
-            body = string.Format(body, args);
+            try
+            {
+                body = string.Format(body, args);
+            }
+            catch (Exception)
+            {
+                for (int i = 0; i < args.Length; i++)
+                {
+                    body = body.Replace("{" + i + "}", args[i]);
+                }
+            }
 
             return body;
         }
@@ -88,7 +109,12 @@ namespace api.Services
                 EnableSsl = true
             };
 
-            client.Send(message);
+            try
+            {
+                client.Send(message);
+            }
+            catch (Exception)
+            {}
         }
     }
 }

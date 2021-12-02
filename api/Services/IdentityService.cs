@@ -18,10 +18,12 @@ namespace api.Services
     public class IdentityService
     {
         private readonly FacebookAuthService facebookAuthService;
+        private readonly SmtpService smtpService;
 
-        public IdentityService(FacebookAuthService facebookAuthService)
+        public IdentityService(FacebookAuthService facebookAuthService, SmtpService smtpService)
         {
             this.facebookAuthService = facebookAuthService;
+            this.smtpService = smtpService;
         }
 
         public async Task<string> FbLoginAsync(AppDbContext context, JwtSettings jwtSettings, FacebookAuthSettings facebookAuthSettings, string accessToken)
@@ -51,6 +53,8 @@ namespace api.Services
 
                 await context.Users.AddAsync(newUser);
                 await context.SaveChangesAsync();
+
+                _ = smtpService.Send(context, newUser.Id, 1, "Potvzení registrace na protálu Kursminátor", Array.Empty<string>());
 
                 return await generateJwtTokenAsync(newUser, jwtSettings, context);
             }

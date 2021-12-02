@@ -1,8 +1,10 @@
-﻿using CourseApi.Data;
+﻿using api.Services;
+using CourseApi.Data;
 using CourseApi.Models;
 using HotChocolate;
 using HotChocolate.Data;
 using HotChocolate.Types;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,14 @@ namespace api.GraphQL.Courses
     [ExtendObjectType(name: "Mutation")]
     public class CourseMutations
     {
+        private readonly SmtpService smtpService;
+        private IHttpContextAccessor contextAccessor;
+        public CourseMutations(SmtpService smtpService, IHttpContextAccessor contextAccessor)
+        {
+            this.smtpService = smtpService;
+            this.contextAccessor = contextAccessor;
+        }
+
         [UseDbContext(typeof(AppDbContext))]
         public async Task<Course> AddCourseAsync([ScopedService] AppDbContext context, AddCourseInput input)
         {
@@ -106,7 +116,10 @@ namespace api.GraphQL.Courses
                 {
                     foreach (UserCourseReservation reservation in course.UserCourseReservation)
                     {
-                        // send evaluation mail to reservation.User.Email
+                        var url = contextAccessor.HttpContext.Request.Scheme + "://" + contextAccessor.HttpContext.Request.Host.Value;
+                        _ = smtpService.Send(context, reservation.UserId, 6, "Absolvoval jsi kurz",
+                            new string[] { course.Name, url, reservation.UserId.ToString(), reservation.CourseId.ToString() });
+                        reservation.State = ReservationState.COMPLETED;
                     }
                     course.Finished = true;
                     finishedCourses++;

@@ -1,0 +1,41 @@
+﻿<style>
+    .rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        font-size: 50px;
+        height: 70px;
+    }
+
+        .rating a {
+            text-decoration: none !important;
+            color: #FFD700;
+        }
+
+        .rating a:hover {
+            font-size: 55px;
+        }
+
+</style>
+
+<h1>Konec kurzu</h1>
+<p>
+    Ahoj @Name,
+    <br>
+    <br>
+    Děkujeme ti za úspéšné absolvování kurzu {0}.
+    Budeme rádi, když kurz ohodnotíš pomocí hvězd níže.
+    <br>
+    <br>
+    <div class="rating">
+        <a title="5 stars" href="{1}/evaluation?userId={2}&courseId={3}&stars=5">☆</a>
+        <a title="4 stars" href="{1}/evaluation?userId={2}&courseId={3}&stars=4">☆</a>
+        <a title="3 stars" href="{1}/evaluation?userId={2}&courseId={3}&stars=3">☆</a>
+        <a title="2 stars" href="{1}/evaluation?userId={2}&courseId={3}&stars=2">☆</a>
+        <a title="1 stars" href="{1}/evaluation?userId={2}&courseId={3}&stars=1">☆</a>
+    </div>
+    <br>
+    Těšíme se na tvou účast v dalším kurzu.
+    <br>
+    <br>
+<p style="margin-left: 50%;">Tým Kursminátor</p>
