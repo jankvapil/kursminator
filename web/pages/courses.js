@@ -62,7 +62,24 @@ export default function coursesPage(props) {
     <Content>
       <ProCard>
         <Row className="min-h-screen">
-          <Col span={6} className="my-12 pl-12">
+          <Col className="w-full block sm:hidden">
+            <div className="mb-8">
+              <h2 className="text-xl">Filtrování kurzů</h2>
+              <Input
+                placeholder="Hledat kurz..."
+                onChange={(e) => {
+                  setInputPhrase(e.target.value)
+                  updateFilter({
+                    phrase: e.target.value,
+                    virtual: checkedVirtual,
+                    price: sliderPrice,
+                    live: checkedLive
+                  })
+                }
+                } />
+            </div>
+          </Col>
+          <Col lg={6} md={24} sm={24} className="hidden lg:block">
             <div className="mb-8">
               <h2 className="text-xl">Filtrování kurzů</h2>
               <Input
@@ -138,177 +155,182 @@ export default function coursesPage(props) {
               />
             </div>
 
-          <h3><Divider>Obsazenost</Divider></h3>
-          <div className="flex flex-col mx-6">
-            <Radio>Malá</Radio>
-            <Radio>Střední</Radio>
-            <Radio>Velká</Radio>
-          </div>
+            <h3><Divider>Obsazenost</Divider></h3>
+            <div className="flex flex-col mx-6">
+              <Radio>Malá</Radio>
+              <Radio>Střední</Radio>
+              <Radio>Velká</Radio>
+            </div>
 
-          <h3><Divider>Typ kurzu</Divider></h3>
-          <div className="flex flex-col mx-6">
-            <Checkbox
-              className="my-1"
-              defaultChecked={true}
-              checked={checkedVirtual}
-              onChange={(e) => {
-                console.log(e.target.checked)
-                setCheckedVirtual(e.target.checked)
-                updateFilter({
-                  virtual: e.target.checked,
-                  live: checkedLive,
-                  price: sliderPrice,
-                  phrase: inputPhrase
-                })
-              }}
-            >
-              Expert
-            </Checkbox>
-            <br />
+            <div className="flex flex-row justify-between lg:flex-col">
+              <div className="w-5/12 lg:w-full">
+                <h3><Divider>Typ kurzu</Divider></h3>
+                <div className="flex flex-col mx-6">
+                  <Checkbox
+                    className="my-1"
+                    defaultChecked={true}
+                    checked={checkedVirtual}
+                    onChange={(e) => {
+                      console.log(e.target.checked)
+                      setCheckedVirtual(e.target.checked)
+                      updateFilter({
+                        virtual: e.target.checked,
+                        live: checkedLive,
+                        price: sliderPrice,
+                        phrase: inputPhrase
+                      })
+                    }}
+                  >
+                    Expert
+                  </Checkbox>
+                  <br />
 
-            <Checkbox
-              className="my-1"
-              defaultChecked={true}
-              checked={checkedLive}
-              onChange={(e) => {
-                console.log(e.target.checked)
-                setCheckedLive(e.target.checked)
-                updateFilter({
-                  live: e.target.checked,
-                  virtual: checkedVirtual,
-                  price: sliderPrice,
-                  phrase: inputPhrase
-                })
-              }}
-            >
-              Pokročilý
-            </Checkbox>
-            <br />
+                  <Checkbox
+                    className="my-1"
+                    defaultChecked={true}
+                    checked={checkedLive}
+                    onChange={(e) => {
+                      console.log(e.target.checked)
+                      setCheckedLive(e.target.checked)
+                      updateFilter({
+                        live: e.target.checked,
+                        virtual: checkedVirtual,
+                        price: sliderPrice,
+                        phrase: inputPhrase
+                      })
+                    }}
+                  >
+                    Pokročilý
+                  </Checkbox>
+                  <br />
 
-            <Checkbox
-              className="my-1"
-              defaultChecked={true}
-              checked={checkedLive}
-              onChange={(e) => {
-                console.log(e.target.checked)
-                setCheckedLive(e.target.checked)
-                updateFilter({
-                  live: e.target.checked,
-                  virtual: checkedVirtual,
-                  price: sliderPrice,
-                  phrase: inputPhrase
-                })
-              }}
-            >
-              Začátečník
-            </Checkbox>
-          </div>
+                  <Checkbox
+                    className="my-1"
+                    defaultChecked={true}
+                    checked={checkedLive}
+                    onChange={(e) => {
+                      console.log(e.target.checked)
+                      setCheckedLive(e.target.checked)
+                      updateFilter({
+                        live: e.target.checked,
+                        virtual: checkedVirtual,
+                        price: sliderPrice,
+                        phrase: inputPhrase
+                      })
+                    }}
+                  >
+                    Začátečník
+                  </Checkbox>
+                </div>
+              </div>
+              <div className="w-5/12 lg:w-full">
+                <h3><Divider>Délka kurzu</Divider></h3>
+                <div className="flex flex-col justify-between mx-6">
+                  <Checkbox
+                    defaultChecked={true}
+                    checked={checkedVirtual}
+                    onChange={(e) => {
+                      console.log(e.target.checked)
+                      setCheckedVirtual(e.target.checked)
+                      updateFilter({
+                        virtual: e.target.checked,
+                        live: checkedLive,
+                        price: sliderPrice,
+                        phrase: inputPhrase
+                      })
+                    }}
+                  >
+                    0 - 3 hodiny
+                  </Checkbox>
+                  <br />
 
-          <h3><Divider>Délka kurzu</Divider></h3>
-          <div className="flex flex-col justify-between mx-6">
-            <Checkbox
-              defaultChecked={true}
-              checked={checkedVirtual}
-              onChange={(e) => {
-                console.log(e.target.checked)
-                setCheckedVirtual(e.target.checked)
-                updateFilter({
-                  virtual: e.target.checked,
-                  live: checkedLive,
-                  price: sliderPrice,
-                  phrase: inputPhrase
-                })
-              }}
-            >
-              0 - 3 hodiny
-            </Checkbox>
-            <br />
+                  <Checkbox
+                    defaultChecked={true}
+                    checked={checkedLive}
+                    onChange={(e) => {
+                      console.log(e.target.checked)
+                      setCheckedLive(e.target.checked)
+                      updateFilter({
+                        live: e.target.checked,
+                        virtual: checkedVirtual,
+                        price: sliderPrice,
+                        phrase: inputPhrase
+                      })
+                    }}
+                  >
+                    3 - 6 hodin
+                  </Checkbox>
+                  <br />
 
-            <Checkbox
-              defaultChecked={true}
-              checked={checkedLive}
-              onChange={(e) => {
-                console.log(e.target.checked)
-                setCheckedLive(e.target.checked)
-                updateFilter({
-                  live: e.target.checked,
-                  virtual: checkedVirtual,
-                  price: sliderPrice,
-                  phrase: inputPhrase
-                })
-              }}
-            >
-              3 - 6 hodin
-            </Checkbox>
-            <br />
+                  <Checkbox
+                    defaultChecked={true}
+                    checked={checkedLive}
+                    onChange={(e) => {
+                      console.log(e.target.checked)
+                      setCheckedLive(e.target.checked)
+                      updateFilter({
+                        live: e.target.checked,
+                        virtual: checkedVirtual,
+                        price: sliderPrice,
+                        phrase: inputPhrase
+                      })
+                    }}
+                  >
+                    16 - 17 hodin
+                  </Checkbox>
+                  <br />
 
-            <Checkbox
-              defaultChecked={true}
-              checked={checkedLive}
-              onChange={(e) => {
-                console.log(e.target.checked)
-                setCheckedLive(e.target.checked)
-                updateFilter({
-                  live: e.target.checked,
-                  virtual: checkedVirtual,
-                  price: sliderPrice,
-                  phrase: inputPhrase
-                })
-              }}
-            >
-              16 - 17 hodin
-            </Checkbox>
-            <br />
-
-            <Checkbox
-              defaultChecked={true}
-              checked={checkedLive}
-              onChange={(e) => {
-                console.log(e.target.checked)
-                setCheckedLive(e.target.checked)
-                updateFilter({
-                  live: e.target.checked,
-                  virtual: checkedVirtual,
-                  price: sliderPrice,
-                  phrase: inputPhrase
-                })
-              }}
-            >
-              17+ hodin
-            </Checkbox>
-          </div>
+                  <Checkbox
+                    defaultChecked={true}
+                    checked={checkedLive}
+                    onChange={(e) => {
+                      console.log(e.target.checked)
+                      setCheckedLive(e.target.checked)
+                      updateFilter({
+                        live: e.target.checked,
+                        virtual: checkedVirtual,
+                        price: sliderPrice,
+                        phrase: inputPhrase
+                      })
+                    }}
+                  >
+                    17+ hodin
+                  </Checkbox>
+                </div>
+              </div>
+            </div>
           </Col>
 
-          <Col span={18}>
-            <ul className="my-10">
+          <Col lg={18} md={24} sm={24}>
+            <ul className="">
               {filteredCourses.map(c => (
-                <li className={`${styles.itemBackgroundColor} m-auto flex w-9/12 my-4`} key={c.id} >
+                <li className={`${styles.itemBackgroundColor} m-auto flex w-full lg:w-9/12 my-4`} key={c.id} >
                   <div className="flex-none ">
-                    <img className="cursor-pointer" onClick={() => router.push(`courseDetail?id=${c.id}`)} src={c.photoUrl} width={200}></img>
+                    <img className="cursor-pointer w-28 sm:w-48" onClick={() => router.push(`courseDetail?id=${c.id}`)} src={c.photoUrl} ></img>
                   </div>
 
-                  <div className="ml-9 mt-4">
-                    <span> 
+                  <div className="ml-3 md:ml-9 mt-1 md:mt-4">
+                    <span>
                       <button className="text-xl font-bold text-left" onClick={() => router.push(`courseDetail?id=${c.id}`)}>
                         {c.name}
                       </button>
                     </span>
-                    <p className="my-2">{c.description}</p>
-                    <p className="my-2 text-gray-400">{c.instructor.name} {c.instructor.surname}</p>
-                    <p className="my-2 text-gray-400">{c.type}</p>
-                    <p className="my-2 text-gray-400">Online | pokročilý | {c.duration} minut</p>
-                    <p className="my-2 text-gray-400">{moment(String(c.date)).format('D.M.YYYY hh:mm')}</p>
+                    <p className="my-2 md:mt-0 hidden md:block">{c.description}</p>
+                    <p className="my-2 text-gray-400 md:mt-0">{c.instructor.name} {c.instructor.surname}</p>
+                    <p className="my-2 text-gray-400 md:mt-0">{c.type}</p>
+                    <p className="my-2 text-gray-400 md:mt-0 hidden sm:block">Online | pokročilý | {c.duration} minut</p>
+                    <p className="my-2 text-gray-400 md:mt-0">{moment(String(c.date)).format('D.M.YYYY hh:mm')}</p>
                   </div>
 
-                  <div className="flex flex-col justify-between items-center my-4 mr-4">
+                  <div className="ml-auto flex flex-col justify-between items-center my-4 mr-1">
                     <span className="text-xl text-gray-400">{c.price}kr.</span>
                     <div className="flex flex-col items-center">
                       <p className="m-0 text-gray-400">obsazenost</p>
                       <Progress
-                        strokeColor="#52C41A" 
+                        strokeColor={c.occupancy > 80 ? "red" : "#52C41A"}
                         trailColor="#d9d9d9"
                         type="circle"
-                        percent={(c.occupancy/c.capacity) * 100}
+                        percent={(c.occupancy / c.capacity) * 100}
                         width={60}
                         format={() => `${c.occupancy}/${c.capacity}`}
                       />
