@@ -31,6 +31,7 @@ namespace CourseApi.Models
     {
         APPROVED,
         COMPLETED,
-        CANCELLED
+        CANCELLED,
+        WAITING
     }
 }

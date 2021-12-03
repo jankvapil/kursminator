@@ -114,7 +114,7 @@ namespace api.GraphQL.Courses
             {
                 if (course.Date.AddMinutes(course.Duration) <= DateTime.Now)
                 {
-                    foreach (UserCourseReservation reservation in course.UserCourseReservation)
+                    foreach (UserCourseReservation reservation in course.UserCourseReservation.Where(r => r.State != ReservationState.WAITING && r.State != ReservationState.CANCELLED))
                     {
                         var url = contextAccessor.HttpContext.Request.Scheme + "://" + contextAccessor.HttpContext.Request.Host.Value;
                         _ = smtpService.Send(context, reservation.UserId, 6, "Absolvoval jsi kurz",

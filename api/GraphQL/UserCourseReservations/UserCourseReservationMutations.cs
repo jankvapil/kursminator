@@ -153,11 +153,46 @@ namespace api.GraphQL.UserCourseReservations
             if (course is null)
                 throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
+            var courseType = new CourseType.Resolvers();
+
+            if (courseType.GetUserCourseResevation(course, context).Count(r => r.State != ReservationState.CANCELLED) + 1 > course.Capacity)
+                throw new HttpRequestException("Kurz je už plně zaplněn", null, HttpStatusCode.BadRequest);
+
+            var isFree = courseType.GetCourseOccupancy(course, context) <= 10;
+
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user == null)
+            {
+                user = new User()
+                {
+                    Email = email,
+                    Name = string.Empty,
+                    Surname = string.Empty,
+                    PhotoUrl = string.Empty,
+                    Unregistred = true,
+                    RoleId = 1
+                };
+                await context.Users.AddAsync(user);
+                await context.SaveChangesAsync();
+            }
+
+            var reservation = new UserCourseReservation()
+            {
+                UserId = user.Id,
+                CourseId = courseId,
+                State = ReservationState.WAITING,
+                IsFree = isFree
+            };
+
+            await context.UserCourseReservations.AddAsync(reservation);
+            await context.SaveChangesAsync();
+
             var args = new string[]
             {
                 course.Name,
                 course.Date.ToString(),
-                course.Price.ToString(),
+                isFree ? "0" : course.Price.ToString(),
                 course.Duration.ToString(),
                 course.Description,
                 course.Instructor.Name + ' ' + course.Instructor.Surname,
