@@ -39,8 +39,8 @@ namespace api.GraphQL.UserCourseReservations
             if (course is null)
                 throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
 
-            if (course.Finished)
-                throw new HttpRequestException("This course is already finished", null, HttpStatusCode.BadRequest);
+            if (course.Finished || course.Caceled)
+                throw new HttpRequestException("This course is already finished or canceled", null, HttpStatusCode.BadRequest);
 
             var courseType = new CourseType.Resolvers();
 

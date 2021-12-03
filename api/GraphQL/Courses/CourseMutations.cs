@@ -107,7 +107,7 @@ namespace api.GraphQL.Courses
             var nonEvaluatedCourses = context.Courses
                 .Include(c => c.UserCourseReservation)
                 .ThenInclude(r => r.User)
-                .Where(c => !c.Finished).ToArray();
+                .Where(c => !c.Finished && !c.Caceled).ToArray();
 
             var finishedCourses = 0;
             foreach (Course course in nonEvaluatedCourses)
@@ -129,6 +129,31 @@ namespace api.GraphQL.Courses
             await context.SaveChangesAsync();
 
             return finishedCourses;
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        public async Task<int> CancelCourseAsync([ScopedService] AppDbContext context, int courseId)
+        {
+            var course = await context.Courses
+                .Include(c => c.UserCourseReservation)
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course is null)
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
+
+            if (course.Finished)
+                throw new HttpRequestException("Course is already finished", null, HttpStatusCode.NotFound);
+
+            foreach (UserCourseReservation reservation in course.UserCourseReservation)
+            {
+                _ = smtpService.Send(context, reservation.UserId, 9, "Zrušení kurzu", new string[] { course.Name, course.Date.ToString() });
+                reservation.State = ReservationState.CANCELLED;
+            }
+            course.Caceled = true;
+
+            await context.SaveChangesAsync();
+
+            return course.Id;
         }
     }
 }
