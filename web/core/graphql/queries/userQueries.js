@@ -20,6 +20,7 @@ const CURRENT_USER = gql`
       name
       surname
       photoUrl
+      roleId
       role {
         id
         name

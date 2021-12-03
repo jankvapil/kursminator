@@ -11,6 +11,7 @@ import ProCard from '@/components/common/ProCard'
 import CreateCourse from '@/components/manager/CreateCourse'
 import { fetchAllManager } from '@/core/graphql/queries/managerQueries'
 import { fetchAllUsers } from '@/core/graphql/queries/userQueries'
+import { fetchRoles } from '@/core/graphql/queries/rolesQueries'
 import { checkCoursesMutation } from '@/core/graphql/mutations/adminMutations'
 import EditCourse from '@/components/manager/EditCourse'
 import CreateInstructor from '@/components/manager/CreateInstructor'
@@ -25,6 +26,7 @@ export default function managerPage(props) {
     const newCourseTab = router.query.newCourse
     const editCourseTab = router.query.editCourse
     let course = {}
+    let loaded
     if (editCourseTab) {
       const id = parseInt(router.query.id)
       const { loading, error, data } = useQuery(ALL_COURSE_DETAIL_QUERY, 
@@ -32,6 +34,8 @@ export default function managerPage(props) {
       if (loading) return null
       if (error) return `Error! ${error}`
       course = data.courses.nodes[0]
+      loaded = data
+     
     }
 
     const checkCourses = async () => {
@@ -64,6 +68,7 @@ export default function managerPage(props) {
                 </span>
               }
             >
+                <button onClick={() =>  console.log(props.data)}>data</button>
             </TabPane>
             <TabPane key="users"
               tab={
@@ -73,7 +78,7 @@ export default function managerPage(props) {
                 </span>
               }
             >
-              <UsersTable users={props.data.users}>users</UsersTable>
+              <UsersTable roles={props.data.roles} users={props.data.users}>users</UsersTable>
 
             </TabPane>
             <TabPane key="newCourse"
@@ -118,5 +123,6 @@ export default function managerPage(props) {
 export const getServerSideProps = async () => {
   const res = await fetchAllManager()
   const users = await fetchAllUsers()
-  return { props: { data: { instructors: res.instructors, ...users } } }
+  const roles = await fetchRoles()
+  return { props: { data: { instructors: res.instructors, ...users, roles } } }
 }

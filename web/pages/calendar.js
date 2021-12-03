@@ -1,13 +1,13 @@
 ﻿import Content from '../components/common/Content'
 import { Calendar, Badge, List, ConfigProvider, Divider } from 'antd'
-import "moment/locale/cs";
-import locate from "antd/lib/locale/cs_CZ";
+import "moment/locale/cs"
+import locate from "antd/lib/locale/cs_CZ"
 import '@/core/types'
 import React, { useEffect, useState } from 'react'
 
 import { gql } from 'graphql-request'
 import { client } from '@/core/graphql/client'
-import ProCard from '@/components/common/ProCard';
+import ProCard from '@/components/common/ProCard'
 import { useRouter } from 'next/router'
 
 
@@ -15,7 +15,7 @@ function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
     width: undefined,
     height: undefined,
-  });
+  })
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -23,17 +23,17 @@ function useWindowSize() {
         setWindowSize({
           width: window.innerWidth,
           height: window.innerHeight,
-        });
+        })
       }
 
-      window.addEventListener("resize", handleResize);
+      window.addEventListener("resize", handleResize)
 
-      handleResize();
+      handleResize()
 
-      return () => window.removeEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize)
     }
-  }, []);
-  return windowSize;
+  }, [])
+  return windowSize
 }
 
 function getListData(value, courses) {
@@ -45,14 +45,14 @@ function getListData(value, courses) {
     }
   }
 
-  return listData || [];
+  return listData || []
 }
 
 // vrati casovy rozsah kurzu
 function getStringRangeTime(dateString, duration) {
   let date = new Date(dateString)
   let h = date.getHours()
-  let m = ('0' + date.getMinutes()).slice(-2);
+  let m = ('0' + date.getMinutes()).slice(-2)
   let result = duration / 60
   let hh = (parseInt(result) + h) % 24
   let mm = duration - (parseInt(result) * 60)
@@ -70,7 +70,7 @@ function getDateTime(dateString) {
 /// Calendar page
 ///
 export default function calendarPage() {
-  const sizeWindow = useWindowSize();
+  const sizeWindow = useWindowSize()
   const router = useRouter()
 
   function renderListMetaLink(name, id, link) {
@@ -79,7 +79,7 @@ export default function calendarPage() {
 
   // naplni kalendar
   function dateCellRender(value, courses) {
-    const listData = getListData(value, courses);
+    const listData = getListData(value, courses)
     return (
       <ul className="events">
         {sizeWindow.width < 640 ? "" : listData.map(item => (
@@ -88,7 +88,7 @@ export default function calendarPage() {
           </li>
         ))}
       </ul>
-    );
+    )
   }
 
   const [coursesData, setCoursesData] = useState([]) // vsechny kurzy
@@ -128,13 +128,13 @@ export default function calendarPage() {
     }
     catch (error) {
       console.log(error)
-      return 'Error: ' + error;
+      return 'Error: ' + error
     }
   }
 
   // nastane pri vyberu roku nebo měsíce
   const onPanelChange = (value, mode) => {
-    console.log(value.format('YYYY-MM-DD'), mode);
+    console.log(value.format('YYYY-MM-DD'), mode)
   }
 
   // nastane pri kliknuti do kalendare

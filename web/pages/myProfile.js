@@ -24,6 +24,7 @@ export default function myProfilePage(props) {
 
   const loadUserInfo = async () => {
     const res = await getUserInfo()
+    console.log(res)
     const reservations = res.userCourseReservations.map(c => { return { ...c.course, state: c.state } })
     const sorted = reservations.sort((a, b) => new Date(b.date) - new Date(a.date))
     setFavouriteCourses(sorted)
