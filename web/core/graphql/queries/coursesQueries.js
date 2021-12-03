@@ -27,10 +27,12 @@ export const ALL_COURSES_QUERY = gql`
         occupancy
         duration
         type
+        difficulty
         place {
           id
           name
           virtual
+          address
         }
         price
         evaluation
