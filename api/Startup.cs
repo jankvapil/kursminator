@@ -54,7 +54,7 @@ namespace CourseApi
             services.AddControllers();
 
             //graphql
-            services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Database")))
+            services.AddPooledDbContextFactory<AppDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Database")))
                 .AddGraphQLServer()
                 .AddArgumentValidator()
                 .AddQueryType<Query>()
