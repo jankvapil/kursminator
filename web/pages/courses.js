@@ -5,7 +5,7 @@ import Content from '@/components/common/Content'
 
 import { fetchAllCourses } from '@/core/graphql/queries/coursesQueries'
 
-import { Row, Col, Slider, Checkbox, Input, Progress, Divider, Radio } from 'antd'
+import { Row, Col, Slider, Checkbox, Input, Progress, Divider } from 'antd'
 import { useRouter } from 'next/router'
 import ProCard from '@/components/common/ProCard'
 import moment from 'moment';
@@ -15,7 +15,7 @@ import styles from "../styles/Content.module.css"
 /// Courses search page
 ///
 export default function coursesPage(props) {
-  const MAX_PRICE = 1500
+  const MAX_PRICE = 250
   const router = useRouter()
   const [courses, setCourses] = useState([])
   const [filteredCourses, setFilteredCourses] = useState([])
@@ -28,7 +28,9 @@ export default function coursesPage(props) {
       setCourses(props.data.courses)
       setFilteredCourses(props.data.courses)
     }
-    
+  }, [])
+
+  useEffect(() => {
     if (router.query.search) {
       setInputPhrase(router.query.search)
       updateFilter({
@@ -38,7 +40,7 @@ export default function coursesPage(props) {
         live: checkedLive
       })
     }
-  }, [])
+  }, [courses, router.query.search])
 
   ///
   /// Live displayed courses update
