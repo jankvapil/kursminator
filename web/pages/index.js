@@ -1,7 +1,7 @@
 import Content from '../components/common/Content'
-import { Tabs, Typography, Image, Row, Col, Space, Statistic } from 'antd';
-import ProCard from '@/components/common/ProCard';
-import Slider from "react-slick";
+import { Tabs, Typography, Image, Row, Col, Space, Statistic } from 'antd'
+import ProCard from '@/components/common/ProCard'
+import Slider from "react-slick"
 import {
   CustomerServiceOutlined,
   ClockCircleOutlined,
@@ -9,28 +9,28 @@ import {
   ArrowUpOutlined,
   ArrowLeftOutlined,
   ArrowRightOutlined,
-} from '@ant-design/icons';
+} from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { fetchAllMainPage } from "@/core/graphql/queries/mainPage.Queries"
 import PopularInstructorsCard from '../components/common/PopularInstructorsCard'
 import PopularCoursesCard from '../components/common/PopularCoursesCard'
 import CoursesMainCard from '../components/common/CoursesMainCard'
 
-const { TabPane } = Tabs;
-const { Title, Paragraph } = Typography;
+const { TabPane } = Tabs
+const { Title, Paragraph } = Typography
 
 function SamplePrevArrow(props) {
-  const { onClick } = props;
+  const { onClick } = props
   return (
     <ArrowLeftOutlined className="absolute top-2/4 -left-7 text-4xl" onClick={onClick} />
-  );
+  )
 }
 
 function SampleNextArrow(props) {
-  const { onClick } = props;
+  const { onClick } = props
   return (
     <ArrowRightOutlined className="absolute top-2/4 left-full fs-5 text-4xl" onClick={onClick} />
-  );
+  )
 }
 
 ///
@@ -49,7 +49,7 @@ export default function homePage(props) {
   useEffect(() => {
     if (props.mainPage) {
       setCourses(props.mainPage)
-      setpopularInstrustors(props.mainPage.instructors.nodes.slice(0, 2));
+      setpopularInstrustors(props.mainPage.instructors.nodes.slice(0, 2))
       setitCourses(props.mainPage.itCourses.nodes)
       setsportCourses(props.mainPage.sportCourses.nodes)
       setallCourses(props.mainPage.itCourses.nodes.concat(props.mainPage.sportCourses.nodes, "sportCourses"))
@@ -97,10 +97,10 @@ export default function homePage(props) {
         }
       },
     ]
-  };
+  }
 
   function callback(key) {
-    console.log(key);
+    console.log(key)
   }
 
   return (
@@ -205,7 +205,6 @@ export default function homePage(props) {
           </Col>
         </Row>
       </ProCard>
-
     </Content>
   )
 }

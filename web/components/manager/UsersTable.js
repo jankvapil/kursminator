@@ -3,11 +3,12 @@ import { Table, Popover, Button, Typography } from 'antd'
 const { Title } = Typography  
 import AddCreditsInput from '@/components/admin/AddCreditsInput'
 import UserReservationsTable from '@/components/admin/UserReservationsTable'
+import ChangeRoleForm from '@/components/manager/ChangeRoleForm'
 
 ///
 /// UsersTable component
 ///
-const UsersTable = ({ users }) => {
+const UsersTable = ({ users, roles }) => {
 
   return (
     <section className="mt-10 mr-4">
@@ -38,6 +39,17 @@ const UsersTable = ({ users }) => {
                 trigger="click"
               >
                 <Button>Připsat</Button>
+              </Popover>
+          },
+          {
+            title: 'Změnit práva',
+            dataIndex: 'id',
+            render: id =>       
+              <Popover placement="top" title="Nastavit novou roli" 
+                content={(<ChangeRoleForm roles={roles} user={users.filter(u => u.id == id)[0]}/>)} 
+                trigger="click"
+              >
+                <Button>Změnit</Button>
               </Popover>
           },
           {

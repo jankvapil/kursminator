@@ -6,6 +6,12 @@ import { gql } from "@apollo/client"
  */
 export const ALL_COURSE_DETAIL_QUERY = gql`
   query ($id: Int!) {
+    roles {
+      nodes {
+        id
+        name
+      }
+    }
     courses(where: {id: {eq: $id}}) {
       nodes {
         id
