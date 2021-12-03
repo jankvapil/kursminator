@@ -71,7 +71,7 @@ export default function courseDetailPage() {
               />
             </div>
           </div>
-          <Button className="w-full mt-2" type="primary" onClick={bookCourse}>Rezervovat</Button>
+          { course.canceled ? "" : <Button className="w-full mt-2" type="primary" onClick={bookCourse}>Rezervovat</Button> }
         </div>
       </Card>
     );
@@ -82,7 +82,11 @@ export default function courseDetailPage() {
   ///
   const bookCourse = async () => {
     if (!logged) {
-      message.error('Pro registraci kurzu se musíte přihlásit!')
+      message.info('Pro registraci kurzu se musíte přihlásit')
+      router.push({
+        pathname: '/reservation',
+        query: { courseId: course.id },
+      })
       return
     }
     const filtered = currentUser.userCourseReservations.filter(c => c.course.id == course.id)

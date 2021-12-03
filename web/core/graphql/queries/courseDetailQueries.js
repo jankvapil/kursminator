@@ -25,6 +25,7 @@ export const ALL_COURSE_DETAIL_QUERY = gql`
         duration
         difficulty
         photoUrl
+        canceled
         occupancy
         skills
         content {

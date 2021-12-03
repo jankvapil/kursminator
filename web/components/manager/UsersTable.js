@@ -19,6 +19,10 @@ const UsersTable = ({ users, roles }) => {
         rowKey="id"
         columns={[
           {
+            title: 'Email',
+            dataIndex: 'email',
+          },
+          {
             title: 'Jméno',
             dataIndex: 'name',
           },            

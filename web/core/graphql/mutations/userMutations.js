@@ -55,6 +55,32 @@ export const bookCourseMutation = async (userId, courseId) => {
   }
 }
 
+
+
+/**
+ * Book course for current User
+ * 
+ * @param {string} email 
+ * @param {number} courseId 
+ * 
+ * @return {number} course reservation Id
+ */
+ export const bookUnregisteredCourseMutation = async (email, courseId) => {
+  const mutation = gql`
+    mutation {
+      addUnregistredCourseReservation(courseId: ${courseId}, email: "${email}")
+    }
+    
+  `
+  try {
+    const data = await client.request(mutation)
+    return data 
+  } catch (error) {
+    return { error: error.response.errors[0].message }
+  }
+}
+
+
 /**
  * Cancel reservation for current User
  * 

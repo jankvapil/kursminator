@@ -23,6 +23,7 @@ export const ALL_COURSES_QUERY = gql`
         description
         photoUrl
         capacity
+        canceled
         occupancy
         duration
         type
