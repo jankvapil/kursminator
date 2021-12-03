@@ -28,6 +28,8 @@ namespace CourseApi.Models
 
         public int Credits { get; set; } = 0;
 
+        public bool Unregistred { get; set; }
+
         public ICollection<UserCourseFavourite> UserCourseFavourites { get; set; } = new List<UserCourseFavourite>();
 
         public ICollection<UserCourseReservation> UserCourseReservations { get; set; } = new List<UserCourseReservation>();

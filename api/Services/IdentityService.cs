@@ -48,6 +48,7 @@ namespace api.Services
                     Name = userInfo.FirstName,
                     Surname = userInfo.LastName,
                     PhotoUrl = userInfo.Picture.Data.Url.OriginalString,
+                    Unregistred = false,
                     RoleId = 1  // id role user
                 };
 
