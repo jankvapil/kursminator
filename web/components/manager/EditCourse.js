@@ -68,10 +68,10 @@ const EditCourse = (props) => {
             <div className="mt-10 mb-5 border-b w-full text-center">
                 <Title level={3}>Editace kurzu</Title>
             </div>
-            <div className="flex flex-col w-3/4 pl-26">
+            <div className="flex flex-col w-3/4 pl-28">
                 <Form
                     name="addCourse"
-                    labelCol={{ span: 6 }}
+                    labelCol={{ span: 8 }}
                     wrapperCol={{ span: 32 }}
                     layout="horizontal"
                     onFinish={onFinish}
@@ -202,7 +202,7 @@ const EditCourse = (props) => {
                     </Form.Item>
                     {/* TODO - miss input for place - adress, city, url */}
                     {/* TODO - miss input for skills, content */}
-                    <Form.Item wrapperCol={{ offset: 21, span: 16 }}>
+                    <Form.Item wrapperCol={{ offset: 22, span: 16 }}>
                         <Button type="primary" htmlType="submit">
                             Upravit
                         </Button>

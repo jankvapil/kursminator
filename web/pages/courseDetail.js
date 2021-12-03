@@ -49,6 +49,7 @@ export default function courseDetailPage() {
       <Card
       className={props.className}
         style={{ background: "#F0F2F5" }}
+        cover={<Image style={{ height: 225 }} preview={false} className="object-cover" draggable="false" src={course.photoUrl} />}
       >
         <div className="flex flex-col -mt-5">
           <div className="flex flex-row justify-between">
