@@ -62,7 +62,7 @@ namespace CourseApi.Models
         [NotMapped]
         public int Occupancy { get; set; }
 
-        public bool Caceled { get; set; }
+        public bool Canceled { get; set; }
 
         public ICollection<UserCourseReservation> UserCourseReservation { get; set; } = new List<UserCourseReservation>();
     }

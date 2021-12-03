@@ -107,7 +107,7 @@ namespace api.GraphQL.Courses
             var nonEvaluatedCourses = context.Courses
                 .Include(c => c.UserCourseReservation)
                 .ThenInclude(r => r.User)
-                .Where(c => !c.Finished && !c.Caceled).ToArray();
+                .Where(c => !c.Finished && !c.Canceled).ToArray();
 
             var finishedCourses = 0;
             foreach (Course course in nonEvaluatedCourses)
@@ -149,7 +149,7 @@ namespace api.GraphQL.Courses
                 _ = smtpService.Send(context, reservation.UserId, 9, "Zrušení kurzu", new string[] { course.Name, course.Date.ToString() });
                 reservation.State = ReservationState.CANCELLED;
             }
-            course.Caceled = true;
+            course.Canceled = true;
 
             await context.SaveChangesAsync();
 
