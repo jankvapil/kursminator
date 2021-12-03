@@ -203,5 +203,47 @@ namespace api.GraphQL.UserCourseReservations
 
             return course.Id;
         }
+
+        [UseDbContext(typeof(AppDbContext))]
+        public async Task<int> AproveReservationAsync([ScopedService] AppDbContext context, int userId, int courseId)
+        {
+            var userCourseReservation = await context.UserCourseReservations
+                .Include(r => r.Course).ThenInclude(c => c.Place)
+                .Include(r => r.Course).ThenInclude(c => c.Instructor)
+                .Include(r => r.User)
+                .FirstOrDefaultAsync(r => r.UserId == userId && r.CourseId == courseId);
+
+            if (userCourseReservation is null)
+                throw new HttpRequestException(string.Empty, null, HttpStatusCode.NotFound);
+
+            userCourseReservation.State = ReservationState.APPROVED;
+
+            await context.SaveChangesAsync();
+
+            var coursePrice = userCourseReservation.IsFree ? 0 : userCourseReservation.Course.Price;
+
+            var args = new List<string>()
+            {
+                userCourseReservation.Course.Name,
+                userCourseReservation.Course.Date.ToString(),
+                coursePrice.ToString(),
+                userCourseReservation.Course.Duration.ToString(),
+                userCourseReservation.Course.Description,
+                userCourseReservation.Course.Instructor.Name + ' ' +  userCourseReservation.Course.Instructor.Surname,
+                userCourseReservation.Course.Place.Name
+            };
+
+            if (userCourseReservation.Course.Place.Virtual)
+                args.Add(userCourseReservation.Course.Place.Url);
+            else
+            {
+                args.Add(userCourseReservation.Course.Place.Address);
+                args.Add(userCourseReservation.Course.Place.City);
+            }
+
+            _ = smtpService.Send(context, userCourseReservation.UserId, userCourseReservation.Course.Place.Virtual ? 3 : 2, "Platba proběhla úspěšně", args.ToArray());
+
+            return userCourseReservation.Id;
+        }
     }
 }
