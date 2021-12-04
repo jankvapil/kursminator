@@ -344,7 +344,8 @@ export default function coursesPage(props) {
                         trailColor="#d9d9d9"
                         type="circle"
                         width={60}
-                        format={() => `${(c.occupancy / 100) * c.capacity}/${c.capacity}`}
+                        percent={c.occupancy}
+                        format={() => `${Math.ceil(c.occupancy / 100 * c.capacity) }/${c.capacity}`}
                       />
                     </div>
                   </div>
