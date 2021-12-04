@@ -13,9 +13,74 @@ export const fetchAllMainPage = async () => {
   }
 }
 
+// filtrer for ITcourses and sport courses 
+// export const ALL_MAINPAGE_QUERY = gql`
+// query{
+//   sportCourses: courses(where: {type:{contains: "Sport"}}) {
+//     totalCount
+//     nodes {
+//       name
+//       capacity
+//       price
+//       type
+//       photoUrl
+//       occupancy
+//       id
+//       instructor {
+//         name
+//         surname
+//         photoUrl
+//         id
+//       }
+//       place {
+//         name
+//         virtual
+//         id
+//       }
+//     }
+//   }
+//   itCourses: courses(where: {type:{contains: "IT"}}) {
+//     totalCount
+//     nodes {
+//       name
+//       capacity
+//       price
+//       type
+//       photoUrl
+//       occupancy
+//       id
+//       instructor {
+//         name
+//         surname
+//         photoUrl
+//         id
+//       }
+//       place {
+//         name
+//         id
+//         virtual
+//       }
+//     }
+//   }
+//   instructors {
+//     totalCount
+//     nodes {
+//       name 
+//       surname
+//       photoUrl
+//       id
+//       courses {
+//         name
+//         id
+//       }
+//     }
+//   }
+// }
+// `
+
 export const ALL_MAINPAGE_QUERY = gql`
 query{
-  sportCourses: courses(where: {type:{contains: "Sport"}}) {
+  courses{
     totalCount
     nodes {
       name
@@ -35,29 +100,6 @@ query{
         name
         virtual
         id
-      }
-    }
-  }
-  itCourses: courses(where: {type:{contains: "IT"}}) {
-    totalCount
-    nodes {
-      name
-      capacity
-      price
-      type
-      photoUrl
-      occupancy
-      id
-      instructor {
-        name
-        surname
-        photoUrl
-        id
-      }
-      place {
-        name
-        id
-        virtual
       }
     }
   }
