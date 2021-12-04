@@ -22,7 +22,7 @@ export const addCourseMutation = async (course) => {
           description: "${course.description}"
           skills: "${course.skills}"
           content: [
-            { name: "none", subchapters: [] }
+            { name: "Networks", subchapters: [] }
           ]
           instructorId: ${course.instructorId}
           placeId: ${course.placeId}
@@ -56,7 +56,7 @@ export const addCourseMutation = async (course) => {
           description: "${course.description}"
           skills: "${course.skills}"
           content: [
-            ${course.content.map((item) => { name: item.name; subchapters: item.subchapters })}
+            ${course.content.map((item) => `{ name: "${item.name}", subchapters: [${item.subchapters.map((sub) => `"${sub}"`)}] }`)}
           ]
           instructorId: ${course.instructorId}
           placeId: ${course.placeId}
