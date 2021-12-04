@@ -30,7 +30,12 @@ const Header = (props) => {
     setVisibleSearchBar(false);
   };
 
-  const onSearch = value => console.log(value);
+  const onSearch = value => {router.push({
+    pathname: '/courses',
+    query: { search: value },
+  })
+  onCloseSearchBar();
+};
 
   useEffect(() => {
     setUserInfo(localStorage)

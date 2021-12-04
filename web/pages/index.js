@@ -45,9 +45,6 @@ export default function homePage(props) {
   const [popularCourses, setpopularCourses] = useState([])
   const [totalCourses, setTotalCourses] = useState([])
   const [totalInstructors, setInstructorsCourses] = useState([])
-  console.log(itCourses)
-  console.log(sportCourses)
-  console.log(allCourses)
 
   useEffect(() => {
     if (props.mainPage) {
@@ -71,7 +68,7 @@ export default function homePage(props) {
       setInstructorsCourses(props.mainPage.instructors.totalCount)
     }
   }, [])
-  
+
   const settings = {
     dots: false,
     infinite: true,
