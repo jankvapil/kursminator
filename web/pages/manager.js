@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { useRouter } from 'next/router'
-import { Tabs, Typography, Avatar, Button, message } from 'antd'
+import { Tabs, Button, message } from 'antd'
 const { TabPane } = Tabs
 import { FileAddOutlined, UserAddOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons'
 
@@ -51,25 +51,6 @@ export default function managerPage(props) {
       <Content>
         <ProCard>
           <Tabs tabPosition="left" defaultActiveKey={newCourseTab || editCourseTab ? "newCourse" : "profil"}>
-            <TabPane disabled
-              tab={
-                <div className="items-center mb-5 w-56 cursor-default">
-                  <Typography.Title level={5}>Rene Novak</Typography.Title>
-                  <Avatar src="" size={70} draggable="false" />
-                </div>
-              }
-            >
-            </TabPane>
-            <TabPane key="profil"
-              tab={
-                <span>
-                  <UserOutlined />
-                  Profil
-                </span>
-              }
-            >
-                <button onClick={() =>  console.log(props.data)}>data</button>
-            </TabPane>
             <TabPane key="users"
               tab={
                 <span>

@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import ProCard from '@/components/common/ProCard'
 import moment from 'moment';
 import styles from "../styles/Content.module.css"
+import CourseDefficultyMapper from '@/core/mappers/course-difficulty.mapper'
 
 ///
 /// Courses search page
@@ -333,7 +334,7 @@ export default function coursesPage(props) {
                     <p className="my-2 md:mt-0 hidden md:block">{c.description}</p>
                     <p className="my-2 text-gray-400 md:mt-0">{c.instructor.name} {c.instructor.surname}</p>
                     <p className="my-2 text-gray-400 md:mt-0">{c.type}</p>
-                    <p className="my-2 text-gray-400 md:mt-0 hidden sm:block">Online | pokročilý | {c.duration} minut</p>
+                    <p className="my-2 text-gray-400 md:mt-0 hidden sm:block">{c.place.virtual ? "Online" : c.place.address} | {CourseDefficultyMapper.toFormat(c.difficulty)} | {c.duration} minut</p>
                     <p className="my-2 text-gray-400 md:mt-0">{moment(String(c.date)).format('D.M.YYYY hh:mm')}</p>
                   </div>
 

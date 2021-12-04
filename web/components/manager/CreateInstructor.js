@@ -19,8 +19,7 @@ const CreateInstructor = () => {
             specialization: values.specialization,
             about: values.about,
             contact: values.contact,
-            // TODO - default image
-            photoUrl: "https://www.shutterstock.com/image-photo/young-man-teacher-posing-classroom-344044361"
+            photoUrl: values.photoUrl ? values.photoUrl : "https://media.istockphoto.com/photos/portrait-of-smiling-young-man-in-city-on-sunny-day-picture-id863488868?k=20&m=863488868&s=612x612&w=0&h=0nlCVra-NlgrCFhmhbRNZMRaLDxz6or4hspVpIfzKnQ="
         }
         const res = await addInstructorMutation(newInstructor)
         if (res.addInstructor) {
@@ -40,7 +39,7 @@ const CreateInstructor = () => {
             <div className="mt-10 mb-5 border-b w-full text-center">
                 <Title level={3}>Nový lektor</Title>
             </div>
-            <div className="flex flex-col items-center w-full">
+            <div className="flex flex-col w-3/4 pl-26">
                 <Form
                     form={form}
                     name="addInstructor"
@@ -109,7 +108,15 @@ const CreateInstructor = () => {
                         <Input placeholder="Telefon nebo email" />
                     </Form.Item>
 
-                    <Form.Item wrapperCol={{ offset: 19, span: 16 }}>
+                    <Form.Item
+                        label="Avatar"
+                        name="photoUrl"
+                        rules={[{ required: false }]}
+                    >
+                        <TextArea placeholder="Zde mužete vložit url profiloveho obrazku lektora" autoSize={true} />
+                    </Form.Item>
+
+                    <Form.Item wrapperCol={{ offset: 21, span: 16 }}>
                         <Button type="primary" htmlType="submit">
                             Vytvořit
                         </Button>

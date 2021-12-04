@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { Typography, Input, Form, Button, Radio, Select, DatePicker, message } from 'antd'
+import { Typography, Input, Form, Button, Radio, Select, DatePicker, message, InputNumber } from 'antd'
 const { Title } = Typography;
 const { TextArea } = Input;
 const { Option } = Select;
@@ -18,9 +18,7 @@ const EditCourse = (props) => {
     const onRadioChange = e => {
         setCourseType(e.target.value);
     };
-    const dateFormat = 'YYYY-MM-DD';
-    const startDate = moment(course.date, dateFormat)
-    const endDate = moment(course.date, dateFormat).add(course.duration, 'hours')
+    const dateFormat = "YYYY-MM-DD HH:mm";
     const onFinish = async (values) => {
         // update Place
         const coursePlaceId = course.place.id
@@ -31,25 +29,24 @@ const EditCourse = (props) => {
                 virtual: isVirtual,
                 name: course.place.name,
                 url: course.place.url ?? "https://www.google.com/maps",
-                address: course.place.address,
+                address: values.address ? values.address : course.place.address,
                 city: course.place.city ?? "Brno"
             }
-            var placeRes = await updatePlaceMutation(updatePlace)
+            const placeRes = await updatePlaceMutation(updatePlace)
             if (placeRes.updatePlace) {
                 coursePlaceId = placeRes.updatePlace.id
             }
         }
 
-        var duration = moment.duration(values.date[1].diff(values.date[0]));
         const updatedCourse = {
             id: course.id,
             name: values.name,
-            photoUrl: course.photoUrl,
-            capacity: course.capacity,
+            photoUrl: values.photoUrl ? values.photoUrl : course.photoUrl,
+            capacity: values.capacity ? values.capacity : course.capacity,
             type: values.category,
             difficulty: values.difficulty,
-            date: moment(values.date[0]).format(dateFormat),
-            duration: duration.asHours(),
+            date: moment(values.date).format(dateFormat),
+            duration: values.duration,
             price: values.price,
             description: values.message,
             skills: course.skills,
@@ -71,21 +68,26 @@ const EditCourse = (props) => {
             <div className="mt-10 mb-5 border-b w-full text-center">
                 <Title level={3}>Editace kurzu</Title>
             </div>
-            <div className="flex flex-col w-full items-center">
+            <div className="flex flex-col w-3/4 pl-28">
                 <Form
                     name="addCourse"
-                    labelCol={{ span: 6 }}
+                    labelCol={{ span: 8 }}
                     wrapperCol={{ span: 32 }}
                     layout="horizontal"
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     initialValues={{ 
                             name: course.name,
+                            date: moment(course.date, dateFormat),
+                            duration: course.duration,
                             price: course.price,
                             category: course.type,
                             instructorId: course.instructor.id,
                             difficulty: course.difficulty,
-                            message: course.description
+                            message: course.description,
+                            capacity: course.capacity,
+                            photoUrl: course.photoUrl,
+                            address: course.place.address
                         }}
                 >
                     <Form.Item
@@ -101,7 +103,19 @@ const EditCourse = (props) => {
                         name="date"
                         rules={[{ required: true, message: 'Toto pole je povinné!' }]}
                     >
-                        <DatePicker.RangePicker defaultValue={[startDate, endDate]} placeholder={["Začátek", "Konec"]}/>
+                        <DatePicker
+                            placeholder="Začátek kurzu"
+                            showTime={{ format: 'HH:mm' }}
+                            format={dateFormat}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Délka trvání"
+                        name="duration"
+                        rules={[{ required: true, message: 'Toto pole je povinné!' }]}
+                    >
+                        <Input type="number" placeholder="Počet minut" />
                     </Form.Item>
 
                     <Form.Item
@@ -165,16 +179,39 @@ const EditCourse = (props) => {
                     </Form.Item>
 
                     <Form.Item
+                        label="Místo konání"
+                        name="address"
+                        rules={[{ required: false}]}
+                    >
+                        <Input placeholder="Vyplňte pouze pro prezenční kurz" />
+                    </Form.Item>
+
+                    <Form.Item
                         label="Zpráva"
                         name="message"
                         rules={[{ required: true, message: 'Toto pole je povinné!' }]}
                     >
                         <TextArea placeholder="Minimum je 10 znaku." autoSize={true} />
                     </Form.Item>
-                    {/* TODO - miss load own photo/image of course */}
+
+                    <Form.Item
+                        label="Kapacita"
+                        name="capacity"
+                        rules={[{ required: false }]}
+                    >
+                        <InputNumber min={10} max={100} />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Url obrázku"
+                        name="photoUrl"
+                        rules={[{ required: false }]}
+                    >
+                        <TextArea placeholder="Zde mužete vložit url obrazku kurzu" autoSize={true} />
+                    </Form.Item>
                     {/* TODO - miss input for place - adress, city, url */}
                     {/* TODO - miss input for skills, content */}
-                    <Form.Item wrapperCol={{ offset: 19, span: 16 }}>
+                    <Form.Item wrapperCol={{ offset: 22, span: 16 }}>
                         <Button type="primary" htmlType="submit">
                             Upravit
                         </Button>
