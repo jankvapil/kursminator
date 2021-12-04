@@ -50,11 +50,21 @@ export default function homePage(props) {
     if (props.mainPage) {
       setCourses(props.mainPage)
       setpopularInstrustors(props.mainPage.instructors.nodes.slice(0, 2))
-      setitCourses(props.mainPage.itCourses.nodes)
-      setsportCourses(props.mainPage.sportCourses.nodes)
-      setallCourses(props.mainPage.itCourses.nodes.concat(props.mainPage.sportCourses.nodes, "sportCourses"))
-      setpopularCourses(props.mainPage.sportCourses.nodes.slice(0, 2).concat(props.mainPage.itCourses.nodes.slice(0, 1)))
-      setTotalCourses(props.mainPage.itCourses.totalCount + props.mainPage.sportCourses.totalCount)
+
+      // TODO correct query
+      // setitCourses(props.mainPage.itCourses.nodes)
+      // setsportCourses(props.mainPage.sportCourses.nodes)
+      // setallCourses(props.mainPage.itCourses.nodes.concat(props.mainPage.sportCourses.nodes, sportCourses))
+      // setpopularCourses(props.mainPage.sportCourses.nodes.slice(0, 2).concat(props.mainPage.itCourses.nodes.slice(0, 1)))
+      // setTotalCourses(props.mainPage.itCourses.totalCount + props.mainPage.sportCourses.totalCount)
+      
+      // for small databese
+      setitCourses(props.mainPage.courses.nodes.slice(0, 6))
+      setsportCourses(props.mainPage.courses.nodes.slice(4, 9))
+      setallCourses(props.mainPage.courses.nodes)
+      setpopularCourses(props.mainPage.courses.nodes.slice(0, 2).concat(props.mainPage.courses.nodes.slice(0, 1)))
+      setTotalCourses(props.mainPage.courses.totalCount * 38)
+
       setInstructorsCourses(props.mainPage.instructors.totalCount)
     }
   }, [])

@@ -44,13 +44,14 @@ const Footer = () => {
                         </div>
 
                         <div className="">
-                            <Link href="/" className="m-0"><span className="text-white cursor-pointer">Přihlášení</span></Link><br />
+                            <Link href="/login" className="m-0"><span className="text-white cursor-pointer">Přihlášení</span></Link><br />
                         </div>
 
                         <div className="">
                             <div>
                                 <img className="float-left mr-3" style={{ marginTop: 5 }} src="/facebook.png" alt="facebook-icon" width="12" height="12" />
-                                <Link href="/" className="ml-3 bg-black cursor-pointer"><span className="text-white">Facebook</span></Link>
+                                <Link href="/"><span className="text-white cursor-pointer">Facebook</span></Link>
+
                             </div>
 
                             <div>

@@ -80,6 +80,7 @@ export default function coursesPage(props) {
               <h2 className="text-xl">Filtrování kurzů</h2>
               <Input
                 placeholder="Hledat kurz..."
+                value={inputPhrase}
                 onChange={(e) => {
                   setInputPhrase(e.target.value)
                   updateFilter({
@@ -98,6 +99,7 @@ export default function coursesPage(props) {
               <Input
                 defaultValue={router.query.search ? router.query.search : ""}
                 placeholder="Hledat kurz..."
+                value={inputPhrase}
                 onChange={(e) => {
                   setInputPhrase(e.target.value)
                   updateFilter({

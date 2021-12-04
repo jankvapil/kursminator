@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import moment from 'moment'
 import { useRouter } from 'next/router'
-import { Typography, Descriptions, Card, Button, Collapse, Progress, Image, message } from 'antd'
+import { Typography, Descriptions, Card, Button, Collapse, Progress, Image, message, Rate } from 'antd'
 const { Title, Text } = Typography
 const { Panel } = Collapse
 import { CheckOutlined } from '@ant-design/icons'
@@ -47,7 +47,7 @@ export default function courseDetailPage() {
   function CourseInfoCard(props) {
     return (
       <Card
-      className={props.className}
+        className={props.className}
         style={{ background: "#F0F2F5" }}
         cover={<Image style={{ height: 225 }} preview={false} className="object-cover" draggable="false" src={course.photoUrl} />}
       >
@@ -71,7 +71,7 @@ export default function courseDetailPage() {
               />
             </div>
           </div>
-          { course.canceled ? "" : <Button className="w-full mt-2" type="primary" onClick={bookCourse}>Rezervovat</Button> }
+          {course.canceled ? "" : <Button className="w-full mt-2" type="primary" onClick={bookCourse}>Rezervovat</Button>}
         </div>
       </Card>
     );
@@ -104,7 +104,7 @@ export default function courseDetailPage() {
       message.error('Kurz jste již rezervoval/a!')
     }
   }
-
+  
   ///////////////// GUI ///////////////////
 
   return (
@@ -116,11 +116,13 @@ export default function courseDetailPage() {
             <Text>{course.description}</Text>
             <CourseInfoCard className="block md:hidden" />
             <Descriptions bordered className="w-full mt-5">
+              <Descriptions.Item label="Jméno Lektora" span={3} className="bg-gray-50" ><p className="cursor-pointer mb-0" onClick={() => router.push(`instructorDetail?id=${course.instructor.id}`)}>{course.instructor.name} {course.instructor.surname}</p></Descriptions.Item>
               <Descriptions.Item label="Jméno Lektora" span={3} className="bg-gray-50"><button onClick={() => router.push(`instructorDetail?id=${course.instructor.id}`)}>{course.instructor.name} {course.instructor.surname}</button></Descriptions.Item>
               <Descriptions.Item label="Místo konání" span={3} labelStyle={{ background: "#FFF" }}>{course.place.virtual ? "Online" : course.place.address}</Descriptions.Item>
               <Descriptions.Item label="Obtížnost" span={3} className="bg-gray-50">{CourseDefficultyMapper.toFormat(course.difficulty)}</Descriptions.Item>
               <Descriptions.Item label="Délka trvání" span={3} labelStyle={{ background: "#FFF" }}>{course.duration} minut</Descriptions.Item>
               <Descriptions.Item label="Datum" span={3} className="bg-gray-50">{moment(course.date).format('D.M.YYYY HH:mm')}</Descriptions.Item>
+              {course.finished === true ? <Descriptions.Item label="Hodnoceni" span={3} className="bg-gray-50">{<Rate disabled defaultValue={course.evaluation} />}</Descriptions.Item> : ""}
             </Descriptions>
             <Descriptions bordered className="w-full my-8">
               <Descriptions.Item span={3} className="bg-gray-50"><Text className="text-3xl">V tomto kurzu se naučíte</Text></Descriptions.Item>

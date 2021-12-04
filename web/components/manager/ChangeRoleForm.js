@@ -18,6 +18,7 @@ const ChangeRoleForm = (props) => {
     })
     if (res?.updateUser?.id) {
       const newRole = props.roles.filter(r => r.id == e)[0]
+      localStorage.setItem('roleId', newRole.id)
       message.success(`Uživateli ${props.user.name} ${props.user.surname} se změnila role na ${newRole.name}`)
       router.reload()
     } else {

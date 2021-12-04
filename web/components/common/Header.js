@@ -30,12 +30,18 @@ const Header = (props) => {
     setVisibleSearchBar(false);
   };
 
-  const onSearch = value => console.log(value);
+  const onSearch = value => {
+    router.push({
+      pathname: '/courses',
+      query: { search: value },
+    })
+    onCloseSearchBar();
+  };
 
   useEffect(() => {
     setUserInfo(localStorage)
     loadUserInfo()
-  });
+  }, []);
 
   const loadUserInfo = async () => {
     const user = await getUserInfo();
@@ -55,14 +61,17 @@ const Header = (props) => {
         query: { search: e.target.value },
       })
     }
-  } 
+  }
 
   const profileMenu = (
     <Menu>
-      <Menu.Item key="1">
+      {/* roleId 1 = User */}
+      {userInfo.isLogged == "true" && currentUser?.roleId == 1 ? <Menu.Item key="1">
         <span><Link href="/myProfile">Můj profil</Link></span>
-      </Menu.Item>
-      <Menu.Item key="2">
+      </Menu.Item> : <Menu.Item key="2">
+        <span><Link href="/manager">Manažer</Link></span>
+      </Menu.Item>}
+      <Menu.Item key="3">
         <span onClick={logOut}>Odhlásit</span>
       </Menu.Item>
     </Menu>
@@ -127,6 +136,7 @@ const Header = (props) => {
           {userInfo.isLogged == "true" && currentUser ? currentUser.name + " " +
             currentUser.surname : <Link href="/login" >Přihlášení</Link>}
           {userInfo.isLogged == "true" && currentUser ? <p className="mb-0">{currentUser.credits} kreditů</p> : ""}
+          {userInfo.isLogged == "true" && currentUser?.roleId == 1 ? <Link href="/myProfile">Můj profil</Link> : <Link href="/manager">Manažer</Link>}
           {userInfo.isLogged == "true" && currentUser ? <Link href="/">Odhlásit</Link> : ""}
         </div>
         <Divider />

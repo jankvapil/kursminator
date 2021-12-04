@@ -19,6 +19,7 @@ export const ALL_COURSE_DETAIL_QUERY = gql`
         date
         price
         evaluation
+        finished
         capacity
         type
         description
