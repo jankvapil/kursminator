@@ -15,6 +15,8 @@ import Content from '@/components/common/Content'
 import ProCard from '@/components/common/ProCard'
 import CourseDefficultyMapper from '@/core/mappers/course-difficulty.mapper'
 
+import { cancelCourseMutation } from '@/core/graphql/mutations/coursesMutations'
+
 ///
 /// Course detail page
 ///
@@ -44,6 +46,8 @@ export default function courseDetailPage() {
   const course = data.courses.nodes[0]
   const occupancyPlace = Math.round(course.occupancy / 100 * course.capacity);
 
+  const role = data.roles.nodes[0]
+
   function CourseInfoCard(props) {
     return (
       <Card
@@ -71,7 +75,9 @@ export default function courseDetailPage() {
               />
             </div>
           </div>
-          {course.canceled ? "" : <Button className="w-full mt-2" type="primary" onClick={bookCourse}>Rezervovat</Button>}
+          {course.canceled || role.name != "User" ? "" : <Button className="w-full mt-2" type="primary" onClick={bookCourse}>Rezervovat</Button>}
+          {role.name == "User" ? "" : <Button className="w-full mt-2" type="primary" onClick={() => router.push(`manager?editCourse=true&id=${course.id}`)}>Editovat</Button>}
+          {role.name == "User" ? "" : <Button className="w-full mt-2" type="primary" onClick={cancelCourse}>Zrušit</Button>}
         </div>
       </Card>
     );
@@ -104,6 +110,16 @@ export default function courseDetailPage() {
       message.error('Kurz jste již rezervoval/a!')
     }
   }
+
+  ///
+  /// Remove course
+  ///
+  const cancelCourse = async () => {
+    const result = await cancelCourseMutation(course.id)
+    if (result.cancelCourse) {
+      message.success('Kurz byl zrušen')
+    }
+  }
   
   ///////////////// GUI ///////////////////
 
@@ -117,7 +133,6 @@ export default function courseDetailPage() {
             <CourseInfoCard className="block md:hidden" />
             <Descriptions bordered className="w-full mt-5">
               <Descriptions.Item label="Jméno Lektora" span={3} className="bg-gray-50" ><p className="cursor-pointer mb-0" onClick={() => router.push(`instructorDetail?id=${course.instructor.id}`)}>{course.instructor.name} {course.instructor.surname}</p></Descriptions.Item>
-              <Descriptions.Item label="Jméno Lektora" span={3} className="bg-gray-50"><button onClick={() => router.push(`instructorDetail?id=${course.instructor.id}`)}>{course.instructor.name} {course.instructor.surname}</button></Descriptions.Item>
               <Descriptions.Item label="Místo konání" span={3} labelStyle={{ background: "#FFF" }}>{course.place.virtual ? "Online" : course.place.address}</Descriptions.Item>
               <Descriptions.Item label="Obtížnost" span={3} className="bg-gray-50">{CourseDefficultyMapper.toFormat(course.difficulty)}</Descriptions.Item>
               <Descriptions.Item label="Délka trvání" span={3} labelStyle={{ background: "#FFF" }}>{course.duration} minut</Descriptions.Item>

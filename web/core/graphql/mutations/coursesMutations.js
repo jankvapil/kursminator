@@ -69,5 +69,19 @@ export const addCourseMutation = async (course) => {
   return data
 }
 
+/**
+ * Cancel course mutation
+ * 
+ */
+ export const cancelCourseMutation = async (courseId) => {
+  const mutation = gql`
+    mutation {
+      cancelCourse(courseId: ${courseId})
+    }`
+
+  const data = await client.request(mutation)
+  return data
+}
+
 
   
