@@ -51,16 +51,6 @@ export default function managerPage(props) {
       <Content>
         <ProCard>
           <Tabs tabPosition="left" defaultActiveKey={newCourseTab || editCourseTab ? "newCourse" : "profil"}>
-            <TabPane key="profil"
-              tab={
-                <span>
-                  <UserOutlined />
-                  Profil
-                </span>
-              }
-            >
-                <button onClick={() =>  console.log(props.data)}>data</button>
-            </TabPane>
             <TabPane key="users"
               tab={
                 <span>

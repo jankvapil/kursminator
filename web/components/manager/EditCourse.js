@@ -29,7 +29,7 @@ const EditCourse = (props) => {
                 virtual: isVirtual,
                 name: course.place.name,
                 url: course.place.url ?? "https://www.google.com/maps",
-                address: course.place.address,
+                address: values.address ? values.address : course.place.address,
                 city: course.place.city ?? "Brno"
             }
             const placeRes = await updatePlaceMutation(updatePlace)
@@ -86,7 +86,8 @@ const EditCourse = (props) => {
                             difficulty: course.difficulty,
                             message: course.description,
                             capacity: course.capacity,
-                            photoUrl: course.photoUrl
+                            photoUrl: course.photoUrl,
+                            address: course.place.address
                         }}
                 >
                     <Form.Item
@@ -175,6 +176,14 @@ const EditCourse = (props) => {
                             <Radio value="online">Online</Radio>
                             <Radio value="present">Prezenční</Radio>
                         </Radio.Group>
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Místo konání"
+                        name="address"
+                        rules={[{ required: false}]}
+                    >
+                        <Input placeholder="Vyplňte pouze pro prezenční kurz" />
                     </Form.Item>
 
                     <Form.Item

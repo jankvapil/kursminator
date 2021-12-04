@@ -25,7 +25,7 @@ const CreateCourse = (props) => {
             virtual: isVirtual,
             name: isVirtual ? "Portal online kurzů" : "Sportovni hala",
             url: isVirtual ? "https://www.youtube.com/" : "https://www.google.com/maps",
-            address:  isVirtual ? "online" : "U Sportovni haly 552, 778 21",
+            address:  isVirtual ? "online" : values.address ? values.address : "U Sportovni haly 552, 778 21",
             city: isVirtual ? "online" : "Brno"
         }
         const placeRes = await addPlaceMutation(newPlace)
@@ -162,6 +162,14 @@ const CreateCourse = (props) => {
                             <Radio value="online">Online</Radio>
                             <Radio value="present">Prezenční</Radio>
                         </Radio.Group>
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Místo konání"
+                        name="address"
+                        rules={[{ required: false}]}
+                    >
+                        <Input placeholder="Vyplňte pouze pro prezenční kurz" />
                     </Form.Item>
 
                     <Form.Item

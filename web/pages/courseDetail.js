@@ -116,7 +116,7 @@ export default function courseDetailPage() {
             <Text>{course.description}</Text>
             <CourseInfoCard className="block md:hidden" />
             <Descriptions bordered className="w-full mt-5">
-              <Descriptions.Item label="Jméno Lektora" span={3} className="bg-gray-50">{course.instructor.name} {course.instructor.surname}</Descriptions.Item>
+              <Descriptions.Item label="Jméno Lektora" span={3} className="bg-gray-50"><button onClick={() => router.push(`instructorDetail?id=${course.instructor.id}`)}>{course.instructor.name} {course.instructor.surname}</button></Descriptions.Item>
               <Descriptions.Item label="Místo konání" span={3} labelStyle={{ background: "#FFF" }}>{course.place.virtual ? "Online" : course.place.address}</Descriptions.Item>
               <Descriptions.Item label="Obtížnost" span={3} className="bg-gray-50">{CourseDefficultyMapper.toFormat(course.difficulty)}</Descriptions.Item>
               <Descriptions.Item label="Délka trvání" span={3} labelStyle={{ background: "#FFF" }}>{course.duration} minut</Descriptions.Item>
