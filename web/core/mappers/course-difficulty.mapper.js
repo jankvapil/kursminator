@@ -9,6 +9,8 @@ const CourseDefficultyMapper = {
               return "Začátečník"
             case ECourseDifficulty.ADVANCED:
               return "Pokročilý"
+            case ECourseDifficulty.INTERMEDIATE:
+              return "Středně pokročilý"
             case ECourseDifficulty.EXPERT:
               return "Expert"
           }
