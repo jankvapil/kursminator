@@ -10,6 +10,7 @@ import Content from '@/components/common/Content'
 import ProCard from '@/components/common/ProCard'
 
 import FbLoginButton from '@/components/login/FbLoginButton'
+import GDPRModal from '@/components/login/GDPRModal'
 
 ///
 /// Course detail page
@@ -17,6 +18,7 @@ import FbLoginButton from '@/components/login/FbLoginButton'
 export default function courseDetailPage() {
   const router = useRouter()
   const [completed, setCompleted] = useState(false)
+  const [isModalVisible, setIsModalVisible] = useState(true)
 
   ///
   /// Handles on reservation click event
@@ -45,10 +47,10 @@ export default function courseDetailPage() {
             <div className="flex flex-col md:w-3/5 w-full m-auto">
 
               <Title level={5}><p className="text-center text-2xl">Dokončení rezervace</p></Title>
-              <p className="text-center m-auto pb-1 md:text-lg">Pro dokončení rezervace se přihlašte pomocí facebooku</p>
+              <p className="text-center m-auto pb-4 md:text-lg">Pro dokončení rezervace se musíte přihlásit pomocí svého Facebook účtu</p>
 
-            <div className="m-auto pb-7 pl-2"><FbLoginButton /></div>
-            <p className="text-center m-auto md:text-lg">nebo zadajte emailovou adresu</p>
+            <div className="m-auto pb-7 pl-2"><FbLoginButton url={`courseDetail?id=${router.query.courseId}`}/></div>
+            <p className="text-center m-auto md:text-lg pb-4">Rezervovat kurz je možné také pomocí Vaší emailové adresy</p>
 
               <Form
                 name="basic"
@@ -71,6 +73,8 @@ export default function courseDetailPage() {
                   <Button type="primary" htmlType="submit">
                     Rezervovat
                   </Button>
+
+                  <GDPRModal isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible} />
                 </Form.Item>
               </div>
               </Form>

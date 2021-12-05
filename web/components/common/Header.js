@@ -1,4 +1,4 @@
-import { Layout, Button, Input, Image, Drawer, Divider, Avatar, Dropdown, Menu } from 'antd'
+import { Layout, Button, Input, Image, Drawer, Divider, Avatar, Dropdown, Menu, message } from 'antd'
 import { MailOutlined, CalendarOutlined, MenuOutlined, ReadOutlined, SearchOutlined, FacebookFilled, InstagramFilled, GooglePlusSquareFilled } from '@ant-design/icons'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
@@ -51,6 +51,7 @@ const Header = (props) => {
   const logOut = () => {
     localStorage.clear();
     router.push(`/`)
+    message.success("Odhlášení proběhlo úspěšně")
   }
 
   const handleSearch = async (e) => {

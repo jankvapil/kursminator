@@ -1,11 +1,15 @@
 
+import { useState } from 'react'
 import Content from '@/components/common/Content'
 import FbLoginButton from '@/components/login/FbLoginButton'
+import GDPRModal from '@/components/login/GDPRModal'
 
 ///
 /// Login page includes login over Facebook
 ///
 export default function loginPage() {
+  const [isModalVisible, setIsModalVisible] = useState(true)
+
   return (
     <Content>
       <section>
@@ -14,6 +18,7 @@ export default function loginPage() {
         </header>
         <div className="flex justify-center">
           <FbLoginButton />
+          <GDPRModal isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible} />
         </div>
       </section>
     </Content>

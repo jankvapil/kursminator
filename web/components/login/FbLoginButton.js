@@ -6,7 +6,7 @@ import { getToken } from '@/core/graphql/mutations/loginMutations'
 ///
 /// FbLoginButton component
 ///
-const FbLoginButton = () => {
+const FbLoginButton = ({ url }) => {
   const router = useRouter()
 
   ///
@@ -16,7 +16,11 @@ const FbLoginButton = () => {
     localStorage.setItem('isLogged', 'true')
     localStorage.setItem('pictureUrl', e.picture.data.url)
     await getToken(e.accessToken)
-    router.push("/myProfile")
+    if (url) {
+      router.push(`/${url}`)
+    } else {
+      router.push("/myProfile")
+    }
   }
 
   return (
