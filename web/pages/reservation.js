@@ -45,10 +45,10 @@ export default function courseDetailPage() {
             <div className="flex flex-col md:w-3/5 w-full m-auto">
 
               <Title level={5}><p className="text-center text-2xl">Dokončení rezervace</p></Title>
-              <p className="text-center m-auto pb-1 text-lg">Přihlásit se pomocí facebooku</p>
+              <p className="text-center m-auto pb-1 md:text-lg">Pro dokončení rezervace se přihlašte pomocí facebooku</p>
 
             <div className="m-auto pb-7 pl-2"><FbLoginButton /></div>
-            <p className="text-center m-auto text-lg">nebo emailu</p>
+            <p className="text-center m-auto md:text-lg">nebo zadajte emailovou adresu</p>
 
               <Form
                 name="basic"
@@ -66,8 +66,8 @@ export default function courseDetailPage() {
                   <Input />
                 </Form.Item>
 
-                <div className="mr-10 md:mr-0">
-                <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
+                <div className="flex justify-center">
+                <Form.Item >
                   <Button type="primary" htmlType="submit">
                     Rezervovat
                   </Button>
