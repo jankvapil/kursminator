@@ -46,9 +46,6 @@ export default function courseDetailPage() {
   const course = data.courses.nodes[0]
   const occupancyPlace = Math.round(course.occupancy / 100 * course.capacity);
 
-  const role = data.roles.nodes[0]
-  console.log(role)
-
   function CourseInfoCard(props) {
     return (
       <Card
