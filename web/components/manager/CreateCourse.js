@@ -42,7 +42,8 @@ const CreateCourse = (props) => {
             duration: values.duration,
             price: values.price,
             description: values.message,
-            skills: ["Networks", "Web technologies", "Manager skills"],
+            skills: ["Residual Neural Networks", "Get many customers by using the best networking tool", "Set unbelievable goals for yourself"],
+            content: [{name: "Welcome to the Course", subchapters: ['Main Course Intro', 'Course Introduction and Best Practices', 'AI Superpowers', 'Key AI Components', 'Course Outline']}, {name: "Day 1: Develop an AI model to classify fashion elements using Google Teachable", subchapters: ['Introduction to Day 1', 'Task 1. Project Card and Demo', 'Task 2. AI Applications in Fashion', 'Quiz: AI Applications in Fashion', 'Task 3. Data Exploration', 'Task 4. Model Training and Testing in Google Teachable Machines']}],
             instructorId: values.instructorId,
             placeId: placeId
         }
