@@ -95,16 +95,16 @@ const Header = (props) => {
         </div>
         <div className="hidden sm:flex sm:items-center sm:block">
           <ReadOutlined style={{ color: "#fff" }} />
-          <span className="text-white m-0 ml-2" ><Link href="/courses">Kurzy</Link></span>
+          <Link href="/courses"><span className="text-white m-0 ml-2 hover:text-blue-500" >Kurzy</span></Link>
         </div>
         <div className="hidden md:block w-1/4 lg:w-5/12">
           <Input onKeyDown={handleSearch} placeholder="Hledaný kurz..." />
         </div>
         <div className="hidden md:flex items-center">
           <MailOutlined style={{ color: "#fff" }} />
-          <span className="text-white m-0 ml-2 mr-2"><Link href="/contact">Kontakt</Link></span>
+          <Link href="/contact"><span className="text-white hover:text-blue-500 m-0 ml-2 mr-6">Kontakt</span></Link>
           <CalendarOutlined style={{ color: "#fff" }} />
-          <span className="text-white m-0 ml-2 mr-8"><Link href="/calendar">Kalendář</Link></span>
+          <Link href="/calendar"><span className="text-white hover:text-blue-500 m-0 ml-2 mr-12">Kalendář</span></Link>
 
           {userInfo.isLogged == "true" && currentUser ?
             <Dropdown className="-m-5" overlay={profileMenu} placement="bottomCenter" arrow>
