@@ -36,7 +36,8 @@ export const ALL_COURSE_DETAIL_QUERY = gql`
         instructor {
           id
           name
-          surname
+          surname,
+          photoUrl
         }
         place {
           id

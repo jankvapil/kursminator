@@ -27,7 +27,7 @@ export default function managerPage(props) {
     const editCourseTab = router.query.editCourse
     let course = {}
     let loaded
-    if (editCourseTab) {
+    if (editCourseTab || newCourseTab) {
       const id = parseInt(router.query.id)
       const { loading, error, data } = useQuery(ALL_COURSE_DETAIL_QUERY, 
         {variables: { id }})
@@ -74,7 +74,7 @@ export default function managerPage(props) {
             >
               {editCourseTab
                 ? <EditCourse course={course} instructors={props.data.instructors}></EditCourse>
-                : <CreateCourse instructors={props.data.instructors}></CreateCourse>
+                : <CreateCourse course={newCourseTab ? course : null} instructors={props.data.instructors}></CreateCourse>
               }
             </TabPane>
             <TabPane key="newInstructor"

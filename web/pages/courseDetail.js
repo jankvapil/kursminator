@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import moment from 'moment'
 import { useRouter } from 'next/router'
-import { Typography, Descriptions, Card, Button, Collapse, Progress, Image, message, Rate } from 'antd'
+import { Typography, Descriptions, Card, Button, Collapse, Progress, Image, message, Rate, Avatar } from 'antd'
 const { Title, Text } = Typography
 const { Panel } = Collapse
 import { CheckOutlined } from '@ant-design/icons'
@@ -73,9 +73,9 @@ export default function courseDetailPage() {
               />
             </div>
           </div>
-          {course.canceled || currentUser && currentUser.roleId != 1 ? "" : <Button className="w-full mt-2" type="primary" onClick={bookCourse}>Rezervovat</Button>}
-          {!currentUser || currentUser && currentUser.roleId != 2 ? "" : <Button className="w-full mt-2" type="primary" onClick={() => router.push(`manager?editCourse=true&id=${course.id}`)}>Editovat</Button>}
-          {course.canceled || !currentUser || currentUser && currentUser.roleId != 2 ? "" : <Button className="w-full mt-2" type="primary" onClick={cancelCourse}>Zrušit</Button>}
+          {course.canceled || currentUser?.roleId != 1 ? "" : <Button className="w-full mt-2" type="primary" onClick={bookCourse}>Rezervovat</Button>}
+          {!currentUser || currentUser?.roleId != 2 ? "" : <Button className="w-full mt-2" type="primary" onClick={() => router.push(`manager?editCourse=true&id=${course.id}`)}>Editovat</Button>}
+          {course.canceled || !currentUser || currentUser?.roleId != 2 ? "" : <Button className="w-full mt-2" type="primary" onClick={cancelCourse}>Zrušit</Button>}
         </div>
       </Card>
     );
@@ -126,8 +126,16 @@ export default function courseDetailPage() {
       <ProCard>
         <div className="flex flex-col md:flex-row w-full justify-between">
           <div className="flex flex-col w-full md:w-2/5">
-            <Title level={5}>{course.name}</Title>
-            <Text>{course.description}</Text>
+          <Title level={5}>{course.name}</Title>
+            <div className="flex flex-row my-5">
+              <div className="mr-10">
+                <Avatar src={course.instructor.photoUrl} size={125} draggable="false" />
+              </div>
+              <div className="flex flex-col">
+                <Text>{course.description}</Text>
+                {!currentUser || currentUser?.roleId != 2 ? "" : <Button className="w-1/3 my-2" type="primary" onClick={() => router.push(`manager?newCourse=true&id=${course.id}`)}>Vytvořit podobný</Button>}
+              </div>
+            </div>
             <CourseInfoCard className="block md:hidden" />
             <Descriptions bordered className="w-full mt-5">
               <Descriptions.Item label="Jméno Lektora" span={3} className="bg-gray-50" ><p className="cursor-pointer mb-0" onClick={() => router.push(`instructorDetail?id=${course.instructor.id}`)}>{course.instructor.name} {course.instructor.surname}</p></Descriptions.Item>
