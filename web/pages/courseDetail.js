@@ -75,7 +75,7 @@ export default function courseDetailPage() {
           </div>
           {course.canceled || currentUser && currentUser.roleId != 1 ? "" : <Button className="w-full mt-2" type="primary" onClick={bookCourse}>Rezervovat</Button>}
           {!currentUser || currentUser && currentUser.roleId != 2 ? "" : <Button className="w-full mt-2" type="primary" onClick={() => router.push(`manager?editCourse=true&id=${course.id}`)}>Editovat</Button>}
-          {!currentUser || currentUser && currentUser.roleId != 2 ? "" : <Button className="w-full mt-2" type="primary" onClick={cancelCourse}>Zrušit</Button>}
+          {course.canceled || !currentUser || currentUser && currentUser.roleId != 2 ? "" : <Button className="w-full mt-2" type="primary" onClick={cancelCourse}>Zrušit</Button>}
         </div>
       </Card>
     );
