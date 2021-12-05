@@ -59,8 +59,10 @@ export default function managerPage(props) {
                 </span>
               }
             >
-              <UsersTable roles={props.data.roles} users={props.data.users}>users</UsersTable>
-
+              <UsersTable 
+                roles={props.data.roles} 
+                users={props.data.users.sort((x, y) => (x.waiting === y.waiting)? 0 : x.waiting? -1 : 1)}
+              />
             </TabPane>
             <TabPane key="newCourse"
               tab={

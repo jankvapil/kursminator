@@ -5,7 +5,7 @@ import { client } from '@/core/graphql/client'
 /**
  * Check courses mutation
  * 
- * @returns {number} number oh checked courses 
+ * @returns {number} number of checked courses 
  */
 export const checkCoursesMutation = async () => {
   const mutation = gql`
@@ -16,3 +16,22 @@ export const checkCoursesMutation = async () => {
   const data = await client.request(mutation)
   return data
 }
+
+
+/**
+ * Approves courses reservation
+ * 
+ * @returns {number} number oh checked courses 
+ */
+ export const approveReservationMutation = async (courseId, userId) => {
+  const mutation = gql`  
+    mutation {
+      aproveReservation(courseId: ${courseId}, userId: ${userId})
+    }
+  `
+
+  const data = await client.request(mutation)
+  return data
+}
+
+

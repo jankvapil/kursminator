@@ -38,7 +38,7 @@ export default function courseDetailPage() {
   return (
     <Content>
       <ProCard>
-        { completed ? "Děkujeme za rezervaci. Podrobnosti k rezervaci byly odeslány na Váš email!" : ( 
+        { completed ? "Děkujeme za rezervaci. Podrobnosti k rezervaci po uhrazení kurzu odešleme na Váš email!" : ( 
           <div className="flex flex-col md:flex-row w-full justify-between">
             <div className="flex flex-col w-full md:w-2/5">
 

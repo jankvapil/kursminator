@@ -48,6 +48,13 @@ const CURRENT_USER = gql`
  export const fetchAllUsers = async () => {
   const res = await sendRequest(ALL_USERS)
   if (res) {
+    res.users.nodes.forEach(u => {
+      u.waiting = false
+      u.userCourseReservations.forEach(r => {
+        if (r.state == "WAITING") u.waiting = true  
+      })
+    })
+    
     return { users: res.users.nodes }
   }
 }

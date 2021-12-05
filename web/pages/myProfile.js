@@ -3,7 +3,7 @@ import Content from '@/components/common/Content'
 import { useEffect, useState } from 'react'
 import { Row, Col, message } from 'antd'
 import { getUserInfo } from '@/core/graphql/queries/userQueries'
-import { Table } from 'antd'
+import { Table, Button } from 'antd'
 import { useRouter } from 'next/router'
 import { cancelReservationMutation } from '@/core/graphql/mutations/userMutations'
 import ProCard from '@/components/common/ProCard'
@@ -24,7 +24,6 @@ export default function myProfilePage(props) {
 
   const loadUserInfo = async () => {
     const res = await getUserInfo()
-    console.log(res)
     const reservations = res.userCourseReservations.map(c => { return { ...c.course, state: c.state } })
     const sorted = reservations.sort((a, b) => new Date(b.date) - new Date(a.date))
     setFavouriteCourses(sorted)
@@ -59,7 +58,7 @@ export default function myProfilePage(props) {
       title: 'Status',
       dataIndex: 'state',
       width: 70,
-      render: text => <span className="text-xs bg-blue-200 rounded-md py-1 px-1.5">{text}</span>
+      render: text => <span className={"text-xs bg-blue-200 rounded-md py-1 px-1.5 ".concat(text == "CANCELLED" ? "bg-red-200" : "")}>{text}</span>
     },
     {
       title: 'Zrušit rezervaci',
@@ -69,7 +68,7 @@ export default function myProfilePage(props) {
       render: id => {
         const course = favouriteCourses.filter(c => c.id == id)[0]
         const shouldRender = course.state == "APPROVED"
-        return (shouldRender ? <button onClick={() => cancelCourseReservation(currentUser.id, course.id)}>zrusit</button> : "")
+        return (shouldRender ? <Button onClick={() => cancelCourseReservation(currentUser.id, course.id)}>Zrušit</Button> : "")
       },
     },
     {

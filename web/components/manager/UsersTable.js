@@ -17,6 +17,7 @@ const UsersTable = ({ users, roles }) => {
       </header>
       <Table
         rowKey="id"
+        rowClassName={(record, index) => record.waiting ? "bg-blue-100" : ""}
         columns={[
           {
             title: 'Email',
