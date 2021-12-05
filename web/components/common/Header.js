@@ -91,21 +91,21 @@ const Header = (props) => {
             </span>
           </Link>
           <Link href="/">
-            <span className="text-2xl sm:text-3xl text-white mb-0 ml-4 font-mono font-black">Kursminator</span>
+            <span className="text-2xl sm:text-3xl text-white mb-0 ml-4 font-mono font-black cursor-pointer">Kursminator</span>
           </Link>
         </div>
         <div className="hidden sm:flex sm:items-center sm:block">
           <ReadOutlined style={{ color: "#fff" }} />
-          <Link href="/courses"><span className="text-white m-0 ml-2 hover:text-blue-500" >Kurzy</span></Link>
+          <Link href="/courses"><span className="text-white m-0 ml-2 hover:text-blue-500 cursor-pointer" >Kurzy</span></Link>
         </div>
         <div className="hidden md:block w-1/4 lg:w-5/12">
           <Input onKeyDown={handleSearch} placeholder="Hledaný kurz..." />
         </div>
         <div className="hidden md:flex items-center">
           <MailOutlined style={{ color: "#fff" }} />
-          <Link href="/contact"><span className="text-white hover:text-blue-500 m-0 ml-2 mr-6">Kontakt</span></Link>
+          <Link href="/contact"><span className="text-white hover:text-blue-500 m-0 ml-2 mr-6 cursor-pointer">Kontakt</span></Link>
           <CalendarOutlined style={{ color: "#fff" }} />
-          <Link href="/calendar"><span className="text-white hover:text-blue-500 m-0 ml-2 mr-12">Kalendář</span></Link>
+          <Link href="/calendar"><span className="text-white hover:text-blue-500 m-0 ml-2 mr-12 cursor-pointer">Kalendář</span></Link>
 
           {userInfo.isLogged == "true" && currentUser ?
             <Dropdown className="-m-5" overlay={profileMenu} placement="bottomCenter" arrow>
