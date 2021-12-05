@@ -28,7 +28,10 @@ export default function courseDetailPage() {
     if (isValid) {
       const res = await bookUnregisteredCourseMutation(e.email, router.query.courseId)
       if (res?.addUnregistredCourseReservation) {
-        setCompleted(true)
+        // setCompleted(true)
+        
+        router.push("/")
+        message.success(`Rezervace kurzu proběhla úspěšně`)
       } else {
         message.error("Nepodařilo se provézt rezervaci kurzu")
       }
