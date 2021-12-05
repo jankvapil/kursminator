@@ -47,6 +47,7 @@ export default function courseDetailPage() {
   const occupancyPlace = Math.round(course.occupancy / 100 * course.capacity);
 
   const role = data.roles.nodes[0]
+  console.log(role)
 
   function CourseInfoCard(props) {
     return (
@@ -75,9 +76,9 @@ export default function courseDetailPage() {
               />
             </div>
           </div>
-          {course.canceled ? "" : <Button className="w-full mt-2" type="primary" onClick={bookCourse}>Rezervovat</Button>}
-          {role.name == "User" ? "" : <Button className="w-full mt-2" type="primary" onClick={() => router.push(`manager?editCourse=true&id=${course.id}`)}>Editovat</Button>}
-          {role.name == "User" ? "" : <Button className="w-full mt-2" type="primary" onClick={cancelCourse}>Zrušit</Button>}
+          {course.canceled || currentUser && currentUser.roleId != 1 ? "" : <Button className="w-full mt-2" type="primary" onClick={bookCourse}>Rezervovat</Button>}
+          {!currentUser || currentUser && currentUser.roleId != 2 ? "" : <Button className="w-full mt-2" type="primary" onClick={() => router.push(`manager?editCourse=true&id=${course.id}`)}>Editovat</Button>}
+          {!currentUser || currentUser && currentUser.roleId != 2 ? "" : <Button className="w-full mt-2" type="primary" onClick={cancelCourse}>Zrušit</Button>}
         </div>
       </Card>
     );
