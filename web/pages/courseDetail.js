@@ -128,7 +128,7 @@ export default function courseDetailPage() {
           <div className="flex flex-col w-full md:w-2/5">
           <Title level={5}>{course.name}</Title>
             <div className="flex flex-row my-5">
-              <div className="mr-10">
+              <div className="hidden lg:block lg:mr-10">
                 <Avatar src={course.instructor.photoUrl} size={125} draggable="false" />
               </div>
               <div className="flex flex-col">
