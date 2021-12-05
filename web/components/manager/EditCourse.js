@@ -19,6 +19,7 @@ const EditCourse = (props) => {
         setCourseType(e.target.value);
     };
     const dateFormat = "YYYY-MM-DD HH:mm";
+    console.log(course)
     const onFinish = async (values) => {
         // update Place
         const coursePlaceId = course.place.id
