@@ -9,6 +9,8 @@ import { bookUnregisteredCourseMutation } from '@/core/graphql/mutations/userMut
 import Content from '@/components/common/Content'
 import ProCard from '@/components/common/ProCard'
 
+import FbLoginButton from '@/components/login/FbLoginButton'
+
 ///
 /// Course detail page
 ///
@@ -40,14 +42,17 @@ export default function courseDetailPage() {
       <ProCard>
         { completed ? "Děkujeme za rezervaci. Podrobnosti k rezervaci po uhrazení kurzu odešleme na Váš email!" : ( 
           <div className="flex flex-col md:flex-row w-full justify-between">
-            <div className="flex flex-col w-full md:w-2/5">
+            <div className="flex flex-col md:w-3/5 w-full m-auto">
 
-              <Title level={5}>Dokončení rezervace</Title>
-              <p>Pro rezervování kurzu se přihlaště pomocí svého Facebook účtu nebo emailové adresy</p>
+              <Title level={5}><p className="text-center text-2xl">Dokončení rezervace</p></Title>
+              <p className="text-center m-auto pb-1 text-lg">Přihlásit se pomocí facebooku</p>
+
+            <div className="m-auto pb-7 pl-2"><FbLoginButton /></div>
+            <p className="text-center m-auto text-lg">nebo emailu</p>
 
               <Form
                 name="basic"
-                labelCol={{ span: 8 }}
+                labelCol={{ span: 5 }}
                 wrapperCol={{ span: 16 }}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
@@ -61,12 +66,15 @@ export default function courseDetailPage() {
                   <Input />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <div className="mr-10 md:mr-0">
+                <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
                   <Button type="primary" htmlType="submit">
                     Rezervovat
                   </Button>
                 </Form.Item>
+              </div>
               </Form>
+
             </div>
           </div>
         )}
