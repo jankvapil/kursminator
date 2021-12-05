@@ -29,7 +29,7 @@ const EditCourse = (props) => {
                 virtual: isVirtual,
                 name: course.place.name,
                 url: course.place.url ?? "https://www.google.com/maps",
-                address: values.address ? values.address : course.place.address,
+                address: values.address ?? course.place.address,
                 city: course.place.city ?? "Brno"
             }
             const placeRes = await updatePlaceMutation(updatePlace)
@@ -41,8 +41,8 @@ const EditCourse = (props) => {
         const updatedCourse = {
             id: course.id,
             name: values.name,
-            photoUrl: values.photoUrl ? values.photoUrl : course.photoUrl,
-            capacity: values.capacity ? values.capacity : course.capacity,
+            photoUrl: values.photoUrl ?? course.photoUrl,
+            capacity: values.capacity ?? course.capacity,
             type: values.category,
             difficulty: values.difficulty,
             date: moment(values.date).format(dateFormat),

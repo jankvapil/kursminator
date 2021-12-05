@@ -13,6 +13,7 @@ import { addPlaceMutation } from '@/core/graphql/mutations/placesMutations'
 /// Create course component
 ///
 const CreateCourse = (props) => {
+    const course = props.course
     const [courseType, setCourseType] = React.useState("online");
     const onRadioChange = e => {
         setCourseType(e.target.value);
@@ -23,10 +24,10 @@ const CreateCourse = (props) => {
         const isVirtual = courseType == "online"
         const newPlace = {
             virtual: isVirtual,
-            name: isVirtual ? "Portal online kurzů" : "Sportovni hala",
-            url: isVirtual ? "https://www.youtube.com/" : "https://www.google.com/maps",
-            address:  isVirtual ? "online" : values.address ? values.address : "U Sportovni haly 552, 778 21",
-            city: isVirtual ? "online" : "Brno"
+            name: course?.place.name ?? isVirtual ? "Portal online kurzů" : "Sportovni hala",
+            url: course?.place.url ?? isVirtual ? "https://www.youtube.com/" : "https://www.google.com/maps",
+            address: isVirtual ? course?.place.address ?? "online" : values.address ?? "U Sportovni haly 552, 778 21",
+            city: course?.place.city ?? isVirtual ? "online" : "Brno"
         }
         const placeRes = await addPlaceMutation(newPlace)
         const placeId = placeRes.addPlace.id
@@ -34,16 +35,16 @@ const CreateCourse = (props) => {
         // add course
         const newCourse = {
             name: values.name,
-            photoUrl: values.photoUrl ? values.photoUrl : "https://i.picsum.photos/id/368/502/500.jpg?hmac=vY6iCyqn_on8VlSekONKlKqZeFHWTVWBhbGwr36ZP4U",
-            capacity: values.capacity ? values.capacity : 100,
+            photoUrl: values.photoUrl ?? "https://i.picsum.photos/id/368/502/500.jpg?hmac=vY6iCyqn_on8VlSekONKlKqZeFHWTVWBhbGwr36ZP4U",
+            capacity: values.capacity ?? 100,
             type: values.category,
             difficulty: values.difficulty,
             date: moment(values.date).format(dateFormat),
             duration: values.duration,
             price: values.price,
             description: values.message,
-            skills: ["Residual Neural Networks", "Get many customers by using the best networking tool", "Set unbelievable goals for yourself"],
-            content: [{name: "Welcome to the Course", subchapters: ['Main Course Intro', 'Course Introduction and Best Practices', 'AI Superpowers', 'Key AI Components', 'Course Outline']}, {name: "Day 1: Develop an AI model to classify fashion elements using Google Teachable", subchapters: ['Introduction to Day 1', 'Task 1. Project Card and Demo', 'Task 2. AI Applications in Fashion', 'Quiz: AI Applications in Fashion', 'Task 3. Data Exploration', 'Task 4. Model Training and Testing in Google Teachable Machines']}],
+            skills: course?.skills ?? ["Residual Neural Networks", "Get many customers by using the best networking tool", "Set unbelievable goals for yourself"],
+            content: course?.content ?? [{name: "Welcome to the Course", subchapters: ['Main Course Intro', 'Course Introduction and Best Practices', 'AI Superpowers', 'Key AI Components', 'Course Outline']}, {name: "Day 1: Develop an AI model to classify fashion elements using Google Teachable", subchapters: ['Introduction to Day 1', 'Task 1. Project Card and Demo', 'Task 2. AI Applications in Fashion', 'Quiz: AI Applications in Fashion', 'Task 3. Data Exploration', 'Task 4. Model Training and Testing in Google Teachable Machines']}],
             instructorId: values.instructorId,
             placeId: placeId
         }
@@ -75,7 +76,19 @@ const CreateCourse = (props) => {
                     layout="horizontal"
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
-                    initialValues={{ type: "online"}}
+                    initialValues={ course ? {
+                        name: course.name,
+                        date: moment(course.date, dateFormat),
+                        duration: course.duration,
+                        price: course.price,
+                        category: course.type,
+                        instructorId: course.instructor.id,
+                        difficulty: course.difficulty,
+                        message: course.description,
+                        capacity: course.capacity,
+                        photoUrl: course.photoUrl,
+                        address: course.place.address
+                    } : { type: "online"}}
                 >
                     <Form.Item
                         label="Název"
