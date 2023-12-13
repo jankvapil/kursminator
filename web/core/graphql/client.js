@@ -1,6 +1,9 @@
 import { GraphQLClient } from 'graphql-request'
 
-export const client = new GraphQLClient('https://typ-b.vercel.app/api/graphql', {
+// const proxyUrl = 'https://typ-b.vercel.app/api/graphql'
+const proxyUrl = 'http://localhost:3000/api/graphql'
+
+export const client = new GraphQLClient(proxyUrl, {
   headers: {
     authorization: `Bearer`,
   },
@@ -10,7 +13,7 @@ export const client = new GraphQLClient('https://typ-b.vercel.app/api/graphql', 
 /// Sends GraphQL request
 ///
 const send = async (query, token) => {
-  const client = new GraphQLClient('https://typ-b.vercel.app/api/graphql', {
+  const client = new GraphQLClient(proxyUrl, {
     headers: {
       authorization: `Bearer ${token}`,
     }
