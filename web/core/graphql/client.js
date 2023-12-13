@@ -1,7 +1,6 @@
 import { GraphQLClient } from 'graphql-request'
-import { GRAPHQL_API } from '@/core/config'
 
-export const client = new GraphQLClient(GRAPHQL_API, {
+export const client = new GraphQLClient('https://typ-b.vercel.app/api/graphql', {
   headers: {
     authorization: `Bearer`,
   },
@@ -11,7 +10,7 @@ export const client = new GraphQLClient(GRAPHQL_API, {
 /// Sends GraphQL request
 ///
 const send = async (query, token) => {
-  const client = new GraphQLClient(GRAPHQL_API, {
+  const client = new GraphQLClient('https://typ-b.vercel.app/api/graphql', {
     headers: {
       authorization: `Bearer ${token}`,
     }
