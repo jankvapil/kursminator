@@ -1,7 +1,7 @@
 import { GraphQLClient } from 'graphql-request'
 
-// const proxyUrl = 'https://typ-b.vercel.app/api/graphql'
-const proxyUrl = 'http://localhost:3000/api/graphql'
+const proxyUrl = 'https://typ-b.vercel.app/api/graphql'
+// const proxyUrl = 'http://localhost:3000/api/graphql'
 
 export const client = new GraphQLClient(proxyUrl, {
   headers: {
